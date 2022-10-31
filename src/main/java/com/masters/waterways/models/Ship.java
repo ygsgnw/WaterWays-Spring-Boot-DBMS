@@ -13,53 +13,40 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Ship {
 
-	private long ShipId;
-	private long ModelId;
-	private String Name;
-	private String Images;
-	private String status;
-	private Date ManufacturingDate;
-	
-	
-	public long getShipId() {
-		return ShipId;
+	private int ShipSerialId;
+	private int ModelId;
+	private int ShipStatus;
+	private Date MfDate;
+
+	public int getShipSerialId() {
+		return ShipSerialId;
 	}
-	public void setShipId(long shipId) {
-		ShipId = shipId;
+
+	public void setShipSerialId(int shipSerialId) {
+		ShipSerialId = shipSerialId;
 	}
-	public long getModelId() {
+
+	public int getModelId() {
 		return ModelId;
 	}
-	public void setModelId(long modelId) {
+
+	public void setModelId(int modelId) {
 		ModelId = modelId;
 	}
-	public String getName() {
-		return Name;
+
+	public int getShipStatus() {
+		return ShipStatus;
 	}
-	public void setName(String name) {
-		Name = name;
+
+	public void setShipStatus(int shipStatus) {
+		ShipStatus = shipStatus;
 	}
-	public String getImages() {
-		return Images;
+
+	public Date getMfDate() {
+		return MfDate;
 	}
-	public void setImages(String images) {
-		Images = images;
+
+	public void setMfDate(Date MfDate) {
+		MfDate = MfDate;
 	}
-	public String getStatus() {
-		return status;
-	}
-	public void setStatus(String status) {
-		this.status = status;
-	}
-	public Date getManufacturingDate() {
-		return ManufacturingDate;
-	}
-	public void setManufacturingDate(Date manufacturingDate) {
-		ManufacturingDate = manufacturingDate;
-	}
-	
-	
-	
-	
-	
 }

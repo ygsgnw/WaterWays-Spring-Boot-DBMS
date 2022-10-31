@@ -11,50 +11,68 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Voyage {
-	private long VoyageId;
-	private long ShipSerialId;
-	private long ArrivalPortId;
+	private int VoyageId;
+	private int ShipSerialId;
+	private int ArrivalHarbourId;
+	private int DepartureHarbourId;
 	private Time ArrivalTime;
-	private long DeparturePortId;
 	private Time DepartureTime;
-	
-	
-	public long getVoyageId() {
+	private int VoyageStatus;
+
+
+	public int getVoyageId() {
 		return VoyageId;
 	}
-	public void setVoyageId(long voyageId) {
+
+	public void setVoyageId(int voyageId) {
 		VoyageId = voyageId;
 	}
-	public long getShipSerialId() {
+
+	public int getShipSerialId() {
 		return ShipSerialId;
 	}
-	public void setShipSerialId(long shipSerialId) {
+
+	public void setShipSerialId(int shipSerialId) {
 		ShipSerialId = shipSerialId;
 	}
-	public long getArrivalPortId() {
-		return ArrivalPortId;
+
+	public int getArrivalHarbourId() {
+		return ArrivalHarbourId;
 	}
-	public void setArrivalPortId(long arrivalPortId) {
-		ArrivalPortId = arrivalPortId;
+
+	public void setArrivalHarbourId(int arrivalHarbourId) {
+		ArrivalHarbourId = arrivalHarbourId;
 	}
+
+	public int getDepartureHarbourId() {
+		return DepartureHarbourId;
+	}
+
+	public void setDepartureHarbourId(int departureHarbourId) {
+		DepartureHarbourId = departureHarbourId;
+	}
+
 	public Time getArrivalTime() {
 		return ArrivalTime;
 	}
+
 	public void setArrivalTime(Time arrivalTime) {
 		ArrivalTime = arrivalTime;
 	}
+
 	public Time getDepartureTime() {
 		return DepartureTime;
 	}
+
 	public void setDepartureTime(Time departureTime) {
 		DepartureTime = departureTime;
 	}
-	public long getDeparturePortId() {
-		return DeparturePortId;
+
+	public int getVoyageStatus() {
+		return VoyageStatus;
 	}
-	public void setDeparturePortId(long departurePortId) {
-		DeparturePortId = departurePortId;
+
+	public void setVoyageStatus(int voyageStatus) {
+		VoyageStatus = voyageStatus;
 	}
-	
-	
 }

@@ -9,48 +9,41 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class FoodBooking {
-	private long FoodBookingId;
-	private long TypeId;
-	private long VoyageId;
-	private long TransactionId;
-	private long passengerId;
-	private String status;
-	
-	public long getFoodBookingId() {
-		return FoodBookingId;
+
+	private int FoodItemId;
+	private int VoyageId;
+	private int FoodItemCount;
+	private int TransactionId;
+
+	public int getFoodItemId() {
+		return FoodItemId;
 	}
-	public void setFoodBookingId(long foodBookingId) {
-		FoodBookingId = foodBookingId;
+
+	public void setFoodItemId(int foodItemId) {
+		FoodItemId = foodItemId;
 	}
-	public long getTypeId() {
-		return TypeId;
-	}
-	public void setTypeId(long typeId) {
-		TypeId = typeId;
-	}
-	public long getVoyageId() {
+
+	public int getVoyageId() {
 		return VoyageId;
 	}
-	public void setVoyageId(long voyageId) {
+
+	public void setVoyageId(int voyageId) {
 		VoyageId = voyageId;
 	}
-	public long getTransactionId() {
+
+	public int getFoodItemCount() {
+		return FoodItemCount;
+	}
+
+	public void setFoodItemCount(int foodItemCount) {
+		FoodItemCount = foodItemCount;
+	}
+
+	public int getTransactionId() {
 		return TransactionId;
 	}
-	public void setTransactionId(long transactionId) {
+
+	public void setTransactionId(int transactionId) {
 		TransactionId = transactionId;
 	}
-	public long getPassengerId() {
-		return passengerId;
-	}
-	public void setPassengerId(long passengerId) {
-		this.passengerId = passengerId;
-	}
-	public String getStatus() {
-		return status;
-	}
-	public void setStatus(String status) {
-		this.status = status;
-	}
-	
 }

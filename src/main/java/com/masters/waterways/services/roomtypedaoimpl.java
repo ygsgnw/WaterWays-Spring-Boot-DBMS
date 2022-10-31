@@ -1,6 +1,5 @@
 package com.masters.waterways.services;
 import com.masters.waterways.daos.*;
-import com.masters.waterways.models.RoomType;
 
 import java.util.List;
 

@@ -9,30 +9,31 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ShipModel {
 
-	private long ShipModelId;
+	private int ModelId;
 	private int RoomCount;
 	private String ModelName;
-	
-	
-	public long getShipModelId() {
-		return ShipModelId;
+
+	public int getModelId() {
+		return ModelId;
 	}
-	public void setShipModelId(long shipModelId) {
-		ShipModelId = shipModelId;
+
+	public void setModelId(int modelId) {
+		ModelId = modelId;
 	}
+
 	public int getRoomCount() {
 		return RoomCount;
 	}
+
 	public void setRoomCount(int roomCount) {
 		RoomCount = roomCount;
 	}
+
 	public String getModelName() {
 		return ModelName;
 	}
+
 	public void setModelName(String modelName) {
 		ModelName = modelName;
 	}
-	
-	
-	
 }

@@ -4,33 +4,49 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.sql.Date;
+
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class Transaction {
-	private long TransactionId;
+
+	private int TransactionId;
+	private Date TransactionDate;
 	private int Amount;
-	private long PassengerId;
-	
-	
-	public long getTransactionId() {
+	private int UserId;
+
+
+	public int getTransactionId() {
 		return TransactionId;
 	}
-	public void setTransactionId(long transactionId) {
+
+	public void setTransactionId(int transactionId) {
 		TransactionId = transactionId;
 	}
+
+	public Date getTransactionDate() {
+		return TransactionDate;
+	}
+
+	public void setTransactionDate(Date transactionDate) {
+		TransactionDate = transactionDate;
+	}
+
 	public int getAmount() {
 		return Amount;
 	}
+
 	public void setAmount(int amount) {
 		Amount = amount;
 	}
-	public long getPassengerId() {
-		return PassengerId;
+
+	public int getUserId() {
+		return UserId;
 	}
-	public void setPassengerId(long passengerId) {
-		this.PassengerId = passengerId;
+
+	public void setUserId(int userId) {
+		UserId = userId;
 	}
-	
 }

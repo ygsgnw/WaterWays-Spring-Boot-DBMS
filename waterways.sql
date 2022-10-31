@@ -26,8 +26,8 @@ create table ShipModel (
 create table Ship (
 	ShipSerialId 		int 			primary key auto_increment,
     ModelId 			int				foreign key references ShipModel(ModelId),
-    Status 				varchar(20),
-    ManufacturingDate 	date
+    ShipStatus 			int,
+    MfDate				date
 );
 
 
@@ -38,7 +38,8 @@ create table Users (
     SignUpDate			date,
     Dob					date,
     Phone				char(10),
-    EmailId				varchar(50)
+    EmailId				varchar(50),
+    UserPassword		varchar(10)
 );
 
 
