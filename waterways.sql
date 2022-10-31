@@ -100,6 +100,7 @@ create table FoodItem (
 	FoodItemId			int,
 	VoyageId			int				foreign key references Voyage(VoyageId),
 	FoodName			varchar(20),
+	FoodCost			int,
 	FoodDescription		varchar(50),
 	primary key (VoyageId, FoodItemId)	-- Weak Entity FoodItem
 );
