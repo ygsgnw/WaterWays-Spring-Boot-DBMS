@@ -17,17 +17,15 @@ public class employeedaoimpl implements employeedao {
 	@Override
 	public int save(Employee employee) {
 		return jdbctemplate.update(
-				"INSERT INTO Employee (Name,Sex,ManagerId,DOB,Phone,DateofJoining,email) VALUES (?,?,?,?,?,?,?)",
-				new Object[] { employee.getName(), employee.getSex(), employee.getManagerId(), employee.getDOB(),
-						employee.getPhone(), employee.getDateofJining(), employee.getEmail() });
+				"INSERT INTO employee (UserId,ManagerId) VALUES (?,?)",
+				new Object[] { employee.getUserId(), employee.getManagerId()});
 	}
 
 	@Override
 	public int update(Employee employee, long id) {
 		return jdbctemplate.update(
-				"UPDATE employee SET Name=?,Sex=?,ManagerId=?,DOB=?,Phone=?,DateofJoining=?,email=? WHERE EmployeeId=?",
-				new Object[] { employee.getName(), employee.getSex(), employee.getManagerId(), employee.getDOB(),
-						employee.getPhone(), employee.getDateofJining(), employee.getEmail() },
+				"UPDATE employee SET UserId=?,ManagerId=? WHERE EmployeeId=?",
+				new Object[] { employee.getUserId(), employee.getManagerId() },
 				id);
 	}
 

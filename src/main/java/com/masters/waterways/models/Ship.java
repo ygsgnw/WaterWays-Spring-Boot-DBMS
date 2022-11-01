@@ -1,7 +1,6 @@
 package com.masters.waterways.models;
 
 import java.sql.Date;
-import java.util.List;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -46,7 +45,7 @@ public class Ship {
 		return MfDate;
 	}
 
-	public void setMfDate(Date MfDate) {
-		MfDate = MfDate;
+	public void setMfDate(Date mfDate) {
+		MfDate = mfDate;
 	}
 }

@@ -12,17 +12,17 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Harbor {
 
-	private int HarbourId;
+	private int HarborId;
 	private String Location;
 	private Date ConstructionDate;
 	private int ManagerId;
 
 	public int getHarbourId() {
-		return HarbourId;
+		return HarborId;
 	}
 
 	public void setHarbourId(int harbourId) {
-		HarbourId = harbourId;
+		HarborId = harbourId;
 	}
 
 	public String getLocation() {

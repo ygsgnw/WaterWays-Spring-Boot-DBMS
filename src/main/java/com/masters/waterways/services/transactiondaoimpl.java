@@ -19,21 +19,21 @@ public class transactiondaoimpl implements transactiondao{
 	public int save(Transaction transaction) {
 		// TODO Auto-generated method stub
 		return jdbctemplate.update(
-				"INSERT INTO transaction (Amount,PassengerId) VALUES (?,?)",
-				new Object[] {  transaction.getAmount(),transaction.getPassengerId()});
+				"INSERT INTO transaction (TransactionDate,Amount,UserId) VALUES (?,?,?)",
+				new Object[] { transaction.getTransactionDate(), transaction.getAmount(),transaction.getUserId()});
 	}
 
 	@Override
-	public int update(Transaction transaction, long id) {
+	public int update(Transaction transaction, int id) {
 		// TODO Auto-generated method stub
 		return jdbctemplate.update(
-				"UPDATE transaction SET Amount,PassengerId=? WHERE TransactionId=?",
-				new Object[] { transaction.getAmount(),transaction.getPassengerId() },
+				"UPDATE transaction SET TransactionDate=?,Amount=?,UserId=? WHERE TransactionId=?",
+				new Object[] { transaction.getTransactionDate(), transaction.getAmount(),transaction.getUserId() },
 				id);
 	}
 
 	@Override
-	public int delete(long id) {
+	public int delete(int id) {
 		// TODO Auto-generated method stub
 		return jdbctemplate.update("DELETE FROM transaction WHERE TransactionId=?",id);
 	}
@@ -45,7 +45,7 @@ public class transactiondaoimpl implements transactiondao{
 	}
 
 	@Override
-	public Transaction getbyid(long id) {
+	public Transaction getbyid(int id) {
 		// TODO Auto-generated method stub
 		return jdbctemplate.queryForObject("SELECT * FROM transaction WHERE TransactionId=?",
 				new BeanPropertyRowMapper<Transaction>(Transaction.class), id);

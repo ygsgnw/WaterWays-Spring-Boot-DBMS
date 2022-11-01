@@ -19,23 +19,23 @@ public class shipdaoimpl implements shipdao{
 	public int save(Ship ship) {
 		// TODO Auto-generated method stub
 		return jdbctemplate.update(
-				"INSERT INTO ship (ModelId,Name,Images,status,manufacturingDate) VALUES (?,?,?,?,?)",
-				new Object[] { ship.getModelId() ,ship.getName(),ship.getImages(),ship.getStatus(),ship.getManufacturingDate()});
+				"INSERT INTO ship (ModelId,ShipStatus,MfDate) VALUES (?,?,?)",
+				new Object[] { ship.getModelId() ,ship.getShipStatus(),ship.getMfDate()});
 	}
 
 	@Override
-	public int update(Ship ship, long id) {
+	public int update(Ship ship, int id) {
 		// TODO Auto-generated method stub
 		return jdbctemplate.update(
-				"UPDATE ship SET ModelId=?,Name=?,Images=?,status=?,manufacturingDate=? WHERE ShipId=?",
-				new Object[] { ship.getModelId() ,ship.getName(),ship.getImages(),ship.getStatus(),ship.getManufacturingDate() },
+				"UPDATE ship SET ModelId=?,ShipStatus=?,MfDate=? WHERE ShipSerialId=?",
+				new Object[] { ship.getModelId() ,ship.getShipStatus(),ship.getMfDate() },
 				id);
 	}
 
 	@Override
-	public int delete(long id) {
+	public int delete(int id) {
 		// TODO Auto-generated method stub
-		return jdbctemplate.update("DELETE FROM ship WHERE ShipId=?",id);
+		return jdbctemplate.update("DELETE FROM ship WHERE ShipSerialId=?",id);
 	}
 
 	@Override
@@ -45,9 +45,9 @@ public class shipdaoimpl implements shipdao{
 	}
 
 	@Override
-	public Ship getbyid(long id) {
+	public Ship getbyid(int id) {
 		// TODO Auto-generated method stub
-		return jdbctemplate.queryForObject("SELECT * FROM ship WHERE ShipId=?",
+		return jdbctemplate.queryForObject("SELECT * FROM ship WHERE ShipSerialId=?",
 				new BeanPropertyRowMapper<Ship>(Ship.class), id);
 	}
 

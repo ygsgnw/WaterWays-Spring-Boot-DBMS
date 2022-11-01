@@ -8,11 +8,11 @@ public interface voyagedao {
 	
     int save(Voyage voyage);
 	
-	int update(Voyage voyage,long id);
+	int update(Voyage voyage,int id);
 	
-	int delete(long id);
+	int delete(int id);
 	
 	List<Voyage> getall();
 	
-	Voyage getbyid(long id);
+	Voyage getbyid(int id);
 }

@@ -7,11 +7,11 @@ public interface foodbookingdao {
 	
     int save(FoodBooking fb);
 	
-	int update(FoodBooking fb,long id);
+	int update(FoodBooking fb,int id);
 	
-	int delete(long id);
+	int delete(int id);
 	
 	List<FoodBooking> getall();
 	
-	FoodBooking getbyid(long id);
+	FoodBooking getbyid(int id);
 }

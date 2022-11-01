@@ -20,23 +20,23 @@ public class roombookingdaoimpl implements roombookingdao{
 	public int save(RoomBooking roombook) {
 		// TODO Auto-generated method stub
 		return jdbctemplate.update(
-				"INSERT INTO roombooking (VoyageId,TransactionId,PassengerId,Status,RoomId) VALUES (?,?,?,?,?)",
-				new Object[] { roombook.getVoyageId(),roombook.getTransactionId(),roombook.getPassengerId(),roombook.getStatus(),roombook.getRoomId() });
+				"INSERT INTO roombooking (RoomId,VoyageId,Fare,TransactionId,RoomStatus) VALUES (?,?,?,?,?)",
+				new Object[] {roombook.getRoomId(), roombook.getVoyageId(),roombook.getFare(),roombook.getTransactionId(),roombook.getRoomStatus() });
 	}
 
 	@Override
-	public int update(RoomBooking roombook, long id) {
+	public int update(RoomBooking roombook, int id) {
 		// TODO Auto-generated method stub
 		return jdbctemplate.update(
-				"UPDATE roombooking SET VoyageId=?,TransactionId=?,PassengerId=?,Status=?,RoomId=? WHERE RoomBookingId=?",
-				new Object[] { roombook.getVoyageId(),roombook.getTransactionId(),roombook.getPassengerId(),roombook.getStatus(),roombook.getRoomId() },
+				"UPDATE roombooking SET RoomId=?,VoyageId=?,Fare=?,RoomStatus=? WHERE TransactionId=?",
+				new Object[] { roombook.getRoomId(), roombook.getVoyageId(),roombook.getFare(),roombook.getRoomStatus()  },
 				id);
 	}
 
 	@Override
-	public int delete(long id) {
+	public int deletebytransactionid(int id) {
 		// TODO Auto-generated method stub
-		return jdbctemplate.update("DELETE FROM roombooking WHERE RoomBookingId=?",id);
+		return jdbctemplate.update("DELETE FROM roombooking WHERE TransactionId=?",id);
 	}
 
 	@Override
@@ -46,9 +46,9 @@ public class roombookingdaoimpl implements roombookingdao{
 	}
 
 	@Override
-	public RoomBooking getbyid(long id) {
+	public RoomBooking getbytransactionid(int id) {
 		// TODO Auto-generated method stub
-		return jdbctemplate.queryForObject("SELECT * FROM roombooking WHERE RoomBookingId=?",
+		return jdbctemplate.queryForObject("SELECT * FROM roombooking WHERE TransactionId=?",
 				new BeanPropertyRowMapper<RoomBooking>(RoomBooking.class), id);
 	}
 

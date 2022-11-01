@@ -8,11 +8,11 @@ public interface roombookingdao {
 	
     int save(RoomBooking roombook);
 	
-	int update(RoomBooking roombook,long id);
+	int update(RoomBooking roombook,int id);
 	
-	int delete(long id);
+	int deletebytransactionid(int id);
 	
 	List<RoomBooking> getall();
 	
-	RoomBooking getbyid(long id);
+	RoomBooking getbytransactionid(int id);
 }

@@ -20,23 +20,23 @@ public class foodbookingdaoimpl implements foodbookingdao {
 	public int save(FoodBooking fb) {
 		// TODO Auto-generated method stub
 		return jdbctemplate.update(
-				"INSERT INTO Employee (TypeId,VoyageId,TransactionId,PassengerId,Status) VALUES (?,?,?,?,?)",
-				new Object[] { fb.getTypeId(),fb.getVoyageId() ,fb.getTransactionId(),fb.getPassengerId(),fb.getStatus()});
+				"INSERT INTO foodbooking (FoodItemId,VoyageId,FoodItemCount,TransactionId) VALUES (?,?,?,?)",
+				new Object[] { fb.getFoodItemId(),fb.getVoyageId(),fb.getFoodItemId(),fb.getTransactionId()});
 	}
 
 	@Override
-	public int update(FoodBooking fb, long id) {
-		// TODO Auto-generated method stub
+	public int update(FoodBooking fb, int id) {
+		// TODO Auto-generated method stu
 		return jdbctemplate.update(
-				"UPDATE foodbooking SET TypeId=?,Voyage=?,TransactionId=?,PassengerId=?,Status=? WHERE FoodBookingId=?",
-				new Object[] {fb.getTypeId(),fb.getVoyageId(),fb.getTransactionId(),fb.getPassengerId(),fb.getStatus() },
+				"UPDATE foodbooking SET FoodItemId=?,VoyageId=?,FoodItemCount=? WHERE TransactionId=?",
+				new Object[] {fb.getFoodItemId(),fb.getVoyageId(),fb.getFoodItemCount() },
 				id);
 	}
 
 	@Override
-	public int delete(long id) {
+	public int delete(int id) {
 		// TODO Auto-generated method stub
-		return jdbctemplate.update("DELETE FROM foodbooking WHERE FoodBookingId=?", id);
+		return jdbctemplate.update("DELETE FROM foodbooking WHERE TransactionId=?", id);
 	}
 
 	@Override
@@ -47,9 +47,9 @@ public class foodbookingdaoimpl implements foodbookingdao {
 	}
 
 	@Override
-	public FoodBooking getbyid(long id) {
+	public FoodBooking getbyid(int id) {
 		// TODO Auto-generated method stub
-		return jdbctemplate.queryForObject("SELECT * FROM foodbooking WHERE FoodBookingId=?",
+		return jdbctemplate.queryForObject("SELECT * FROM foodbooking WHERE TransactionId=?",
 				new BeanPropertyRowMapper<FoodBooking>(FoodBooking.class), id);
 	}
 

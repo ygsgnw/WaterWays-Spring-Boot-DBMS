@@ -8,11 +8,11 @@ public interface transactiondao {
 	
     int save(Transaction transaction);
 	
-	int update(Transaction transaction,long id);
+	int update(Transaction transaction,int id);
 	
-	int delete(long id);
+	int delete(int id);
 	
 	List<Transaction> getall();
 	
-	Transaction getbyid(long id);
+	Transaction getbyid(int id);
 }

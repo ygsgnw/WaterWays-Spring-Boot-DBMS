@@ -24,7 +24,7 @@ public class shipmodelimpl implements shipmodeldao{
 	}
 
 	@Override
-	public int update(ShipModel shipmodel, long id) {
+	public int update(ShipModel shipmodel, int id) {
 		// TODO Auto-generated method stub
 		return jdbctemplate.update(
 				"UPDATE shipmodel SET RoomCount=?,ModelName=? WHERE ShipModelId=?",
@@ -33,9 +33,9 @@ public class shipmodelimpl implements shipmodeldao{
 	}
 
 	@Override
-	public int delete(long id) {
+	public int delete(int id) {
 		// TODO Auto-generated method stub
-		return jdbctemplate.update("DELETE FROM shipmodel WHERE ShipModelId=?",id);
+		return jdbctemplate.update("DELETE FROM shipmodel WHERE ModelId=?",id);
 	}
 
 	@Override
@@ -45,9 +45,9 @@ public class shipmodelimpl implements shipmodeldao{
 	}
 
 	@Override
-	public ShipModel getbyid(long id) {
+	public ShipModel getbyid(int id) {
 		// TODO Auto-generated method stub
-		return jdbctemplate.queryForObject("SELECT * FROM shipmodel WHERE ShipModelId=?",
+		return jdbctemplate.queryForObject("SELECT * FROM shipmodel WHERE ModelId=?",
 				new BeanPropertyRowMapper<ShipModel>(ShipModel.class), id);
 	}
 

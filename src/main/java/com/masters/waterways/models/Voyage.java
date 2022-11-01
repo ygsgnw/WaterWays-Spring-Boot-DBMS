@@ -1,6 +1,6 @@
 package com.masters.waterways.models;
 
-import java.sql.Time;
+import java.time.LocalDateTime;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -13,12 +13,28 @@ import lombok.NoArgsConstructor;
 public class Voyage {
 	private int VoyageId;
 	private int ShipSerialId;
-	private int ArrivalHarbourId;
-	private int DepartureHarbourId;
-	private Time ArrivalTime;
-	private Time DepartureTime;
+	private int ArrivalHarborId;
+	private int DepartureHarborId;
+	private LocalDateTime ArrivalTime;
+	private LocalDateTime DepartureTime;
 	private int VoyageStatus;
 
+
+	public LocalDateTime getArrivalTime() {
+		return ArrivalTime;
+	}
+
+	public void setArrivalTime(LocalDateTime arrivalTime) {
+		ArrivalTime = arrivalTime;
+	}
+
+	public LocalDateTime getDepartureTime() {
+		return DepartureTime;
+	}
+
+	public void setDepartureTime(LocalDateTime departureTime) {
+		DepartureTime = departureTime;
+	}
 
 	public int getVoyageId() {
 		return VoyageId;
@@ -36,37 +52,23 @@ public class Voyage {
 		ShipSerialId = shipSerialId;
 	}
 
-	public int getArrivalHarbourId() {
-		return ArrivalHarbourId;
+	public int getArrivalHarborId() {
+		return ArrivalHarborId;
 	}
 
-	public void setArrivalHarbourId(int arrivalHarbourId) {
-		ArrivalHarbourId = arrivalHarbourId;
+	public void setArrivalHarborId(int arrivalHarbourId) {
+		ArrivalHarborId = arrivalHarbourId;
 	}
 
-	public int getDepartureHarbourId() {
-		return DepartureHarbourId;
+	public int getDepartureHarborId() {
+		return DepartureHarborId;
 	}
 
-	public void setDepartureHarbourId(int departureHarbourId) {
-		DepartureHarbourId = departureHarbourId;
+	public void setDepartureHarborId(int departureHarbourId) {
+		DepartureHarborId = departureHarbourId;
 	}
 
-	public Time getArrivalTime() {
-		return ArrivalTime;
-	}
-
-	public void setArrivalTime(Time arrivalTime) {
-		ArrivalTime = arrivalTime;
-	}
-
-	public Time getDepartureTime() {
-		return DepartureTime;
-	}
-
-	public void setDepartureTime(Time departureTime) {
-		DepartureTime = departureTime;
-	}
+	
 
 	public int getVoyageStatus() {
 		return VoyageStatus;

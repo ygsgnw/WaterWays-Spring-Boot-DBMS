@@ -7,7 +7,7 @@ drop table if exists ShipModel;
 drop table if exists Ship;
 drop table if exists Users;
 drop table if exists Employee;
-drop table if exists Harbour;
+drop table if exists Harbor;
 drop table if exists Voyage;
 drop table if exists Crew;
 drop table if exists Transaction;
@@ -34,10 +34,6 @@ create table Ship (
 create table Users (
 	UserId				int 			primary key auto_increment,
     Name	 			varchar(50),
-    Sex 				int,
-    SignUpDate			date,
-    Dob					date,
-    Phone				char(10),
     EmailId				varchar(50),
     UserPassword		varchar(10)
 );
@@ -50,8 +46,8 @@ create table Employee (
 );
 
 
-create table Harbour (
-	HarbourId 			int 			primary key auto_increment,
+create table Harbor (
+	HarborId 			int 			primary key auto_increment,
     Location 			varchar(20),
     ContructionDate 	date,
 	ManagerId 			int				foreign key references Employee(EmployeeId)
@@ -61,8 +57,8 @@ create table Harbour (
 create table Voyage (
 	VoyageId 			int 			primary key auto_increment,
     ShipSerialId 		int				foreign key references Ship(ShipSerialId),
-    ArrivalHarbourId 	int				foreign key references Harbour(HarbourId),
-    DepartureHarbourId 	int				foreign key references Harbour(HarbourId),
+    ArrivalHarborId 	int				foreign key references Harbor(HarborId),
+    DepartureHarborId 	int				foreign key references Harbor(HarborId),
     ArrivalTime 		time,
     DepartureTime 		time,
     VoyageStatus		int
@@ -100,7 +96,6 @@ create table FoodItem (
 	FoodItemId			int,
 	VoyageId			int				foreign key references Voyage(VoyageId),
 	FoodName			varchar(20),
-	FoodCost			int,
 	FoodDescription		varchar(50),
 	primary key (VoyageId, FoodItemId)	-- Weak Entity FoodItem
 );

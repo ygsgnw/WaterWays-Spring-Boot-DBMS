@@ -8,11 +8,11 @@ public interface shipdao {
 	
     int save(Ship ship);
 	
-	int update(Ship ship,long id);
+	int update(Ship ship,int id);
 	
-	int delete(long id);
+	int delete(int id);
 	
 	List<Ship> getall();
 	
-	Ship getbyid(long id);
+	Ship getbyid(int id);
 }

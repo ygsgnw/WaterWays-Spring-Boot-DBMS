@@ -19,21 +19,21 @@ public class voyagedaoimpl implements voyagedao{
 	public int save(Voyage voyage) {
 		// TODO Auto-generated method stub
 		return jdbctemplate.update(
-				"INSERT INTO voyage (ShipSerialId,ArrivalPortId,ArrivalTime,DeparturePortId,DepartureTime) VALUES (?,?,?,?,?)",
-				new Object[] { voyage.getShipSerialId(),voyage.getArrivalPortId(),voyage.getArrivalTime(),voyage.getDeparturePortId(),voyage.getDepartureTime() });
+				"INSERT INTO voyage (ShipSerialId,ArrivalHarborId,ArrivalTime,DepartureHarborId,DepartureTime) VALUES (?,?,?,?,?)",
+				new Object[] { voyage.getShipSerialId(),voyage.getArrivalHarborId(),voyage.getArrivalTime(),voyage.getDepartureHarborId(),voyage.getDepartureTime() });
 	}
 
 	@Override
-	public int update(Voyage voyage, long id) {
+	public int update(Voyage voyage, int id) {
 		// TODO Auto-generated method stub
 		return jdbctemplate.update(
-				"UPDATE voyage SET ShipSerialId=?,ArrivalPortId=?,ArrivalTime=?,DeparturePortId=?,DepartureTime=? WHERE Id=?",
-				new Object[] { voyage.getShipSerialId(),voyage.getArrivalPortId(),voyage.getArrivalTime(),voyage.getDeparturePortId(),voyage.getDepartureTime() },
+				"UPDATE voyage SET ShipSerialId=?,ArrivalHarborId=?,ArrivalTime=?,DepartureHarborId=?,DepartureTime=? WHERE Id=?",
+				new Object[] { voyage.getShipSerialId(),voyage.getArrivalHarborId(),voyage.getArrivalTime(),voyage.getDepartureHarborId(),voyage.getDepartureTime() },
 				id);
 	}
 
 	@Override
-	public int delete(long id) {
+	public int delete(int id) {
 		// TODO Auto-generated method stub
 		return jdbctemplate.update("DELETE FROM voyage WHERE VoyageId=?",id);
 	}
@@ -45,7 +45,7 @@ public class voyagedaoimpl implements voyagedao{
 	}
 
 	@Override
-	public Voyage getbyid(long id) {
+	public Voyage getbyid(int id) {
 		// TODO Auto-generated method stub
 		return jdbctemplate.queryForObject("SELECT * FROM voyage WHERE VoyageId=?",
 				new BeanPropertyRowMapper<Voyage>(Voyage.class), id);
