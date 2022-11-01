@@ -20,33 +20,33 @@ public class crewdaoimpl implements crewdao{
 	@Override
 	public int save(Crew crew) {
 		return jdbctemplate.update(
-				"INSERT INTO crew (UserId,ManagerId) VALUES (?,?)",
-				new Object[] { employee.getUserId(), employee.getManagerId()});
+				"INSERT INTO crew (CrewId,EmployeeId,VoyageId,Role) VALUES (?,?,?,?)",
+				new Object[] {crew.getCrewId(),crew.getEmployeeId(),crew.getVoyageId(),crew.getRole() });
 	}
 
 	@Override
 	public int update(Crew crew, int id) {
 		return jdbctemplate.update(
-				"UPDATE crew SET UserId=?,ManagerId=? WHERE EmployeeId=?",
-				new Object[] { employee.getUserId(), employee.getManagerId() },
+				"UPDATE crew SET EmployeeId=?,VoyageId=?,Role=? WHERE CrewId=?",
+				new Object[] { crew.getEmployeeId(),crew.getVoyageId(),crew.getRole()},
 				id);
 	}
 
 	@Override
 	public int delete(int id) {
-		return jdbctemplate.update("DELETE FROM   WHERE Id=?",id);
+		return jdbctemplate.update("DELETE FROM crew WHERE CrewId=?",id);
 	}
 
 	@Override
 	public List<Crew> getall() {
-		return jdbctemplate.query("SELECT * FROM   ", new BeanPropertyRowMapper<>( .class));
+		return jdbctemplate.query("SELECT * FROM crew", new BeanPropertyRowMapper<Crew>( Crew.class));
 
 	}
 
 	@Override
 	public Crew getbyid(int id) {
-		return jdbctemplate.queryForObject("SELECT * FROM    WHERE Id=?",
-				new BeanPropertyRowMapper<>( .class), id);
+		return jdbctemplate.queryForObject("SELECT * FROM crew WHERE CrewId=?",
+				new BeanPropertyRowMapper<Crew>( Crew.class), id);
 	}
 	
 }
