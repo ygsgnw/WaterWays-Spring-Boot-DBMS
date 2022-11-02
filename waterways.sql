@@ -12,6 +12,7 @@ drop table if exists Harbor;
 drop table if exists Voyage;
 drop table if exists Crew;
 drop table if exists Transaction;
+drop table if exists RoomFare;
 drop table if exists RoomBooking;
 drop table if exists FoodItem;
 drop table if exists FoodBooking;
@@ -162,6 +163,7 @@ begin
 
 end;
 
+delimiter //
 
 create trigger OnEmployeeDeletion before delete
 on Employee for each row
@@ -199,3 +201,5 @@ begin
     );
 
 end;
+
+delimiter ;
