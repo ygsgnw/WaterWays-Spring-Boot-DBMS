@@ -50,4 +50,9 @@ public class VoyageDaoImpl implements VoyageDao {
 				new BeanPropertyRowMapper<Voyage>(Voyage.class), id);
 	}
 
+	@Override
+	public List<Voyage> getVoyagesByUserId(int userId) {
+
+	}
+
 }

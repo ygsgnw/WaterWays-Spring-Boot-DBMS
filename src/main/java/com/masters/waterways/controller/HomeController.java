@@ -29,18 +29,18 @@ public class HomeController {
 	
 	@GetMapping("/")
 	public String home(){
-		return "home";
+		return "Home";
 	}
 
 	@GetMapping("/login")
 	public String login() {
-		return "login";
+		return "Login";
 	}
 
 	@GetMapping("/signup")
 	public String signup(Model model) {
 		model.addAttribute("newUser", new Users());
-		return "signup";
+		return "Signup";
 	}
 
 	@PostMapping("/signup")
@@ -99,7 +99,7 @@ public class HomeController {
 		
 		model.addAttribute("new_voyage", voyages);
 
-		return "voyageList";
+		return "VoyageListHome";
 	}
 
 	@GetMapping("/voyages/{id}")

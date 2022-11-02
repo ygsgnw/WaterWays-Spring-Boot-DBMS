@@ -14,4 +14,6 @@ public interface FoodBookingDao {
 	List<FoodBooking> getall();
 	
 	FoodBooking getbyid(int id);
+
+	void bookFood(int userId, int voyageId, int roomId, int foodItemId, int foodCount);
 }

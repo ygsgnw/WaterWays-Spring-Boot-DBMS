@@ -52,4 +52,9 @@ public class FoodBookingDaoImpl implements FoodBookingDao {
 				new BeanPropertyRowMapper<FoodBooking>(FoodBooking.class), id);
 	}
 
+	@Override
+	public void bookFood(int userId, int voyageId, int roomId, int foodItemId, int foodCount) {
+
+	}
+
 }
