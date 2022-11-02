@@ -8,10 +8,10 @@ create trigger FoodItemDeleteTrigger before delete
     on FoodItem for each row
 begin
     if (
-           select ArrivalTime
-           from Voyage
-           where Voyage.VoyageId = @VoyageId
-       ) < now() then
+        select ArrivalTime
+        from Voyage
+        where Voyage.VoyageId = @VoyageId
+    ) < now() then
         signal sqlstate '45000' set message_text = 'Cannot delete FoodItem that was served on a completed voyage';
     end if;
 

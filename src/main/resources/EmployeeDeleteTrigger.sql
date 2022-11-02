@@ -8,8 +8,7 @@ create trigger EmployeeDeleteTrigger before delete
     on Employee for each row
 begin
     if exists(
-            select *
-            from Crew, Voyage
+            select * from Crew, Voyage
             where Crew.EmployeeId = @EmployeeId
               and Crew.VoyageId = Voyage.VoyageId
               and Voyage.ArrivalTime < now()
