@@ -1,4 +1,7 @@
 use waterways;
+
+drop trigger if exists VoyageDeleteTrigger;
+
 delimiter $
 
 create trigger VoyageDeleteTrigger before delete
@@ -25,3 +28,5 @@ begin
     );
 
 end $
+
+delimiter ;

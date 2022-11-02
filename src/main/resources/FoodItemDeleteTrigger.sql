@@ -1,5 +1,7 @@
 use waterways;
 
+drop trigger if exists FoodItemDeleteTrigger;
+
 delimiter $
 
 create trigger FoodItemDeleteTrigger before delete
@@ -23,3 +25,5 @@ begin
     );
 
 end $
+
+delimiter ;

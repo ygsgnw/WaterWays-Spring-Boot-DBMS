@@ -1,5 +1,7 @@
 use waterways;
 
+drop trigger if exists EmployeeDeleteTrigger;
+
 delimiter $
 
 create trigger EmployeeDeleteTrigger before delete
@@ -15,3 +17,5 @@ begin
         signal sqlstate '45000' set message_text = 'Cannot delete Employee who has served on a previous voyage';
     end if;
 end $
+
+delimiter ;

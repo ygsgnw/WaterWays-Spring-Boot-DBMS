@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 @Controller
 
@@ -55,7 +54,6 @@ public class UserController {
                                @RequestParam(name="todate", required = false)@DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime arrive_before_datetime
     ) {
 
-        System.out.println("hello");
         System.out.println(from_harbour_id);
         System.out.println(to_harbour_id);
         System.out.println(depart_after_datetime);
