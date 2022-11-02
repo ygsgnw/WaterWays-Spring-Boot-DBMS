@@ -1,3 +1,19 @@
+# SHIP_STATUS:
+#     1 - OPERATIONAL
+#     2 - SUSPENDED
+#     3 - MAINTENANCE
+#
+# VOYAGE_STATUS:
+#     1 - OPERATIONAL
+#     2 - COMPLETED
+#     3 - CANCELLED
+#
+# ROOM_STATUS:
+#     1 - AVAILABLE
+#     2 - BOOKED
+#     3 - RESERVED
+#     4 - MAINTENANCE
+
 use waterways;
 
 insert into ShipModel values(1001,200,"model1");
@@ -68,7 +84,8 @@ insert into Transaction values(10005,"2022-06-06 00:00:00",50000,4001);
 
 insert into ROOM_STATUS values(1,"AVAILABLE");
 insert into ROOM_STATUS values(2,"BOOKED");
-insert into ROOM_STATUS values(3,"MAINTENANCE");
+insert into ROOM_STATUS values(3,"RESERVED");
+insert into ROOM_STATUS values(4,"MAINTENANCE");
 
 
 insert into RoomBooking values(10001,11001,8001,1);
