@@ -11,4 +11,5 @@
 # ROOM_STATUS:
 #     0 - AVAILABLE
 #     1 - BOOKED
-#     2 - MAINTENANCE
+#     2 - RESERVED
+#     3 - MAINTENANCE
