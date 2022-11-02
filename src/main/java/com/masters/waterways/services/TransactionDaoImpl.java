@@ -10,7 +10,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class transactiondaoimpl implements transactiondao{
+public class TransactionDaoImpl implements TransactionDao {
 
 	@Autowired
 	JdbcTemplate jdbctemplate;

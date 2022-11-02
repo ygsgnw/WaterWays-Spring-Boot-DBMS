@@ -7,12 +7,11 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import com.masters.waterways.daos.crewdao;
+import com.masters.waterways.daos.CrewDao;
 import com.masters.waterways.models.Crew;
-import com.masters.waterways.models.Employee;
 
 @Repository
-public class crewdaoimpl implements crewdao{
+public class CrewDaoImpl implements CrewDao {
 	
 	@Autowired
 	JdbcTemplate jdbctemplate;

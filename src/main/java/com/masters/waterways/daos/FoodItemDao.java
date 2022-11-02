@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.masters.waterways.models.FoodItem;
 
-public interface fooditemdao {
+public interface FoodItemDao {
 	
     int save(FoodItem fi);
 	

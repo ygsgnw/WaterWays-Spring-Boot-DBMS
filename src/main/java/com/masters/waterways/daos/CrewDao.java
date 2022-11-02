@@ -5,7 +5,7 @@ import java.util.List;
 import com.masters.waterways.models.Crew;
 
 
-public interface crewdao {
+public interface CrewDao {
 
 	int save(Crew crew);
 	

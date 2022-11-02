@@ -7,11 +7,11 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import com.masters.waterways.daos.userdao;
+import com.masters.waterways.daos.UserDao;
 import com.masters.waterways.models.Users;
 
 @Repository
-public class userdaoimpl implements userdao{
+public class UserdaoImpl implements UserDao {
 	@Autowired
 	JdbcTemplate jdbctemplate;
 

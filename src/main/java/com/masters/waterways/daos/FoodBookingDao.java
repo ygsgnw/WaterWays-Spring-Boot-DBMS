@@ -3,7 +3,7 @@ package com.masters.waterways.daos;
 import java.util.List;
 import com.masters.waterways.models.*;
 
-public interface foodbookingdao {
+public interface FoodBookingDao {
 	
     int save(FoodBooking fb);
 	

@@ -7,11 +7,11 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import com.masters.waterways.daos.fooditemdao;
+import com.masters.waterways.daos.FoodItemDao;
 import com.masters.waterways.models.FoodItem;
 
 @Repository
-public class fooditemdaoimpl implements fooditemdao{
+public class FoodItemDaoImpl implements FoodItemDao {
 	@Autowired
 	JdbcTemplate jdbctemplate;
 

@@ -8,13 +8,13 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import com.masters.waterways.daos.crewdao;
+import com.masters.waterways.daos.CrewDao;
 import com.masters.waterways.models.Crew;
 
 @Controller
 public class CrewController {
 	@Autowired
-	private crewdao crewdao;
+	private CrewDao crewdao;
 	
 	@GetMapping("/admin/crew")
 	public String listcrews(Model model) {

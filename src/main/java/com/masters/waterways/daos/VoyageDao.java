@@ -4,7 +4,7 @@ import java.util.List;
 import com.masters.waterways.models.*;
 
 
-public interface voyagedao {
+public interface VoyageDao {
 	
     int save(Voyage voyage);
 	

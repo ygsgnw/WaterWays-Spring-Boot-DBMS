@@ -8,13 +8,13 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import com.masters.waterways.daos.voyagedao;
+import com.masters.waterways.daos.VoyageDao;
 import com.masters.waterways.models.Voyage;
 @Controller
 public class VoyageController {
 	@Autowired
 	
-	private voyagedao voydao;
+	private VoyageDao voydao;
 	
 	@GetMapping("/admin/voyage")
 	public String listvoyages(Model model) {

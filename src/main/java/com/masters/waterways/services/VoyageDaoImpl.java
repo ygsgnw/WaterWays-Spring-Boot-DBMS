@@ -10,7 +10,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class voyagedaoimpl implements voyagedao{
+public class VoyageDaoImpl implements VoyageDao {
 
 	@Autowired
 	JdbcTemplate jdbctemplate;

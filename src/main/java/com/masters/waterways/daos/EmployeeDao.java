@@ -3,7 +3,7 @@ package com.masters.waterways.daos;
 import java.util.List;
 import com.masters.waterways.models.Employee;
 
-public interface employeedao{
+public interface EmployeeDao {
   
 	int save(Employee employee);
 	

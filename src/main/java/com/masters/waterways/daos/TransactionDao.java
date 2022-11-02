@@ -4,7 +4,7 @@ import java.util.List;
 import com.masters.waterways.models.*;
 
 
-public interface transactiondao {
+public interface TransactionDao {
 	
     int save(Transaction transaction);
 	
