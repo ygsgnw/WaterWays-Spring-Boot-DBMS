@@ -1,5 +1,6 @@
 package com.masters.waterways.services;
 
+import java.nio.channels.SelectableChannel;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,7 +52,16 @@ public class FoodItemDaoImpl implements FoodItemDao {
 	public FoodItem getById (int id) {
 		return jdbctemplate.queryForObject(
 				"SELECT * FROM FoodItem WHERE FoodItemId = ?",
-				new BeanPropertyRowMapper<>( FoodItem.class), id
+				new BeanPropertyRowMapper<FoodItem>(FoodItem.class), id
 		);
 	}
+
+	@Override
+	public List<FoodItem> getFoodItemsByVoyageId (int voyageId) {
+		return jdbctemplate.query(
+				"SELECT * FROM FoodItem WHERE VoyageId = ?",
+				new BeanPropertyRowMapper<FoodItem>(FoodItem.class), voyageId
+		);
+	}
+
 }

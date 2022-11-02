@@ -10,4 +10,6 @@ public interface RoomBookingDao {
 	int delete (int id);
 	List<RoomBooking> getAll ();
 	RoomBooking getById (int id);
+	List<RoomBooking> getRoomsByUserIdAndVoyageId (int userId, int voyageId);
+	void bookRoomByVoyageIdAndUserId (int voyageId, int userId);
 }

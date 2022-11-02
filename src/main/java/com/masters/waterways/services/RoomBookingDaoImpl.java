@@ -59,4 +59,18 @@ public class RoomBookingDaoImpl implements RoomBookingDao {
 		);
 	}
 
+	@Override
+	public List<RoomBooking> getRoomsByUserIdAndVoyageId (int userId, int voyageId) {
+		return jdbctemplate.query(
+				"SELECT RoomBooking.TransactionId, RoomBooking.RoomId, RoomBooking.VoyageId, RoomBooking.RoomStatusCode FROM Transaction, RoomBooking WHERE UserId = ? AND RoomBooking.TransactionId = Transaction.TransactionId and VoyageId = ?",
+				new BeanPropertyRowMapper<RoomBooking>(RoomBooking.class), userId, voyageId
+		);
+	}
+
+	@Override
+	public void bookRoomByVoyageIdAndUserId (int voyageId, int userId) {
+
+	}
+
+
 }

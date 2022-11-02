@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 @Controller
 
@@ -47,19 +46,19 @@ public class UserController {
 
     @GetMapping("/profile")
     public String profile(Model model) {
-        model.addAttribute("user", userDao.getbyid(id));
+        model.addAttribute("user", userDao.getById(userId));
         return "Profile";
     }
 
     @GetMapping("/profile/edit")
     public String editProfile(Model model) {
-        model.addAttribute("user", userDao.getbyid(id));
+        model.addAttribute("user", userDao.getById(userId));
         return "EditProfile";
     }
 
     @PostMapping("/profile/edit")
     public String updateProfile(@ModelAttribute("user") Users user, Model model) {
-        userDao.update(user,id);
+        userDao.update(user,userId);
         return "redirect:/profile";
     }
 
@@ -77,7 +76,7 @@ public class UserController {
         System.out.println(depart_after_datetime);
         System.out.println(arrive_before_datetime);
 
-        List<Voyage> voyages = voyageDao.getall();
+        List<Voyage> voyages = voyageDao.getAll();
 
         if (from_harbour_id != null) {
             List<Voyage> new_voyages = new ArrayList<>();
@@ -116,20 +115,21 @@ public class UserController {
         return "VoyageListUser";
     }
 
-    @GetMapping("/user/voyages/{id}")
-    public String voyagesDetails(@PathVariable("id") int voyageId, Model model) {
-        
-        model.addAttribute("voyage", voyageDao.getbyid(id));
-        model.addAttribute("rooms", roomBookingDao.getRoomsByUserIdAndVoyageId(id,voyageId));
-        model.addAttribute("foodItems", foodItemDao.getall());
+    @GetMapping("/user/voyages/{userId}")
+    public String voyagesDetails(@PathVariable("userId") int voyageId, Model model) {
+
+        model.addAttribute("voyage", voyageDao.getById(userId));
+        model.addAttribute("rooms", roomBookingDao.getRoomsByUserIdAndVoyageId(userId, voyageId));
+        model.addAttribute("foodItems", foodItemDao.getAll());
+
         return "VoyageDetailsUser";
     }
 
-    @GetMapping("/user/booking/{id}")
-    public String booking(@PathVariable("id") int voyageId){
+    @GetMapping("/user/booking/{userId}")
+    public String booking(@PathVariable("userId") int voyageId){
 //        int userId=session_key;
-        roomBookingDao.bookRoomByVoyageIdAndUserId(userId,voyageId);
-        return "redirect:/user/voyages/{id}";
+        roomBookingDao.bookRoomByVoyageIdAndUserId(userId, voyageId);
+        return "redirect:/user/voyages/{userId}";
     }
     
     @GetMapping("/user/mybookings")
@@ -139,6 +139,5 @@ public class UserController {
         return "MyVoyages"; // will direct to VoyageDetailsUser
     }
     
-    @PostMapping()
 }
 
