@@ -28,8 +28,7 @@ public class voyagedaoimpl implements voyagedao{
 		// TODO Auto-generated method stub
 		return jdbctemplate.update(
 				"UPDATE voyage SET ShipSerialId=?,ArrivalHarborId=?,ArrivalTime=?,DepartureHarborId=?,DepartureTime=? WHERE Id=?",
-				new Object[] { voyage.getShipSerialId(),voyage.getArrivalHarborId(),voyage.getArrivalTime(),voyage.getDepartureHarborId(),voyage.getDepartureTime() },
-				id);
+				new Object[] { voyage.getShipSerialId(),voyage.getArrivalHarborId(),voyage.getArrivalTime(),voyage.getDepartureHarborId(),voyage.getDepartureTime(),id });
 	}
 
 	@Override

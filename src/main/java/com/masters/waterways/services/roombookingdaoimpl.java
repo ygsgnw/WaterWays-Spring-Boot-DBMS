@@ -29,8 +29,7 @@ public class roombookingdaoimpl implements roombookingdao{
 		// TODO Auto-generated method stub
 		return jdbctemplate.update(
 				"UPDATE roombooking SET RoomId=?,VoyageId=?,Fare=?,RoomStatus=? WHERE TransactionId=?",
-				new Object[] { roombook.getRoomId(), roombook.getVoyageId(),roombook.getFare(),roombook.getRoomStatus()  },
-				id);
+				new Object[] { roombook.getRoomId(), roombook.getVoyageId(),roombook.getFare(),roombook.getRoomStatus() ,id});
 	}
 
 	@Override

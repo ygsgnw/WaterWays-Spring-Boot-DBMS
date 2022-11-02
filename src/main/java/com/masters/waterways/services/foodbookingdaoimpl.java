@@ -29,8 +29,7 @@ public class foodbookingdaoimpl implements foodbookingdao {
 		// TODO Auto-generated method stu
 		return jdbctemplate.update(
 				"UPDATE foodbooking SET FoodItemId=?,VoyageId=?,FoodItemCount=? WHERE TransactionId=?",
-				new Object[] {fb.getFoodItemId(),fb.getVoyageId(),fb.getFoodItemCount() },
-				id);
+				new Object[] {fb.getFoodItemId(),fb.getVoyageId(),fb.getFoodItemCount(),id });
 	}
 
 	@Override
