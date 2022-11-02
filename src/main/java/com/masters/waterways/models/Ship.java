@@ -14,7 +14,7 @@ public class Ship {
 
 	private int ShipSerialId;
 	private int ModelId;
-	private int ShipStatus;
+	private int ShipStatusCode;
 	private Date MfDate;
 
 	public int getShipSerialId() {
@@ -33,12 +33,12 @@ public class Ship {
 		ModelId = modelId;
 	}
 
-	public int getShipStatus() {
-		return ShipStatus;
+	public int getShipStatusCode() {
+		return ShipStatusCode;
 	}
 
-	public void setShipStatus(int shipStatus) {
-		ShipStatus = shipStatus;
+	public void setShipStatusCode(int shipStatus) {
+		ShipStatusCode = shipStatus;
 	}
 
 	public Date getMfDate() {

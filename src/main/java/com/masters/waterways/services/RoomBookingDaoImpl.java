@@ -20,8 +20,8 @@ public class RoomBookingDaoImpl implements RoomBookingDao {
 	public int insert (RoomBooking room_booking) {
 		// TODO Auto-generated method stub
 		return jdbctemplate.update(
-				"INSERT INTO RoomBooking (RoomId, VoyageId, TransactionId, RoomStatus) VALUES (?, ?, ?, ?)",
-				room_booking.getRoomId(), room_booking.getVoyageId(), room_booking.getTransactionId(), room_booking.getRoomStatus()
+				"INSERT INTO RoomBooking (RoomId, VoyageId, TransactionId, RoomStatusCode) VALUES (?, ?, ?, ?)",
+				room_booking.getRoomId(), room_booking.getVoyageId(), room_booking.getTransactionId(), room_booking.getRoomStatusCode()
 		);
 	}
 
@@ -29,8 +29,8 @@ public class RoomBookingDaoImpl implements RoomBookingDao {
 	public int update (RoomBooking room_booking, int id) {
 		// TODO Auto-generated method stub
 		return jdbctemplate.update(
-				"UPDATE RoomBooking SET RoomId = ?, VoyageId = ?, RoomStatus = ? WHERE TransactionId = ?",
-				room_booking.getRoomId(), room_booking.getVoyageId(), room_booking.getRoomStatus(), id
+				"UPDATE RoomBooking SET RoomId = ?, VoyageId = ?, RoomStatusCode = ? WHERE TransactionId = ?",
+				room_booking.getRoomId(), room_booking.getVoyageId(), room_booking.getRoomStatusCode(), id
 		);
 	}
 

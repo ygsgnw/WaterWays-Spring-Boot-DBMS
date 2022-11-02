@@ -19,16 +19,16 @@ public class ShipDaoImpl implements ShipDao {
 	public int insert (Ship ship) {
 		// TODO Auto-generated method stub
 		return jdbctemplate.update(
-				"INSERT INTO Ship (ModelId,ShipStatus,MfDate) VALUES (?,?,?)",
-				ship.getModelId(),ship.getShipStatus(),ship.getMfDate());
+				"INSERT INTO Ship (ModelId,ShipStatusCode,MfDate) VALUES (?,?,?)",
+				ship.getModelId(),ship.getShipStatusCode(),ship.getMfDate());
 	}
 
 	@Override
 	public int update (Ship ship, int id) {
 		// TODO Auto-generated method stub
 		return jdbctemplate.update(
-				"UPDATE Ship SET ModelId=?,ShipStatus=?,MfDate=? WHERE ShipSerialId=?",
-				ship.getModelId(),ship.getShipStatus(),ship.getMfDate(),id);
+				"UPDATE Ship SET ModelId=?,ShipStatusCode=?,MfDate=? WHERE ShipSerialId=?",
+				ship.getModelId(),ship.getShipStatusCode(),ship.getMfDate(),id);
 	}
 
 	@Override
