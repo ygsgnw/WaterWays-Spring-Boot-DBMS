@@ -19,7 +19,7 @@ public class VoyageController {
 	@GetMapping("/admin/voyage")
 	public String listvoyages(Model model) {
 		model.addAttribute("voyages", voydao.getall());
-		return "voyageList";
+		return "voyageListAdmin";
 	}
 	@GetMapping("/admin/voyage/new")
 	public String createvoyageform(Model model) {
