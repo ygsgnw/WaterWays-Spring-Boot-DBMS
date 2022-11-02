@@ -4,7 +4,7 @@ import java.util.List;
 import com.masters.waterways.models.*;
 
 
-public interface roombookingdao {
+public interface RoomBookingDao {
 	
     int save(RoomBooking roombook);
 	

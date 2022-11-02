@@ -7,11 +7,11 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import com.masters.waterways.daos.harbordao;
+import com.masters.waterways.daos.HarborDao;
 import com.masters.waterways.models.Harbor;
 
 @Repository
-public class harbordaoimpl implements harbordao{
+public class HarborDaoImpl implements HarborDao {
 
 	@Autowired
 	JdbcTemplate jdbctemplate;

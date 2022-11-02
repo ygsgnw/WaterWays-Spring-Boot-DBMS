@@ -8,13 +8,13 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import com.masters.waterways.daos.harbordao;
+import com.masters.waterways.daos.HarborDao;
 import com.masters.waterways.models.Harbor;
 
 @Controller
 public class HarborController {
 	@Autowired
-	private  harbordao hardao;
+	private HarborDao hardao;
 	
 	@GetMapping("/admin/harbor")
 	public String listharbors(Model model) {

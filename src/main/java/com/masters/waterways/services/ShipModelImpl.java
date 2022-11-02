@@ -10,7 +10,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class shipmodelimpl implements shipmodeldao{
+public class ShipModelImpl implements ShipModelDao {
 
 	@Autowired
 	JdbcTemplate jdbctemplate;

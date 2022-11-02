@@ -9,7 +9,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class employeedaoimpl implements employeedao {
+public class EmployeeDaoImpl implements EmployeeDao {
 
 	@Autowired
 	JdbcTemplate jdbctemplate;

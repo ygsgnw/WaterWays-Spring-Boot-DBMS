@@ -11,7 +11,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class foodbookingdaoimpl implements foodbookingdao {
+public class FoodBookingDaoImpl implements FoodBookingDao {
 
 	@Autowired
 	JdbcTemplate jdbctemplate;

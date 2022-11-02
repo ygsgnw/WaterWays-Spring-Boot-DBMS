@@ -9,12 +9,12 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import com.masters.waterways.daos.shipmodeldao;
+import com.masters.waterways.daos.ShipModelDao;
 import com.masters.waterways.models.ShipModel;
 @Controller
 public class ShipModelController {
 	@Autowired
-	private shipmodeldao modeldao;
+	private ShipModelDao modeldao;
 	
 	@GetMapping("/admin/shipmodel")
 	public String listshipmodel(Model model) {

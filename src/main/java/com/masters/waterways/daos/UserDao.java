@@ -5,7 +5,7 @@ import java.util.List;
 
 import com.masters.waterways.models.Users;
 
-public interface userdao {
+public interface UserDao {
 
 	int save(Users users);
 	

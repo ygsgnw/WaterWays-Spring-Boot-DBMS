@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.masters.waterways.models.Harbor;
 
-public interface harbordao {
+public interface HarborDao {
 	  int save(Harbor harbor);
 		
 		int update(Harbor harbor,int id);
