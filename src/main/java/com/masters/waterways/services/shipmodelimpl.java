@@ -27,9 +27,8 @@ public class shipmodelimpl implements shipmodeldao{
 	public int update(ShipModel shipmodel, int id) {
 		// TODO Auto-generated method stub
 		return jdbctemplate.update(
-				"UPDATE shipmodel SET RoomCount=?,ModelName=? WHERE ShipModelId=?",
-				new Object[] { shipmodel.getRoomCount(),shipmodel.getModelName() },
-				id);
+				"UPDATE shipmodel SET RoomCount=?,ModelName=? WHERE ModelId=?",
+				new Object[] { shipmodel.getRoomCount(),shipmodel.getModelName() ,id});
 	}
 
 	@Override

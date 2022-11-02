@@ -28,8 +28,7 @@ public class crewdaoimpl implements crewdao{
 	public int update(Crew crew, int id) {
 		return jdbctemplate.update(
 				"UPDATE crew SET EmployeeId=?,VoyageId=?,Role=? WHERE CrewId=?",
-				new Object[] { crew.getEmployeeId(),crew.getVoyageId(),crew.getRole()},
-				id);
+				new Object[] { crew.getEmployeeId(),crew.getVoyageId(),crew.getRole(),id});
 	}
 
 	@Override

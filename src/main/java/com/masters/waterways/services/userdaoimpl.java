@@ -26,8 +26,7 @@ public class userdaoimpl implements userdao{
 	public int update(Users users, int id) {
 		return jdbctemplate.update(
 				"UPDATE crew SET Name=?,EmailId=?,UserPassword=? WHERE UserId=?",
-				new Object[] { users.getUserId(),users.getName(),users.getEmailId(),users.getUserPassword() },
-				id);
+				new Object[] { users.getUserId(),users.getName(),users.getEmailId(),users.getUserPassword(),id });
 	}
 
 	@Override

@@ -25,8 +25,7 @@ public class employeedaoimpl implements employeedao {
 	public int update(Employee employee, long id) {
 		return jdbctemplate.update(
 				"UPDATE employee SET UserId=?,ManagerId=? WHERE EmployeeId=?",
-				new Object[] { employee.getUserId(), employee.getManagerId() },
-				id);
+				new Object[] { employee.getUserId(), employee.getManagerId(),id });
 	}
 
 	@Override
