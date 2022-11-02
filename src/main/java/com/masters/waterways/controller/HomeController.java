@@ -1,7 +1,7 @@
 package com.masters.waterways.controller;
 
-import com.masters.waterways.daos.userdao;
-import com.masters.waterways.daos.voyagedao;
+import com.masters.waterways.daos.UserDao;
+import com.masters.waterways.daos.VoyageDao;
 import com.masters.waterways.models.Voyage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -13,22 +13,24 @@ import com.masters.waterways.models.Users;
 
 import java.sql.Date;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
 @Controller
 public class HomeController {
+
 	@Autowired
-	private userdao userdao;
+	private UserDao userdao;
+
 	@Autowired
-	private voyagedao voyagedao;
+	private VoyageDao voyagedao;
 	
 	@GetMapping("/")
 	public String home(){
 		return "home";
 	}
-
 
 	@GetMapping("/login")
 	public String login() {
@@ -40,7 +42,6 @@ public class HomeController {
 		model.addAttribute("newUser", new Users());
 		return "signup";
 	}
-
 
 	@PostMapping("/signup")
 	public String signedup(@ModelAttribute("newUser") Users newUser) {
@@ -75,48 +76,54 @@ public class HomeController {
 
 
 	@GetMapping("/voyages")
-	public String voyagesList(Model model,
-			@RequestParam(name="fromid", required = false) Integer fromid,
-			@RequestParam(name="toid", required = false) Integer toid,
-			@RequestParam(name="fromdate", required = false)@DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime fromdate,
-			@RequestParam(name="todate", required = false)@DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime todate) {
+	public String voyagesList (Model model,
+			@RequestParam(name="fromid", required = false) Integer from_harbour_id,
+			@RequestParam(name="toid", required = false) Integer to_harbour_id,
+			@RequestParam(name="fromdate", required = false)@DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime depart_after_datetime,
+			@RequestParam(name="todate", required = false)@DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime arrive_before_datetime
+	) {
+
 		System.out.println("hello");
-		System.out.println(fromid);
-		System.out.println(toid);
-		System.out.println(fromdate);
-		System.out.println(todate);
+		System.out.println(from_harbour_id);
+		System.out.println(to_harbour_id);
+		System.out.println(depart_after_datetime);
+		System.out.println(arrive_before_datetime);
 
 		List<Voyage> voyages = voyagedao.getall();
-		Set<Voyage> new_voyages = null;
-		if(fromid!=null) {
-			for (Voyage v: voyages) {
-				if (v.getDepartureHarborId() == fromid ){
-					new_voyages.add(v);
-				}
 
-			}
-		}
-		if(to!=null){
-			for (Voyage v: voyages) {
-				if (v.getArrivalHarborId() == to ){
+		if (from_harbour_id != null) {
+			List<Voyage> new_voyages = new ArrayList<>();
+			for (Voyage v: voyages)
+				if (v.getDepartureHarborId() == from_harbour_id)
 					new_voyages.add(v);
-				}
+			voyages = new_voyages;
+		}
 
-			}
-		}
-		if(date!=null){
-			for (Voyage v: voyages) {
-				if (v.getDepartureTime().toLocalDate().equals(date) ){
+		if (to_harbour_id != null) {
+			List<Voyage> new_voyages = new ArrayList<>();
+			for (Voyage v: voyages)
+				if (v.getArrivalHarborId() == to_harbour_id)
 					new_voyages.add(v);
-				}
-			}
+			voyages = new_voyages;
 		}
-		if(from==null && to==null && date==null){
-			for (Voyage v: voyages) {
+
+		if (depart_after_datetime != null) {
+			List<Voyage> new_voyages = new ArrayList<>();
+			for (Voyage v: voyages)
+				if (v.getDepartureTime().isAfter(depart_after_datetime))
 					new_voyages.add(v);
-			}
+			voyages = new_voyages;
 		}
-		model.addAttribute("new_voyage", new_voyages);
+
+		if (arrive_before_datetime != null) {
+			List<Voyage> new_voyages = new ArrayList<>();
+			for (Voyage v: voyages)
+				if (v.getArrivalTime().isBefore(arrive_before_datetime))
+					new_voyages.add(v);
+			voyages = new_voyages;
+		}
+		
+		model.addAttribute("new_voyage", voyages);
 
 		return "voyageList";
 	}
