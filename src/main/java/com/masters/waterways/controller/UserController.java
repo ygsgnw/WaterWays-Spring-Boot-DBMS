@@ -1,5 +1,7 @@
 package com.masters.waterways.controller;
 
+import com.masters.waterways.daos.FoodItemDao;
+import com.masters.waterways.daos.RoomBookingDao;
 import com.masters.waterways.daos.UserDao;
 import com.masters.waterways.daos.VoyageDao;
 import com.masters.waterways.models.Users;
@@ -13,53 +15,69 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Controller
 
 public class UserController {
 
     @Autowired
-    private UserDao userdao;
+    private UserDao userDao;
 
     @Autowired
-    private VoyageDao voyagedao;
+     private VoyageDao voyageDao;
 
-    @GetMapping("/profile/{id}")
-    public String profile(@PathVariable int id, Model model) {
-//		System.out.println("p");
-        model.addAttribute("user", userdao.getById(id));
-//		System.out.println("p");
-        return "profile";
+    @Autowired
+    private RoomBookingDao roomBookingDao;
+
+    @Autowired
+    private FoodItemDao foodItemDao;
+    
+    int userId=session_key;
+    
+    @GetMapping("/user")
+    public String userhome(){
+        return "UserHome";
+    }
+    
+    @GetMapping("/logout")
+    public String logout(){
+        return "redirect:/";
     }
 
-    @GetMapping("/profile/edit/{id}")
-    public String editProfile(@PathVariable int id, Model model) {
-        model.addAttribute("user", userdao.getById(id));
-        return "editProfile";
+    @GetMapping("/profile")
+    public String profile(Model model) {
+        model.addAttribute("user", userDao.getbyid(id));
+        return "Profile";
     }
 
-    @PostMapping("/profile/edit/{id}")
-    public String updateProfile(@PathVariable int id,
-                                @ModelAttribute("user") Users user,
-                                Model model) {
-        userdao.update(user,id);
-        return "redirect:/profile/{id}";
+    @GetMapping("/profile/edit")
+    public String editProfile(Model model) {
+        model.addAttribute("user", userDao.getbyid(id));
+        return "EditProfile";
+    }
+
+    @PostMapping("/profile/edit")
+    public String updateProfile(@ModelAttribute("user") Users user, Model model) {
+        userDao.update(user,id);
+        return "redirect:/profile";
     }
 
     @GetMapping("/user/voyages")
-    public String voyagesList (Model model,
+    public String voyagesListUser (Model model,
                                @RequestParam(name="fromid", required = false) Integer from_harbour_id,
                                @RequestParam(name="toid", required = false) Integer to_harbour_id,
                                @RequestParam(name="fromdate", required = false)@DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime depart_after_datetime,
                                @RequestParam(name="todate", required = false)@DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime arrive_before_datetime
     ) {
 
+        System.out.println("hello");
         System.out.println(from_harbour_id);
         System.out.println(to_harbour_id);
         System.out.println(depart_after_datetime);
         System.out.println(arrive_before_datetime);
 
-        List<Voyage> voyages = voyagedao.getAll();
+        List<Voyage> voyages = voyageDao.getall();
 
         if (from_harbour_id != null) {
             List<Voyage> new_voyages = new ArrayList<>();
@@ -95,8 +113,32 @@ public class UserController {
 
         model.addAttribute("new_voyage", voyages);
 
-        return "voyageList";
+        return "VoyageListUser";
     }
 
+    @GetMapping("/user/voyages/{id}")
+    public String voyagesDetails(@PathVariable("id") int voyageId, Model model) {
+        
+        model.addAttribute("voyage", voyageDao.getbyid(id));
+        model.addAttribute("rooms", roomBookingDao.getRoomsByUserIdAndVoyageId(id,voyageId));
+        model.addAttribute("foodItems", foodItemDao.getall());
+        return "VoyageDetailsUser";
+    }
 
+    @GetMapping("/user/booking/{id}")
+    public String booking(@PathVariable("id") int voyageId){
+//        int userId=session_key;
+        roomBookingDao.bookRoomByVoyageIdAndUserId(userId,voyageId);
+        return "redirect:/user/voyages/{id}";
+    }
+    
+    @GetMapping("/user/mybookings")
+    public String mybookings(Model model){
+//        int userId=session_key;
+        model.addAttribute("mybookings",voyageDao.getVoyagesByUserId(userId));
+        return "MyVoyages"; // will direct to VoyageDetailsUser
+    }
+    
+    @PostMapping()
 }
+
