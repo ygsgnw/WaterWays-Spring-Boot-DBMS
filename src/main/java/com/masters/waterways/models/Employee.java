@@ -11,7 +11,6 @@ public class Employee {
 
 	private long EmployeeId;
 	private int UserId;
-	private int ManagerId;
 
 	public long getEmployeeId() {
 		return EmployeeId;
@@ -27,13 +26,5 @@ public class Employee {
 
 	public void setUserId(int userId) {
 		UserId = userId;
-	}
-
-	public int getManagerId() {
-		return ManagerId;
-	}
-
-	public void setManagerId(int managerId) {
-		ManagerId = managerId;
 	}
 }

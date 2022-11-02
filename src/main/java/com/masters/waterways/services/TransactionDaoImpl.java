@@ -16,38 +16,46 @@ public class TransactionDaoImpl implements TransactionDao {
 	JdbcTemplate jdbctemplate;
 	
 	@Override
-	public int save(Transaction transaction) {
+	public int insert (Transaction Transaction) {
 		// TODO Auto-generated method stub
 		return jdbctemplate.update(
-				"INSERT INTO transaction (TransactionDate,Amount,UserId) VALUES (?,?,?)",
-				new Object[] { transaction.getTransactionDate(), transaction.getAmount(),transaction.getUserId()});
+				"INSERT INTO Transaction (TransactionDate, Amount, UserId) VALUES (?, ?, ?)",
+				Transaction.getTransactionDate(), Transaction.getAmount(), Transaction.getUserId()
+		);
 	}
 
 	@Override
-	public int update(Transaction transaction, int id) {
+	public int update (Transaction Transaction, int id) {
 		// TODO Auto-generated method stub
 		return jdbctemplate.update(
-				"UPDATE transaction SET TransactionDate=?,Amount=?,UserId=? WHERE TransactionId=?",
-				new Object[] { transaction.getTransactionDate(), transaction.getAmount(),transaction.getUserId(),id});
+				"UPDATE Transaction SET TransactionDate = ?, Amount = ?, UserId = ? WHERE TransactionId = ?",
+				Transaction.getTransactionDate(), Transaction.getAmount(), Transaction.getUserId(), id
+		);
 	}
 
 	@Override
-	public int delete(int id) {
+	public int delete (int id) {
 		// TODO Auto-generated method stub
-		return jdbctemplate.update("DELETE FROM transaction WHERE TransactionId=?",id);
+		return jdbctemplate.update(
+				"DELETE FROM Transaction WHERE TransactionId = ?", id
+		);
 	}
 
 	@Override
-	public List<Transaction> getall() {
+	public List<Transaction> getAll () {
 		// TODO Auto-generated method stub
-		return jdbctemplate.query("SELECT * FROM transaction", new BeanPropertyRowMapper<Transaction>(Transaction.class));
+		return jdbctemplate.query(
+				"SELECT * FROM Transaction", new BeanPropertyRowMapper<Transaction>(Transaction.class)
+		);
 	}
 
 	@Override
-	public Transaction getbyid(int id) {
+	public Transaction getById (int id) {
 		// TODO Auto-generated method stub
-		return jdbctemplate.queryForObject("SELECT * FROM transaction WHERE TransactionId=?",
-				new BeanPropertyRowMapper<Transaction>(Transaction.class), id);
+		return jdbctemplate.queryForObject(
+				"SELECT * FROM Transaction WHERE TransactionId = ?",
+				new BeanPropertyRowMapper<Transaction>(Transaction.class), id
+		);
 	}
 
 }

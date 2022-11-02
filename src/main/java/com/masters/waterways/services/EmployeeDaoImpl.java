@@ -17,16 +17,16 @@ public class EmployeeDaoImpl implements EmployeeDao {
 	@Override
 	public int insert (Employee employee) {
 		return jdbctemplate.update(
-				"INSERT INTO Employee (UserId, ManagerId) VALUES (?, ?)",
-				employee.getUserId(), employee.getManagerId()
+				"INSERT INTO Employee (UserId) VALUES (?, ?)",
+				employee.getUserId()
 		);
 	}
 
 	@Override
 	public int update (Employee employee, int id) {
 		return jdbctemplate.update(
-				"UPDATE Employee SET UserId=?, ManagerId=? WHERE EmployeeId=?",
-				employee.getUserId(), employee.getManagerId(), id
+				"UPDATE Employee SET UserId=? WHERE EmployeeId=?",
+				employee.getUserId(), id
 		);
 	}
 

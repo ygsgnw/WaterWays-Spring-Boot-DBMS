@@ -16,38 +16,47 @@ public class ShipModelImpl implements ShipModelDao {
 	JdbcTemplate jdbctemplate;
 	
 	@Override
-	public int save(ShipModel shipmodel) {
+	public int insert (ShipModel ship_model) {
 		// TODO Auto-generated method stub
 		return jdbctemplate.update(
-				"INSERT INTO shipmodel (RoomCount,ModelName) VALUES (?,?)",
-				new Object[] { shipmodel.getRoomCount(),shipmodel.getModelName() });
+				"INSERT INTO ShipModel (RoomCount, ModelName) VALUES (?, ?)",
+				ship_model.getRoomCount(), ship_model.getModelName()
+		);
 	}
 
 	@Override
-	public int update(ShipModel shipmodel, int id) {
+	public int update (ShipModel ship_model, int id) {
 		// TODO Auto-generated method stub
 		return jdbctemplate.update(
-				"UPDATE shipmodel SET RoomCount=?,ModelName=? WHERE ModelId=?",
-				new Object[] { shipmodel.getRoomCount(),shipmodel.getModelName() ,id});
+				"UPDATE ShipModel SET RoomCount = ?, ModelName = ? WHERE ModelId = ?",
+				ship_model.getRoomCount(), ship_model.getModelName(), id
+		);
 	}
 
 	@Override
 	public int delete(int id) {
 		// TODO Auto-generated method stub
-		return jdbctemplate.update("DELETE FROM shipmodel WHERE ModelId=?",id);
+		return jdbctemplate.update(
+				"DELETE FROM ShipModel WHERE ModelId=?", id
+		);
 	}
 
 	@Override
-	public List<ShipModel> getall() {
+	public List<ShipModel> getAll () {
 		// TODO Auto-generated method stub
-		return jdbctemplate.query("SELECT * FROM shipmodel", new BeanPropertyRowMapper<ShipModel>(ShipModel.class));
+		return jdbctemplate.query(
+				"SELECT * FROM ShipModel",
+				new BeanPropertyRowMapper<ShipModel>(ShipModel.class)
+		);
 	}
 
 	@Override
-	public ShipModel getbyid(int id) {
+	public ShipModel getById (int id) {
 		// TODO Auto-generated method stub
-		return jdbctemplate.queryForObject("SELECT * FROM shipmodel WHERE ModelId=?",
-				new BeanPropertyRowMapper<ShipModel>(ShipModel.class), id);
+		return jdbctemplate.queryForObject(
+				"SELECT * FROM ShipModel WHERE ModelId = ?",
+				new BeanPropertyRowMapper<ShipModel>(ShipModel.class), id
+		);
 	}
 
 }

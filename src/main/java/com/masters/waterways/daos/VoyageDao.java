@@ -5,11 +5,10 @@ import com.masters.waterways.models.*;
 
 
 public interface VoyageDao {
-	
     int insert (Voyage voyage);
 	int update (Voyage voyage,int id);
 	int delete (int id);
 	List<Voyage> getAll ();
 	Voyage getById (int id);
-	public List<Voyage> getAllActive ();
+	List<Voyage> getAllActive ();
 }

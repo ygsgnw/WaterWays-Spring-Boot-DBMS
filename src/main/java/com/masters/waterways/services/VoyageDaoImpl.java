@@ -19,8 +19,8 @@ public class VoyageDaoImpl implements VoyageDao {
 	public int insert (Voyage voyage) {
 		// TODO Auto-generated method stub
 		return jdbctemplate.update(
-				"INSERT INTO Voyage (ShipSerialId, ArrivalHarborId, ArrivalTime, DepartureHarborId, DepartureTime) VALUES (?, ?, ?, ?, ?)",
-				voyage.getShipSerialId(), voyage.getArrivalHarborId(), voyage.getArrivalTime(), voyage.getDepartureHarborId(), voyage.getDepartureTime()
+				"INSERT INTO Voyage (ShipSerialId, Fare, ArrivalHarborId, ArrivalTime, DepartureHarborId, DepartureTime) VALUES (?, ?, ?, ?, ?, ?)",
+				voyage.getShipSerialId(), voyage.getFare(), voyage.getArrivalHarborId(), voyage.getArrivalTime(), voyage.getDepartureHarborId(), voyage.getDepartureTime()
 		);
 	}
 
@@ -28,8 +28,8 @@ public class VoyageDaoImpl implements VoyageDao {
 	public int update (Voyage voyage, int id) {
 		// TODO Auto-generated method stub
 		return jdbctemplate.update(
-				"UPDATE Voyage SET ShipSerialId = ?, ArrivalHarborId = ?, ArrivalTime = ?, DepartureHarborId = ?, DepartureTime = ? WHERE VoyageId = ?",
-				voyage.getShipSerialId(), voyage.getArrivalHarborId(), voyage.getArrivalTime(), voyage.getDepartureHarborId(), voyage.getDepartureTime(), id
+				"UPDATE Voyage SET ShipSerialId = ?, Fare = ?, ArrivalHarborId = ?, ArrivalTime = ?, DepartureHarborId = ?, DepartureTime = ? WHERE VoyageId = ?",
+				voyage.getShipSerialId(), voyage.getFare(), voyage.getArrivalHarborId(), voyage.getArrivalTime(), voyage.getDepartureHarborId(), voyage.getDepartureTime(), id
 		);
 	}
 
