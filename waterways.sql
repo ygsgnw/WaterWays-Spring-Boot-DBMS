@@ -1,5 +1,6 @@
 create database if not exists waterways;
 
+
 USE waterways;
 
 
@@ -26,15 +27,15 @@ create table ShipModel (
 create table Ship (
 	ShipSerialId 		int 			primary key auto_increment,
     ModelId 			int,
-	foreign key (ModelId) references ShipModel(ModelId),
     ShipStatus 			int,
-    MfDate				date
+    MfDate				datetime,
+    foreign key (ModelId) references ShipModel(ModelId) on delete cascade
 );
 
 
 create table Users (
 	UserId				int 			primary key auto_increment,
-    Name	 			varchar(50),
+    UserName	 		varchar(50),
     EmailId				varchar(50),
     UserPassword		varchar(10)
 );
@@ -43,74 +44,84 @@ create table Users (
 create table Employee (
 	EmployeeId			int 			primary key auto_increment,
     UserId				int, 
-	foreign key (UserId) references Users(UserId),
     ManagerId			int,
-	foreign key (ManagerId) references Employee(EmployeeId)
+    foreign key (UserId) references Users(UserId) on delete cascade,
+    foreign key (ManagerId) references Employee(EmployeeId) on delete restrict
 );
 
 
 create table Harbor (
 	HarborId 			int 			primary key auto_increment,
     Location 			varchar(20),
-    ContructionDate 	date,
-	ManagerId 			int	,
-	foreign key (ManagerId) references Employee(EmployeeId)
+    ConstructionDate 	datetime,
+	ManagerId 			int,
+	foreign key (ManagerId) references Employee(EmployeeId) on delete restrict
 );
 
 
 create table Voyage (
 	VoyageId 			int 			primary key auto_increment,
-    ShipSerialId 		int		,
-	foreign key(ShipSerialId) references Ship(ShipSerialId),
-    ArrivalHarborId 	int,
-	foreign key (ArrivalHarborId)references Harbor(HarborId),
+    ShipSerialId 		int,
     DepartureHarborId 	int,
-	foreign key (DepartureHarborId)references Harbor(HarborId),
-    ArrivalTime 		time,
-    DepartureTime 		time,
-    VoyageStatus		int
+    ArrivalHarborId 	int,
+    DepartureTime 		datetime,
+    ArrivalTime 		datetime,
+    VoyageStatus		int,
+    foreign key(ShipSerialId) references Ship(ShipSerialId) on delete cascade,
+    foreign key (DepartureHarborId) references Harbor(HarborId) on delete cascade,
+    foreign key (ArrivalHarborId) references Harbor(HarborId) on delete cascade
 );
 
 
 create table Crew (
 	CrewId				int,
-	EmployeeId			int	,
-	foreign key(EmployeeId) references Employee(EmployeeId),
+	EmployeeId			int,
 	VoyageId			int,
-	foreign key (VoyageId)references Voyage(VoyageId),
-	Role				varchar(50),
-	primary key (CrewId, EmployeeId, VoyageId)	-- Weak Entity Crew
+	CrewRole			varchar(50),
+    foreign key (EmployeeId) references Employee(EmployeeId) on delete restrict,
+    foreign key (VoyageId) references Voyage(VoyageId) on delete cascade,
+	primary key (CrewId, EmployeeId, VoyageId)
+    -- Weak Entity Crew
 );
 
 
 create table Transaction (
 	TransactionId		int				primary key auto_increment,
-	TransactionDate		date,
+	TransactionDate		datetime,
     Amount				int,
-    UserId				int	,
-	foreign key (UserId)references Users(UserId) 
+    UserId				int,
+	foreign key (UserId) references Users(UserId) on delete restrict
 );
 
 
 create table RoomBooking (
 	RoomId 				int,
     VoyageId			int,
-	foreign key(VoyageId) references Voyage(VoyageId),
-    Fare				int,
-    TransactionId		int	,
-	foreign key(TransactionId) references Transaction(TransactionId),
+    TransactionId		int,
     RoomStatus			int,
-    primary key (VoyageId, RoomId)		-- Weak Entity RoomBooking
+    primary key (VoyageId, RoomId),
+    foreign key (VoyageId) references Voyage(VoyageId) on delete cascade,
+    foreign key (TransactionId) references Transaction(TransactionId) on delete restrict
+    -- Weak Entity RoomBooking
+);
+
+
+create table RoomFare (
+    VoyageId            int,
+    Fare                int,
+    foreign key (VoyageId) references Voyage(VoyageId) on delete cascade
 );
 
 
 create table FoodItem (
 	FoodItemId			int,
-	VoyageId			int	,
-	foreign key(VoyageId) references Voyage(VoyageId),
+	VoyageId			int,
+	FoodCost            int,
 	FoodName			varchar(20),
 	FoodDescription		varchar(50),
-	primary key (VoyageId, FoodItemId)	-- Weak Entity FoodItem
+    foreign key (VoyageId) references Voyage(VoyageId) on delete cascade,
+    primary key (VoyageId, FoodItemId)
+    -- Weak Entity FoodItem
 );
 
 
@@ -119,7 +130,72 @@ create table FoodBooking (
 	VoyageId			int,
 	FoodItemCount		int,
 	TransactionId		int,
-	foreign key (TransactionId)references Transaction(TransactionId),
-	foreign key ( VoyageId,FoodItemId) references FoodItem ( VoyageId,FoodItemId),
-	primary key (FoodItemId, VoyageId, TransactionId)		-- Weak Entity FoodBooking
+	foreign key (TransactionId) references Transaction(TransactionId) on delete restrict,
+	foreign key (VoyageId, FoodItemId) references FoodItem (VoyageId, FoodItemId) on delete cascade,
+	primary key (FoodItemId, VoyageId, TransactionId)
+    -- Weak Entity FoodBooking
 );
+
+
+create trigger OnVoyageDeletion before delete
+on Voyage for each row
+begin
+    if @ArrivalDate < now() then
+        signal sqlstate '45000' set message_text = 'Cannot delete completed Voyages';
+    end if;
+
+    insert into Transaction (TransactionDate, Amount, UserId) (
+        select now(), -sum(Transaction.Amount), Transaction.UserId
+        from Transaction, RoomBooking
+        where RoomBooking.TransactionId = Transaction.TransactionId
+            and RoomBooking.VoyageId = @VoyageId
+        group by Transaction.UserId
+    );
+
+    insert into Transaction (TransactionDate, Amount, UserId) (
+        select now(), -sum(Transaction.Amount), Transaction.UserId
+        from Transaction, FoodBooking
+        where Transaction.TransactionId = FoodBooking.TransactionId
+            and FoodBooking.VoyageId = @VoyageId
+        group by Transaction.UserId
+    );
+
+end;
+
+
+create trigger OnEmployeeDeletion before delete
+on Employee for each row
+begin
+    if exists(
+        select *
+        from Crew, Voyage
+        where Crew.EmployeeId = @EmployeeId
+            and Crew.VoyageId = Voyage.VoyageId
+            and Voyage.ArrivalTime < now()
+    ) then
+        signal sqlstate '45000' set message_text = 'Cannot delete Employee who has served on a previous voyage';
+    end if;
+end;
+
+
+create trigger OnDeleteFoodItem before delete
+on FoodItem for each row
+begin
+    if (
+        select ArrivalTime
+        from Voyage
+        where Voyage.VoyageId = @VoyageId
+    ) < now() then
+        signal sqlstate '45000' set message_text = 'Cannot delete FoodItem that was served on a completed voyage';
+    end if;
+
+    insert into Transaction (TransactionDate, Amount, UserId) (
+        select now(), -sum(Transaction.amount), Transaction.UserId
+        from Transaction, FoodBooking
+        where FoodBooking.TransactionId = Transaction.TransactionId
+          and FoodBooking.FoodItemId = @FoodItemId
+          and FoodBooking.VoyageId = @VoyageId
+        group by UserId
+    );
+
+end;
