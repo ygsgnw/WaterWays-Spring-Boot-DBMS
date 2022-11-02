@@ -20,7 +20,7 @@ public class VoyageDaoImpl implements VoyageDao {
 		// TODO Auto-generated method stub
 		return jdbctemplate.update(
 				"INSERT INTO voyage (ShipSerialId,ArrivalHarborId,ArrivalTime,DepartureHarborId,DepartureTime) VALUES (?,?,?,?,?)",
-				new Object[] { voyage.getShipSerialId(),voyage.getArrivalHarborId(),voyage.getArrivalTime(),voyage.getDepartureHarborId(),voyage.getDepartureTime() });
+				voyage.getShipSerialId(),voyage.getArrivalHarborId(),voyage.getArrivalTime(),voyage.getDepartureHarborId(),voyage.getDepartureTime());
 	}
 
 	@Override
@@ -28,7 +28,7 @@ public class VoyageDaoImpl implements VoyageDao {
 		// TODO Auto-generated method stub
 		return jdbctemplate.update(
 				"UPDATE voyage SET ShipSerialId=?,ArrivalHarborId=?,ArrivalTime=?,DepartureHarborId=?,DepartureTime=? WHERE Id=?",
-				new Object[] { voyage.getShipSerialId(),voyage.getArrivalHarborId(),voyage.getArrivalTime(),voyage.getDepartureHarborId(),voyage.getDepartureTime(),id });
+				voyage.getShipSerialId(),voyage.getArrivalHarborId(),voyage.getArrivalTime(),voyage.getDepartureHarborId(),voyage.getDepartureTime(),id);
 	}
 
 	@Override
