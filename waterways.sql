@@ -14,9 +14,15 @@ create table ShipModel (
 create table Ship (
 	ShipSerialId int primary key auto_increment,
 	ModelId int not null,
-	ShipStatus int not null,
+	ShipStatus enum('OPERATIONAL', 'UNDER_MAINTENANCE', 'SUSPENDED') not null,
 	MfDate datetime not null,
 	foreign key (ModelId) references ShipModel(ModelId) on delete cascade
+);
+
+
+create table SHIP_STATUS (
+    ShipStatusCode int primary key auto_increment,
+    ShipStatusDesc varchar(15)
 );
 
 
@@ -53,11 +59,16 @@ create table Voyage (
 	ArrivalHarborId int not null,
 	DepartureTime datetime not null,
 	ArrivalTime datetime not null,
-	VoyageStatus int not null,
+	VoyageStatus enum('SCHEDULED', 'UNDER_MAINTENANCE', 'COMPLETED') not null,
 	foreign key(ShipSerialId) references Ship(ShipSerialId) on delete cascade,
 	foreign key (DepartureHarborId) references Harbor(HarborId) on delete cascade,
 	foreign key (ArrivalHarborId) references Harbor(HarborId) on delete cascade
 );
+
+create table VOYAGE_STATUS (
+    VoyageStatusCode int primary key,
+    VoyageStatusDesc varchar(15)
+)
 
 
 create table Crew (
@@ -82,9 +93,9 @@ create table Transaction (
 
 
 create table RoomBooking (
+    TransactionId int,
     RoomId int,
     VoyageId int,
-    TransactionId int,
     RoomStatus int not null,
     primary key (VoyageId, RoomId),
     foreign key (VoyageId) references Voyage(VoyageId) on delete cascade,
@@ -105,13 +116,14 @@ create table FoodItem (
 
 
 create table FoodBooking (
+    TransactionId int primary key,
     FoodItemId int,
     VoyageId int,
+    RoomId int,
     FoodItemCount int not null,
-    TransactionId int not null,
     foreign key (TransactionId) references Transaction(TransactionId) on delete restrict,
     foreign key (VoyageId, FoodItemId) references FoodItem (VoyageId, FoodItemId) on delete cascade,
-    primary key (FoodItemId, VoyageId, TransactionId)
+    foreign key (VoyageId, RoomId) references RoomBooking (VoyageId, RoomId) on delete cascade
     -- Weak Entity FoodBooking
 );
 

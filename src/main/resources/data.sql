@@ -1,0 +1,14 @@
+# SHIP_STATUS:
+#     0 - OPERATIONAL
+#     1 - SUSPENDED
+#     2 - MAINTENANCE
+#
+# VOYAGE_STATUS:
+#     0 - OPERATIONAL
+#     1 - COMPLETED
+#     2 - CANCELLED
+#
+# ROOM_STATUS:
+#     0 - AVAILABLE
+#     1 - BOOKED
+#     2 - MAINTENANCE

@@ -14,7 +14,7 @@ begin
     set @i = 0;
 
     while @i < @count do
-        insert into RoomBooking (RoomId, VoyageId, TransactionId, RoomStatus)
+        insert into RoomBooking (RoomId, VoyageId, TransactionId, RoomStatusCode)
         values (@i, @VoyageId, null, 0);
         set @i = @i + 1;
     end while;
