@@ -1,5 +1,7 @@
 package com.masters.waterways.controller;
 
+import com.masters.waterways.daos.FoodItemDao;
+import com.masters.waterways.daos.RoomBookingDao;
 import com.masters.waterways.daos.UserDao;
 import com.masters.waterways.daos.VoyageDao;
 import com.masters.waterways.models.Users;
@@ -19,41 +21,56 @@ import java.util.List;
 public class UserController {
 
     @Autowired
-    private UserDao userdao;
+    private UserDao userDao;
 
     @Autowired
-    private VoyageDao voyagedao;
+     private VoyageDao voyageDao;
 
-    @GetMapping("/profile/{id}")
-    public String profile(@PathVariable int id, Model model) {
-//		System.out.println("p");
-        model.addAttribute("user", userdao.getById(id));
-//		System.out.println("p");
-        return "profile";
+    @Autowired
+    private RoomBookingDao roomBookingDao;
+
+    @Autowired
+    private FoodItemDao foodItemDao;
+    
+    int userId=session_key;
+    
+    @GetMapping("/user")
+    public String userhome(){
+        return "UserHome";
+    }
+    
+    @GetMapping("/logout")
+    public String logout(){
+        return "redirect:/";
     }
 
-    @GetMapping("/profile/edit/{id}")
-    public String editProfile(@PathVariable int id, Model model) {
-        model.addAttribute("user", userdao.getById(id));
-        return "editProfile";
+    @GetMapping("/profile")
+    public String profile(Model model) {
+        model.addAttribute("user", userDao.getById(userId));
+        return "Profile";
     }
 
-    @PostMapping("/profile/edit/{id}")
-    public String updateProfile(@PathVariable int id,
-                                @ModelAttribute("user") Users user,
-                                Model model) {
-        userdao.update(user,id);
-        return "redirect:/profile/{id}";
+    @GetMapping("/profile/edit")
+    public String editProfile(Model model) {
+        model.addAttribute("user", userDao.getById(userId));
+        return "EditProfile";
+    }
+
+    @PostMapping("/profile/edit")
+    public String updateProfile(@ModelAttribute("user") Users user, Model model) {
+        userDao.update(user,userId);
+        return "redirect:/profile";
     }
 
     @GetMapping("/user/voyages")
-    public String voyagesList (Model model,
+    public String voyagesListUser (Model model,
                                @RequestParam(name="fromid", required = false) Integer from_harbour_id,
                                @RequestParam(name="toid", required = false) Integer to_harbour_id,
                                @RequestParam(name="fromdate", required = false)@DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime depart_after_datetime,
                                @RequestParam(name="todate", required = false)@DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime arrive_before_datetime
     ) {
 
+        System.out.println("hello");
         System.out.println(from_harbour_id);
         System.out.println(to_harbour_id);
         System.out.println(depart_after_datetime);
@@ -98,8 +115,32 @@ public class UserController {
         System.out.println(voyages.size());
         model.addAttribute("newVoyages", voyages);
 
-        return "voyageList";
+        return "VoyageListUser";
     }
 
+    @GetMapping("/user/voyages/{userId}")
+    public String voyagesDetails(@PathVariable("userId") int voyageId, Model model) {
 
+        model.addAttribute("voyage", voyageDao.getById(userId));
+        model.addAttribute("rooms", roomBookingDao.getRoomsByUserIdAndVoyageId(userId, voyageId));
+        model.addAttribute("foodItems", foodItemDao.getAll());
+
+        return "VoyageDetailsUser";
+    }
+
+    @GetMapping("/user/booking/{userId}")
+    public String booking(@PathVariable("userId") int voyageId){
+//        int userId=session_key;
+        roomBookingDao.bookRoomByVoyageIdAndUserId(userId, voyageId);
+        return "redirect:/user/voyages/{userId}";
+    }
+    
+    @GetMapping("/user/mybookings")
+    public String mybookings(Model model){
+//        int userId=session_key;
+        model.addAttribute("mybookings",voyageDao.getVoyagesByUserId(userId));
+        return "MyVoyages"; // will direct to VoyageDetailsUser
+    }
+    
 }
+

@@ -12,9 +12,8 @@ public class RoomBooking {
 
 	private int RoomId;
 	private int VoyageId;
-	private int Fare;
 	private int TransactionId;
-	private int RoomStatus;
+	private int RoomStatusCode;
 
 	public int getRoomId() {
 		return RoomId;
@@ -32,14 +31,6 @@ public class RoomBooking {
 		VoyageId = voyageId;
 	}
 
-	public int getFare() {
-		return Fare;
-	}
-
-	public void setFare(int fare) {
-		Fare = fare;
-	}
-
 	public int getTransactionId() {
 		return TransactionId;
 	}
@@ -48,11 +39,11 @@ public class RoomBooking {
 		TransactionId = transactionId;
 	}
 
-	public int getRoomStatus() {
-		return RoomStatus;
+	public int getRoomStatusCode() {
+		return RoomStatusCode;
 	}
 
-	public void setRoomStatus(int roomStatus) {
-		RoomStatus = roomStatus;
+	public void setRoomStatusCode(int roomStatus) {
+		RoomStatusCode = roomStatus;
 	}
 }

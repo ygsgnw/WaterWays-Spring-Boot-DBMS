@@ -20,8 +20,8 @@ public class RoomBookingDaoImpl implements RoomBookingDao {
 	public int insert (RoomBooking room_booking) {
 		// TODO Auto-generated method stub
 		return jdbctemplate.update(
-				"INSERT INTO RoomBooking (RoomId, VoyageId, TransactionId, RoomStatus) VALUES (?, ?, ?, ?)",
-				room_booking.getRoomId(), room_booking.getVoyageId(), room_booking.getTransactionId(), room_booking.getRoomStatus()
+				"INSERT INTO RoomBooking (RoomId, VoyageId, TransactionId, RoomStatusCode) VALUES (?, ?, ?, ?)",
+				room_booking.getRoomId(), room_booking.getVoyageId(), room_booking.getTransactionId(), room_booking.getRoomStatusCode()
 		);
 	}
 
@@ -29,8 +29,8 @@ public class RoomBookingDaoImpl implements RoomBookingDao {
 	public int update (RoomBooking room_booking, int id) {
 		// TODO Auto-generated method stub
 		return jdbctemplate.update(
-				"UPDATE RoomBooking SET RoomId = ?, VoyageId = ?, RoomStatus = ? WHERE TransactionId = ?",
-				room_booking.getRoomId(), room_booking.getVoyageId(), room_booking.getRoomStatus(), id
+				"UPDATE RoomBooking SET RoomId = ?, VoyageId = ?, RoomStatusCode = ? WHERE TransactionId = ?",
+				room_booking.getRoomId(), room_booking.getVoyageId(), room_booking.getRoomStatusCode(), id
 		);
 	}
 
@@ -58,5 +58,19 @@ public class RoomBookingDaoImpl implements RoomBookingDao {
 				new BeanPropertyRowMapper<RoomBooking>(RoomBooking.class), id
 		);
 	}
+
+	@Override
+	public List<RoomBooking> getRoomsByUserIdAndVoyageId (int userId, int voyageId) {
+		return jdbctemplate.query(
+				"SELECT RoomBooking.TransactionId, RoomBooking.RoomId, RoomBooking.VoyageId, RoomBooking.RoomStatusCode FROM Transaction, RoomBooking WHERE UserId = ? AND RoomBooking.TransactionId = Transaction.TransactionId and VoyageId = ?",
+				new BeanPropertyRowMapper<RoomBooking>(RoomBooking.class), userId, voyageId
+		);
+	}
+
+	@Override
+	public void bookRoomByVoyageIdAndUserId (int voyageId, int userId) {
+
+	}
+
 
 }

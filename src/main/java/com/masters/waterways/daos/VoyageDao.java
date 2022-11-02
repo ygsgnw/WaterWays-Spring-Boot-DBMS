@@ -11,4 +11,5 @@ public interface VoyageDao {
 	List<Voyage> getAll ();
 	Voyage getById (int id);
 	List<Voyage> getAllActive ();
+	List<Voyage> getVoyagesByUserId (int userId);
 }

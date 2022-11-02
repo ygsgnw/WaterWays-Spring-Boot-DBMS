@@ -19,8 +19,8 @@ public class VoyageDaoImpl implements VoyageDao {
 	public int insert (Voyage voyage) {
 		// TODO Auto-generated method stub
 		return jdbctemplate.update(
-				"INSERT INTO Voyage (ShipSerialId, Fare, ArrivalHarborId, ArrivalTime, DepartureHarborId, DepartureTime, VoyageStatus) VALUES (?, ?, ?, ?, ?, ?, ?)",
-				voyage.getShipSerialId(), voyage.getFare(), voyage.getArrivalHarborId(), voyage.getArrivalTime(), voyage.getDepartureHarborId(), voyage.getDepartureTime(), voyage.getVoyageStatus()
+				"INSERT INTO Voyage (ShipSerialId, Fare, ArrivalHarborId, ArrivalTime, DepartureHarborId, DepartureTime, VoyageStatusCode) VALUES (?, ?, ?, ?, ?, ?, ?)",
+				voyage.getShipSerialId(), voyage.getFare(), voyage.getArrivalHarborId(), voyage.getArrivalTime(), voyage.getDepartureHarborId(), voyage.getDepartureTime(), voyage.getVoyageStatusCode()
 		);
 	}
 

@@ -19,7 +19,7 @@ public class Voyage {
 	private int DepartureHarborId;
 	private LocalDateTime ArrivalTime;
 	private LocalDateTime DepartureTime;
-	private int VoyageStatus;
+	private int VoyageStatusCode;
 
 	public int getVoyageId() {
 		return VoyageId;
@@ -77,11 +77,11 @@ public class Voyage {
 		DepartureTime = departureTime;
 	}
 
-	public int getVoyageStatus() {
-		return VoyageStatus;
+	public int getVoyageStatusCode() {
+		return VoyageStatusCode;
 	}
 
-	public void setVoyageStatus(int voyageStatus) {
-		VoyageStatus = voyageStatus;
+	public void setVoyageStatusCode(int voyageStatus) {
+		VoyageStatusCode = voyageStatus;
 	}
 }

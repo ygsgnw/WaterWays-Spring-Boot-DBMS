@@ -15,7 +15,7 @@ begin
 
     while @i < @count do
         insert into RoomBooking (RoomId, VoyageId, TransactionId, RoomStatusCode)
-        values (@i, @VoyageId, null, 0);
+        values (@i, @VoyageId, null, (SELECT RoomStatusCode from ROOM_STATUS where RoomStatusDesc = 'AVAILABLE'));
         set @i = @i + 1;
     end while;
 end $
