@@ -18,14 +18,14 @@ public class crewdaoimpl implements crewdao{
 	JdbcTemplate jdbctemplate;
 
 	@Override
-	public int save(Crew crew) {
+	public int save (Crew crew) {
 		return jdbctemplate.update(
 				"INSERT INTO crew (CrewId,EmployeeId,VoyageId,Role) VALUES (?,?,?,?)",
 				new Object[] {crew.getCrewId(),crew.getEmployeeId(),crew.getVoyageId(),crew.getRole() });
 	}
 
 	@Override
-	public int update(Crew crew, int id) {
+	public int update (Crew crew, int id) {
 		return jdbctemplate.update(
 				"UPDATE crew SET EmployeeId=?,VoyageId=?,Role=? WHERE CrewId=?",
 				new Object[] { crew.getEmployeeId(),crew.getVoyageId(),crew.getRole()},
@@ -33,18 +33,18 @@ public class crewdaoimpl implements crewdao{
 	}
 
 	@Override
-	public int delete(int id) {
+	public int delete (int id) {
 		return jdbctemplate.update("DELETE FROM crew WHERE CrewId=?",id);
 	}
 
 	@Override
-	public List<Crew> getall() {
+	public List<Crew> getall () {
 		return jdbctemplate.query("SELECT * FROM crew", new BeanPropertyRowMapper<Crew>( Crew.class));
 
 	}
 
 	@Override
-	public Crew getbyid(int id) {
+	public Crew getbyid (int id) {
 		return jdbctemplate.queryForObject("SELECT * FROM crew WHERE CrewId=?",
 				new BeanPropertyRowMapper<Crew>( Crew.class), id);
 	}
