@@ -1,4 +1,6 @@
 <!doctype html>
+<html xmlns: th="http://www.thymeleaf.org">
+
 <html lang="en">
   <head>
     <!-- Required meta tags -->
@@ -42,7 +44,7 @@
                 </div>  
             </div>
         </div>
-
+        
         <div style="padding: 10px;">
             <!-- list -->
             <table class="table table-striped table-bordered">
@@ -56,15 +58,16 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td> id</td>
-                        <td> arrival port</td>
+                    <tr th:each="newVoyage: ${newVoyages}">
+                        <td th:text="${newVoyage.voyageId}"></td>
+                        <td > arrival port</td>
                         <td> arrival time</td>
                         <td> departure port</td>
                         <td> departure time</td>
                     </tr>
                 </tbody>
             </table>
+
         </div>
     
 

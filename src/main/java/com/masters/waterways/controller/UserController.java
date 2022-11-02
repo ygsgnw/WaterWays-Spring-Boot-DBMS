@@ -75,8 +75,10 @@ public class UserController {
         System.out.println(to_harbour_id);
         System.out.println(depart_after_datetime);
         System.out.println(arrive_before_datetime);
-
-        List<Voyage> voyages = voyageDao.getAll();
+        
+        List<Voyage> voyages = new ArrayList<>(voyagedao.getAll());
+        
+        System.out.println("hi");
 
         if (from_harbour_id != null) {
             List<Voyage> new_voyages = new ArrayList<>();
@@ -110,7 +112,8 @@ public class UserController {
             voyages = new_voyages;
         }
 
-        model.addAttribute("new_voyage", voyages);
+        System.out.println(voyages.size());
+        model.addAttribute("newVoyages", voyages);
 
         return "VoyageListUser";
     }
