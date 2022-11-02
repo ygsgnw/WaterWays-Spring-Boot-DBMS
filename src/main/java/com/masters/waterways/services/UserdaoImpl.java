@@ -42,7 +42,7 @@ public class UserdaoImpl implements UserDao {
 
 	@Override
 	public Users getbyid(int id) {
-		return jdbctemplate.queryForObject("SELECT * FROM users WHERE Id=?",
+		return jdbctemplate.queryForObject("SELECT * FROM Users WHERE id=?",
 				new BeanPropertyRowMapper<Users>( Users.class), id);
 	}
 }

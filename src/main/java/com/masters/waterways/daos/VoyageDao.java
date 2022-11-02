@@ -2,6 +2,7 @@ package com.masters.waterways.daos;
 
 import java.util.List;
 import com.masters.waterways.models.*;
+import org.springframework.stereotype.Repository;
 
 
 public interface VoyageDao {

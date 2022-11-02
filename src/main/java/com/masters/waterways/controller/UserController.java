@@ -1,7 +1,7 @@
 package com.masters.waterways.controller;
 
-import com.masters.waterways.daos.userdao;
-import com.masters.waterways.daos.voyagedao;
+import com.masters.waterways.daos.UserDao;
+import com.masters.waterways.daos.VoyageDao;
 import com.masters.waterways.models.Users;
 import com.masters.waterways.models.Voyage;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,10 +19,15 @@ import java.util.Set;
 public class UserController {
 
     @Autowired
-    private com.masters.waterways.daos.userdao userdao;
+    private UserDao userdao;
 
     @Autowired
-    private com.masters.waterways.daos.voyagedao voyagedao;
+     private VoyageDao voyagedao;
+
+    @GetMapping("/logout")
+    public String logout(){
+        return "redirect:/";
+    }
 
     @GetMapping("/profile/{id}")
     public String profile(@PathVariable int id, Model model) {
@@ -57,40 +62,12 @@ public class UserController {
         System.out.println(date);
 
         List<Voyage> voyages = voyagedao.getall();
-        Set<Voyage> new_voyages = null;
-        if(from!=null) {
-            for (Voyage v: voyages) {
-                if (v.getDepartureHarborId() == from ){
-                    new_voyages.add(v);
-                }
 
-            }
-        }
-        if(to!=null){
-            for (Voyage v: voyages) {
-                if (v.getArrivalHarborId() == to ){
-                    new_voyages.add(v);
-                }
-
-            }
-        }
-        if(date!=null){
-            for (Voyage v: voyages) {
-                if (v.getDepartureTime().toLocalDate().equals(date) ){
-                    new_voyages.add(v);
-                }
-            }
-        }
-        if(from==null && to==null && date==null){
-            for (Voyage v: voyages) {
-                new_voyages.add(v);
-            }
-        }
-        model.addAttribute("new_voyage", new_voyages);
+        model.addAttribute("new_voyage", voyages);
 
         return "voyageList";
     }
 
-    @GetMapping("/user/booking")
-    String book()
+//    @GetMapping("/voyages/booking")
+
 }

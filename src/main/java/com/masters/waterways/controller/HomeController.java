@@ -49,32 +49,6 @@ public class HomeController {
 		return "redirect:/profile";
 	}
 
-
-//	@GetMapping("/profile/{id}")
-//	public String profile(@PathVariable int id, Model model) {
-////		System.out.println("p");
-//		model.addAttribute("user", userdao.getbyid(id));
-////		System.out.println("p");
-//		return "profile";
-//	}
-//
-//
-//	@GetMapping("/profile/edit/{id}")
-//	public String editProfile(@PathVariable int id, Model model) {
-//		model.addAttribute("user", userdao.getbyid(id));
-//		return "editProfile";
-//	}
-//
-//
-//	@PostMapping("/profile/edit/{id}")
-//	public String updateProfile(@PathVariable int id,
-//			@ModelAttribute("user") Users user,
-//			Model model) {
-//		userdao.update(user,id);
-//		return "redirect:/profile/{id}";
-//	}
-
-
 	@GetMapping("/voyages")
 	public String voyagesList (Model model,
 			@RequestParam(name="fromid", required = false) Integer from_harbour_id,
@@ -128,5 +102,16 @@ public class HomeController {
 		return "voyageList";
 	}
 
-	
+	@GetMapping("/voyages/{id}")
+	public String voyagesDetails(@PathVariable int id, Model model) {
+		model.addAttribute("voyage", voyagedao.getbyid(id));
+		return "VoyageDetailsHome";
+	}
+
+	@GetMapping("/booking")
+	public String booking(){
+		return "redirect:/login";
+	}
+
+
 }
