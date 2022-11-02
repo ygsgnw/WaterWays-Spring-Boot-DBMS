@@ -27,8 +27,7 @@ public class fooditemdaoimpl implements fooditemdao{
 	public int update(FoodItem fi, int id) {
 		return jdbctemplate.update(
 				"UPDATE fooditem SET VoyageId=?,FoodName=?,FoodCost=?,FoodDescription=? WHERE FoodItemId=?",
-				new Object[] { fi.getVoyageId(),fi.getFoodName(),fi.getFoodCost(),fi.getFoodDescription()},
-				id);
+				new Object[] { fi.getVoyageId(),fi.getFoodName(),fi.getFoodCost(),fi.getFoodDescription(),id});
 	}
 
 	@Override

@@ -5,10 +5,12 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Repository;
 
 import com.masters.waterways.daos.harbordao;
 import com.masters.waterways.models.Harbor;
 
+@Repository
 public class harbordaoimpl implements harbordao{
 
 	@Autowired
@@ -27,8 +29,7 @@ public class harbordaoimpl implements harbordao{
 		// TODO Auto-generated method stub
 		return jdbctemplate.update(
 				"UPDATE harbor SET Location=?,ManagerId=?,ConstructionDate=? WHERE HarborId=?",
-				new Object[] {harbor.getLocation(),harbor.getManagerId(),harbor.getConstructionDate() },
-				id);
+				new Object[] {harbor.getLocation(),harbor.getManagerId(),harbor.getConstructionDate(),id });
 	}
 
 	@Override

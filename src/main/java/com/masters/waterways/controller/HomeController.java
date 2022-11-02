@@ -29,11 +29,11 @@ public class HomeController {
 		return "home";
 	}
 
+
 	@GetMapping("/login")
 	public String login() {
 		return "login";
 	}
-
 
 	@GetMapping("/signup")
 	public String signup(Model model) {
@@ -120,5 +120,6 @@ public class HomeController {
 
 		return "voyageList";
 	}
+
 	
 }

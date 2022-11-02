@@ -56,16 +56,16 @@ public class Voyage {
 		return ArrivalHarborId;
 	}
 
-	public void setArrivalHarborId(int arrivalHarbourId) {
-		ArrivalHarborId = arrivalHarbourId;
+	public void setArrivalHarborId(int arrivalHarborId) {
+		ArrivalHarborId = arrivalHarborId;
 	}
 
 	public int getDepartureHarborId() {
 		return DepartureHarborId;
 	}
 
-	public void setDepartureHarborId(int departureHarbourId) {
-		DepartureHarborId = departureHarbourId;
+	public void setDepartureHarborId(int departureHarborId) {
+		DepartureHarborId = departureHarborId;
 	}
 
 	

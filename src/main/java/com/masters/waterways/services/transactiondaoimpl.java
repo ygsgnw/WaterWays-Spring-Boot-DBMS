@@ -28,8 +28,7 @@ public class transactiondaoimpl implements transactiondao{
 		// TODO Auto-generated method stub
 		return jdbctemplate.update(
 				"UPDATE transaction SET TransactionDate=?,Amount=?,UserId=? WHERE TransactionId=?",
-				new Object[] { transaction.getTransactionDate(), transaction.getAmount(),transaction.getUserId() },
-				id);
+				new Object[] { transaction.getTransactionDate(), transaction.getAmount(),transaction.getUserId(),id});
 	}
 
 	@Override
