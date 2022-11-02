@@ -45,7 +45,7 @@ public class HomeController {
 
 	@PostMapping("/signup")
 	public String signedup(@ModelAttribute("newUser") Users newUser) {
-		userdao.save(newUser);
+		userdao.insert(newUser);
 		return "redirect:/profile";
 	}
 

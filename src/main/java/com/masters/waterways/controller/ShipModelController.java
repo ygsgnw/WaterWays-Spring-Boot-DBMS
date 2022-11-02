@@ -18,7 +18,7 @@ public class ShipModelController {
 	
 	@GetMapping("/admin/shipmodel")
 	public String listshipmodel(Model model) {
-		model.addAttribute("shipmodels", modeldao.getall());
+		model.addAttribute("shipmodels", modeldao.getAll());
 		return "shipmodelList";
 	}
 	@GetMapping("/admin/shipmodel/new")
@@ -30,13 +30,13 @@ public class ShipModelController {
 	
 	@PostMapping("/admin/shipmodel")
 	public String saveshimodel(@ModelAttribute("newshipmodel") ShipModel newshipmodel) {
-		modeldao.save(newshipmodel);	
+		modeldao.insert(newshipmodel);
 		return "redirect:/admin/shipmodel";
 	}
 	
 	@GetMapping("/admin/shipmodel/edit/{id}")
 	public String editshipmodelform(@PathVariable int id, Model model) {
-		model.addAttribute("shipmodel", modeldao.getbyid(id));
+		model.addAttribute("shipmodel", modeldao.getById(id));
 		return "editshipmodelform";
 	}
 	

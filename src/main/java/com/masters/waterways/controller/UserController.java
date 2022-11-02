@@ -28,14 +28,14 @@ public class UserController {
     @GetMapping("/profile/{id}")
     public String profile(@PathVariable int id, Model model) {
 //		System.out.println("p");
-        model.addAttribute("user", userdao.getbyid(id));
+        model.addAttribute("user", userdao.getById(id));
 //		System.out.println("p");
         return "profile";
     }
 
     @GetMapping("/profile/edit/{id}")
     public String editProfile(@PathVariable int id, Model model) {
-        model.addAttribute("user", userdao.getbyid(id));
+        model.addAttribute("user", userdao.getById(id));
         return "editProfile";
     }
 
