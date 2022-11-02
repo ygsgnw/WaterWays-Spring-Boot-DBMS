@@ -138,6 +138,8 @@ create table FoodBooking (
 );
 
 
+delimiter //
+
 create trigger OnVoyageDeletion before delete
 on Voyage for each row
 begin
@@ -162,8 +164,6 @@ begin
     );
 
 end;
-
-delimiter //
 
 create trigger OnEmployeeDeletion before delete
 on Employee for each row
