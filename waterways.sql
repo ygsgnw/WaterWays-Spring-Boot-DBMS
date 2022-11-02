@@ -1,5 +1,5 @@
-create database if not exists waterways;
-
+drop database if exists waterways;
+create database waterways;
 
 USE waterways;
 
