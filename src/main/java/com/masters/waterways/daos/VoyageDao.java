@@ -6,13 +6,10 @@ import com.masters.waterways.models.*;
 
 public interface VoyageDao {
 	
-    int save(Voyage voyage);
-	
-	int update(Voyage voyage,int id);
-	
-	int delete(int id);
-	
-	List<Voyage> getall();
-	
-	Voyage getbyid(int id);
+    int insert (Voyage voyage);
+	int update (Voyage voyage,int id);
+	int delete (int id);
+	List<Voyage> getAll ();
+	Voyage getById (int id);
+	public List<Voyage> getAllActive ();
 }

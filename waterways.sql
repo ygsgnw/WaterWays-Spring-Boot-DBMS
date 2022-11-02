@@ -44,7 +44,7 @@ create table Users (
 
 create table Employee (
 	EmployeeId			int 			primary key auto_increment,
-    UserId				int, 
+    UserId				int,
     ManagerId			int,
     foreign key (UserId) references Users(UserId) on delete cascade,
     foreign key (ManagerId) references Employee(EmployeeId) on delete restrict
@@ -137,8 +137,11 @@ create table FoodBooking (
     -- Weak Entity FoodBooking
 );
 
+drop trigger if exists OnVoyageDeletion;
+drop trigger if exists OnEmployeeDeletion;
+drop trigger if exists OnFoodItemDeletion;
 
-delimiter //
+delimiter $
 
 create trigger OnVoyageDeletion before delete
 on Voyage for each row
@@ -180,7 +183,7 @@ begin
 end;
 
 
-create trigger OnDeleteFoodItem before delete
+create trigger OnFoodItemDeletion before delete
 on FoodItem for each row
 begin
     if (
@@ -200,6 +203,4 @@ begin
         group by UserId
     );
 
-end;
-
-delimiter ;
+end;$

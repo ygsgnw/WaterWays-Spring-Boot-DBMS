@@ -1,1 +1,0 @@
-insert into Employee values(432,"Demon",1,543)

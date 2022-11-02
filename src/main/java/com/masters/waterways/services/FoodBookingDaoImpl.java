@@ -17,39 +17,47 @@ public class FoodBookingDaoImpl implements FoodBookingDao {
 	JdbcTemplate jdbctemplate;
 
 	@Override
-	public int save(FoodBooking fb) {
+	public int insert (FoodBooking fb) {
 		// TODO Auto-generated method stub
 		return jdbctemplate.update(
-				"INSERT INTO foodbooking (FoodItemId,VoyageId,FoodItemCount,TransactionId) VALUES (?,?,?,?)",
-				new Object[] { fb.getFoodItemId(),fb.getVoyageId(),fb.getFoodItemId(),fb.getTransactionId()});
+				"INSERT INTO FoodBooking (FoodItemId, VoyageId, FoodItemCount, TransactionId) VALUES (?, ?, ?, ?)",
+				fb.getFoodItemId(), fb.getVoyageId(), fb.getFoodItemId(), fb.getTransactionId()
+		);
 	}
 
 	@Override
-	public int update(FoodBooking fb, int id) {
+	public int update (FoodBooking fb, int id) {
 		// TODO Auto-generated method stu
 		return jdbctemplate.update(
-				"UPDATE foodbooking SET FoodItemId=?,VoyageId=?,FoodItemCount=? WHERE TransactionId=?",
-				new Object[] {fb.getFoodItemId(),fb.getVoyageId(),fb.getFoodItemCount(),id });
+				"UPDATE FoodBooking SET FoodItemId = ?, VoyageId = ?, FoodItemCount = ? WHERE TransactionId = ?",
+				fb.getFoodItemId(), fb.getVoyageId(), fb.getFoodItemCount(), id
+		);
 	}
 
 	@Override
-	public int delete(int id) {
+	public int delete (int id) {
 		// TODO Auto-generated method stub
-		return jdbctemplate.update("DELETE FROM foodbooking WHERE TransactionId=?", id);
+		return jdbctemplate.update(
+				"DELETE FROM FoodBooking WHERE TransactionId = ?",
+				id
+		);
 	}
 
 	@Override
-	public List<FoodBooking> getall() {
+	public List<FoodBooking> getAll () {
 		// TODO Auto-generated method stub
-		return jdbctemplate.query("SELECT * FROM foodbooking",
-				new BeanPropertyRowMapper<FoodBooking>(FoodBooking.class));
+		return jdbctemplate.query(
+				"SELECT * FROM FoodBooking",
+				new BeanPropertyRowMapper<FoodBooking>(FoodBooking.class)
+		);
 	}
 
 	@Override
-	public FoodBooking getbyid(int id) {
+	public FoodBooking getById (int id) {
 		// TODO Auto-generated method stub
-		return jdbctemplate.queryForObject("SELECT * FROM foodbooking WHERE TransactionId=?",
-				new BeanPropertyRowMapper<FoodBooking>(FoodBooking.class), id);
+		return jdbctemplate.queryForObject(
+				"SELECT * FROM FoodBooking WHERE TransactionId = ?",
+				new BeanPropertyRowMapper<FoodBooking>(FoodBooking.class), id
+		);
 	}
-
 }

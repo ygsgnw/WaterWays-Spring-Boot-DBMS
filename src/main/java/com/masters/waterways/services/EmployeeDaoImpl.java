@@ -15,33 +15,43 @@ public class EmployeeDaoImpl implements EmployeeDao {
 	JdbcTemplate jdbctemplate;
 
 	@Override
-	public int save(Employee employee) {
+	public int insert (Employee employee) {
 		return jdbctemplate.update(
-				"INSERT INTO employee (UserId,ManagerId) VALUES (?,?)",
-				new Object[] { employee.getUserId(), employee.getManagerId()});
+				"INSERT INTO Employee (UserId, ManagerId) VALUES (?, ?)",
+				employee.getUserId(), employee.getManagerId()
+		);
 	}
 
 	@Override
-	public int update(Employee employee, long id) {
+	public int update (Employee employee, int id) {
 		return jdbctemplate.update(
-				"UPDATE employee SET UserId=?,ManagerId=? WHERE EmployeeId=?",
-				new Object[] { employee.getUserId(), employee.getManagerId(),id });
+				"UPDATE Employee SET UserId=?, ManagerId=? WHERE EmployeeId=?",
+				employee.getUserId(), employee.getManagerId(), id
+		);
 	}
 
 	@Override
-	public int delete(long id) {
-		return jdbctemplate.update("DELETE FROM employee WHERE EmployeeId=?",id);
+	public int delete (int id) {
+		return jdbctemplate.update(
+				"DELETE FROM Employee WHERE EmployeeId = ?",
+				id
+		);
 	}
 
 	@Override
-	public List<Employee> getall() {
-		return jdbctemplate.query("SELECT * FROM employee", new BeanPropertyRowMapper<Employee>(Employee.class));
+	public List<Employee> getAll () {
+		return jdbctemplate.query(
+				"SELECT * FROM Employee",
+				new BeanPropertyRowMapper<Employee>(Employee.class)
+		);
 	}
 
 	@Override
-	public Employee getbyid(long id) {
-		return jdbctemplate.queryForObject("SELECT * FROM employee WHERE EmployeeId=?",
-				new BeanPropertyRowMapper<Employee>(Employee.class), id);
+	public Employee getById (int id) {
+		return jdbctemplate.queryForObject(
+				"SELECT * FROM Employee WHERE EmployeeId = ?",
+				new BeanPropertyRowMapper<Employee>(Employee.class), id
+		);
 	}
 
 }

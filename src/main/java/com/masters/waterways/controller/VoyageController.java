@@ -18,7 +18,7 @@ public class VoyageController {
 	
 	@GetMapping("/admin/voyage")
 	public String listvoyages(Model model) {
-		model.addAttribute("voyages", voydao.getall());
+		model.addAttribute("voyages", voydao.getAll());
 		return "voyageList";
 	}
 	@GetMapping("/admin/voyage/new")
@@ -31,13 +31,13 @@ public class VoyageController {
 	
 	@PostMapping("/admin/voyage/new")
 	public String savevoyage(@ModelAttribute("newvoyage") Voyage newvoyage) {
-		voydao.save(newvoyage);	
+		voydao.insert(newvoyage);
 		return "redirect:/admin/voyage";
 	}
 	
 	@GetMapping("/admin/voyage/edit/{id}")
 	public String editcrewform(@PathVariable int id, Model model) {
-		model.addAttribute("voyage", voydao.getbyid(id));
+		model.addAttribute("voyage", voydao.getById(id));
 		return "editVoyageForm";
 	}
 	

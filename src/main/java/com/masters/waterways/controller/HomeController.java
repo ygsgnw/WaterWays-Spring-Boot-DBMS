@@ -89,7 +89,7 @@ public class HomeController {
 		System.out.println(depart_after_datetime);
 		System.out.println(arrive_before_datetime);
 
-		List<Voyage> voyages = voyagedao.getall();
+		List<Voyage> voyages = voyagedao.getAll();
 
 		if (from_harbour_id != null) {
 			List<Voyage> new_voyages = new ArrayList<>();
