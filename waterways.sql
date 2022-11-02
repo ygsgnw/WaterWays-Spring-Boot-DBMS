@@ -63,6 +63,7 @@ create table Harbor (
 create table Voyage (
                         VoyageId 			int 			primary key auto_increment,
                         ShipSerialId 		int,
+                        Fare				int,
                         DepartureHarborId 	int,
                         ArrivalHarborId 	int,
                         DepartureTime 		datetime,
@@ -105,14 +106,6 @@ create table RoomBooking (
                              foreign key (TransactionId) references Transaction(TransactionId) on delete restrict
     -- Weak Entity RoomBooking
 );
-
-
-create table RoomFare (
-                          VoyageId            int,
-                          Fare                int,
-                          foreign key (VoyageId) references Voyage(VoyageId) on delete cascade
-);
-
 
 create table FoodItem (
                           FoodItemId			int,

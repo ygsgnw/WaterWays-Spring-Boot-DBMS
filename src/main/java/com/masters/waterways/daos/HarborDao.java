@@ -5,13 +5,9 @@ import java.util.List;
 import com.masters.waterways.models.Harbor;
 
 public interface HarborDao {
-	  int save(Harbor harbor);
-		
-		int update(Harbor harbor,int id);
-		
-		int delete(int id);
-		
-		List<Harbor> getall();
-		
-		Harbor getbyid(int id);
+	int insert (Harbor harbor);
+	int update (Harbor harbor, int id);
+	int delete (int id);
+	List<Harbor> getAll ();
+	Harbor getById (int id);
 }

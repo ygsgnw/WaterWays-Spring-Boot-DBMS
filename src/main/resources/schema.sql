@@ -63,6 +63,7 @@ create table Harbor (
 create table Voyage (
                         VoyageId 			int 			primary key auto_increment,
                         ShipSerialId 		int,
+                        Fare				int,
                         DepartureHarborId 	int,
                         ArrivalHarborId 	int,
                         DepartureTime 		datetime,
@@ -106,14 +107,6 @@ create table RoomBooking (
     -- Weak Entity RoomBooking
 );
 
-
-create table RoomFare (
-                          VoyageId            int,
-                          Fare                int,
-                          foreign key (VoyageId) references Voyage(VoyageId) on delete cascade
-);
-
-
 create table FoodItem (
                           FoodItemId			int,
                           VoyageId			int,
@@ -136,7 +129,3 @@ create table FoodBooking (
                              primary key (FoodItemId, VoyageId, TransactionId)
     -- Weak Entity FoodBooking
 );
-
-drop trigger if exists VoyageDeleteTrigger;
-drop trigger if exists EmployeeDeleteTrigger;
-drop trigger if exists FoodItemDeleteTrigger;
