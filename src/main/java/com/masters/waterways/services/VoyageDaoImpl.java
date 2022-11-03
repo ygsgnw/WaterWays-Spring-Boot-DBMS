@@ -72,9 +72,14 @@ public class VoyageDaoImpl implements VoyageDao {
 	@Override
 	public List<Voyage> getVoyagesByUserId(int userId) {
 		return jdbctemplate.query(
-				"SELECT * FROM Voyage WHERE VoyageId IN (SELECT VoyageId FROM RoomBooking, Transaction WHERE RoomBooking.TransactionId = Transaction.TransactionId AND Transaction.UserId = ?)",
+				"SELECT * FROM Voyage WHERE VoyageId IN (" +
+						"SELECT VoyageId FROM RoomBooking, Transaction " +
+						"WHERE RoomBooking.TransactionId = Transaction.TransactionId " +
+						"AND Transaction.UserId = ?)",
 				new BeanPropertyRowMapper<Voyage>(Voyage.class), userId
 		);
 	}
+
+
 
 }

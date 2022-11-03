@@ -1,7 +1,9 @@
 package com.masters.waterways.controller;
 
+import com.masters.waterways.daos.HarborDao;
 import com.masters.waterways.daos.UsersDao;
 import com.masters.waterways.daos.VoyageDao;
+import com.masters.waterways.models.Harbor;
 import com.masters.waterways.models.Voyage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -11,18 +13,24 @@ import org.springframework.web.bind.annotation.*;
 
 import com.masters.waterways.models.Users;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Dictionary;
+import java.util.Hashtable;
 import java.util.List;
 
 @Controller
 public class HomeController {
 
 	@Autowired
-	private UsersDao usersdao;
+	private UsersDao usersDao;
 
 	@Autowired
-	private VoyageDao voyagedao;
+	private VoyageDao voyageDao;
+
+	@Autowired
+	private HarborDao harborDao;
 	
 	@GetMapping("/")
 	public String home(){
@@ -42,7 +50,7 @@ public class HomeController {
 
 	@PostMapping("/signup")
 	public String signedup(@ModelAttribute("newUser") Users newUser) {
-		usersdao.insert(newUser);
+		usersDao.insert(newUser);
 		return "redirect:/profile";
 	}
 
@@ -60,7 +68,7 @@ public class HomeController {
 		System.out.println(depart_after_datetime);
 		System.out.println(arrive_before_datetime);
 
-		List<Voyage> voyages = voyagedao.getAll();
+		List<Voyage> voyages = voyageDao.getAll();
 
 		if (from_harbour_id != null) {
 			List<Voyage> new_voyages = new ArrayList<>();
@@ -93,6 +101,32 @@ public class HomeController {
 					new_voyages.add(v);
 			voyages = new_voyages;
 		}
+
+		List<Harbor> harbors = harborDao.getAll();
+
+		Dictionary<Integer, String> getHarbor = new Hashtable<>();
+
+		for (Harbor h: harbors)
+			getHarbor.put(h.getHarborId(), h.getLocation());
+
+		class VoyageNeat {
+			int VoyageId, Fare;
+			String DepartureHarbor, ArrivalHarbour;
+			LocalDateTime DepartureTime, ArrivalTime;
+		}
+
+		List<VoyageNeat> voyagesNeat = new ArrayList<>();
+
+		for (Voyage v: voyages) {
+			VoyageNeat nv = new VoyageNeat();
+			nv.VoyageId = v.getVoyageId();
+			nv.Fare = v.getFare();
+			nv.DepartureHarbor = getHarbor.get(v.getDepartureHarborId());
+			nv.ArrivalHarbour = getHarbor.get(v.getArrivalHarborId());
+			nv.DepartureTime = v.getDepartureTime();
+			nv.ArrivalTime = v.getArrivalTime();
+			voyagesNeat.add(nv);
+		}
 		
 		model.addAttribute("new_voyage", voyages);
 
@@ -101,7 +135,7 @@ public class HomeController {
 
 	@GetMapping("/voyages/{id}")
 	public String voyagesDetails(@PathVariable int id, Model model) {
-		model.addAttribute("voyage", voyagedao.getById(id));
+		model.addAttribute("voyage", voyageDao.getById(id));
 		return "VoyageDetailsHome";
 	}
 
