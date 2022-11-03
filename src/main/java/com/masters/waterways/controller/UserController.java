@@ -41,11 +41,6 @@ public class UserController {
     public String userhome(){
         return "UserHome";
     }
-    
-    @GetMapping("/logout")
-    public String logout(){
-        return "redirect:/";
-    }
 
     @GetMapping("/profile")
     public String profile(Model model, HttpSession session) {
@@ -67,20 +62,16 @@ public class UserController {
 
     @GetMapping("/user/voyages")
     public String voyagesListUser (Model model,
-                               @RequestParam(name="fromid", required = false) Integer from_harbour_id,
-                               @RequestParam(name="toid", required = false) Integer to_harbour_id,
-                               @RequestParam(name="fromdate", required = false)@DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime depart_after_datetime,
-                               @RequestParam(name="todate", required = false)@DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime arrive_before_datetime
+        @RequestParam(name="fromid", required = false) Integer from_harbour_id,
+        @RequestParam(name="toid", required = false) Integer to_harbour_id,
+        @RequestParam(name="fromdate", required = false)@DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime depart_after_datetime,
+        @RequestParam(name="todate", required = false)@DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime arrive_before_datetime
     ) {
 
-        System.out.println("hello");
         System.out.println(from_harbour_id);
         System.out.println(to_harbour_id);
         System.out.println(depart_after_datetime);
         System.out.println(arrive_before_datetime);
-
-
-
 
         List<Voyage> voyages = voyageDao.getAll();
 

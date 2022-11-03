@@ -9,4 +9,5 @@ public interface EmployeeDao {
 	int delete (int id);
 	List<Employee> getAll ();
 	Employee getById (int id);
+	Employee getByUserId (int id);
 }

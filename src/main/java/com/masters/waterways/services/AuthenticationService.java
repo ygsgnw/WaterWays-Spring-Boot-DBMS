@@ -1,5 +1,6 @@
 package com.masters.waterways.services;
 
+import com.masters.waterways.daos.EmployeeDao;
 import com.masters.waterways.daos.UsersDao;
 import com.masters.waterways.models.Users;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,10 @@ import javax.servlet.http.HttpSession;
 public class AuthenticationService {
     @Autowired
     private UsersDao usersDao;
+
+    @Autowired
+    private EmployeeDao employeeDao;
+
     private String SESSION_AUTH_KEY;
 
     public Boolean checkCredentials(int id, String password) {
@@ -39,9 +44,10 @@ public class AuthenticationService {
     }
 
     public Boolean isAdmin(HttpSession session){
-//        try{
-//
-//        }
-        return false;
+        try {
+            return (employeeDao.getByUserId(getCurrentUser(session)) != null);
+        } catch (Exception e) {
+            return false;
+        }
     }
 }

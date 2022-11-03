@@ -54,4 +54,11 @@ public class EmployeeDaoImpl implements EmployeeDao {
 		);
 	}
 
+	@Override
+	public Employee getByUserId (int id) {
+		return jdbctemplate.queryForObject(
+				"SELECT * FROM Employee WHERE UserId = ?",
+				new BeanPropertyRowMapper<Employee>(Employee.class), id
+		);
+	}
 }
