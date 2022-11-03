@@ -1,6 +1,6 @@
 package com.masters.waterways.controller;
 
-import com.masters.waterways.daos.UserDao;
+import com.masters.waterways.daos.UsersDao;
 import com.masters.waterways.daos.VoyageDao;
 import com.masters.waterways.models.Voyage;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,18 +11,15 @@ import org.springframework.web.bind.annotation.*;
 
 import com.masters.waterways.models.Users;
 
-import java.sql.Date;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
-import java.util.Set;
 
 @Controller
 public class HomeController {
 
 	@Autowired
-	private UserDao userdao;
+	private UsersDao usersdao;
 
 	@Autowired
 	private VoyageDao voyagedao;
@@ -45,7 +42,7 @@ public class HomeController {
 
 	@PostMapping("/signup")
 	public String signedup(@ModelAttribute("newUser") Users newUser) {
-		userdao.insert(newUser);
+		usersdao.insert(newUser);
 		return "redirect:/profile";
 	}
 
@@ -104,7 +101,7 @@ public class HomeController {
 
 	@GetMapping("/voyages/{id}")
 	public String voyagesDetails(@PathVariable int id, Model model) {
-		model.addAttribute("voyage", voyagedao.getbyid(id));
+		model.addAttribute("voyage", voyagedao.getById(id));
 		return "VoyageDetailsHome";
 	}
 

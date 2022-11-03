@@ -1,9 +1,6 @@
 package com.masters.waterways.controller;
 
-import com.masters.waterways.daos.FoodItemDao;
-import com.masters.waterways.daos.RoomBookingDao;
-import com.masters.waterways.daos.UserDao;
-import com.masters.waterways.daos.VoyageDao;
+import com.masters.waterways.daos.*;
 import com.masters.waterways.models.Users;
 import com.masters.waterways.models.Voyage;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +18,7 @@ import java.util.List;
 public class UserController {
 
     @Autowired
-    private UserDao userDao;
+    private UsersDao usersDao;
 
     @Autowired
      private VoyageDao voyageDao;
@@ -49,19 +46,19 @@ public class UserController {
 
     @GetMapping("/profile")
     public String profile(Model model) {
-        model.addAttribute("user", userDao.getById(userId));
+        model.addAttribute("user", usersDao.getById(userId));
         return "Profile";
     }
 
     @GetMapping("/profile/edit")
     public String editProfile(Model model) {
-        model.addAttribute("user", userDao.getById(userId));
+        model.addAttribute("user", usersDao.getById(userId));
         return "EditProfile";
     }
 
     @PostMapping("/profile/edit")
     public String updateProfile(@ModelAttribute("user") Users user, Model model) {
-        userDao.update(user,userId);
+        usersDao.update(user,userId);
         return "redirect:/profile";
     }
 
