@@ -29,18 +29,18 @@ public class HomeController {
 	
 	@GetMapping("/")
 	public String home(){
-		return "home";
+		return "Home";
 	}
 
-	@GetMapping("/login")
-	public String login() {
-		return "login";
-	}
+//	@GetMapping("/login")
+//	public String login() {
+//		return "Login";
+//	}
 
 	@GetMapping("/signup")
 	public String signup(Model model) {
 		model.addAttribute("newUser", new Users());
-		return "signup";
+		return "Signup";
 	}
 
 	@PostMapping("/signup")
@@ -48,32 +48,6 @@ public class HomeController {
 		userdao.insert(newUser);
 		return "redirect:/profile";
 	}
-
-
-//	@GetMapping("/profile/{id}")
-//	public String profile(@PathVariable int id, Model model) {
-////		System.out.println("p");
-//		model.addAttribute("user", userdao.getbyid(id));
-////		System.out.println("p");
-//		return "profile";
-//	}
-//
-//
-//	@GetMapping("/profile/edit/{id}")
-//	public String editProfile(@PathVariable int id, Model model) {
-//		model.addAttribute("user", userdao.getbyid(id));
-//		return "editProfile";
-//	}
-//
-//
-//	@PostMapping("/profile/edit/{id}")
-//	public String updateProfile(@PathVariable int id,
-//			@ModelAttribute("user") Users user,
-//			Model model) {
-//		userdao.update(user,id);
-//		return "redirect:/profile/{id}";
-//	}
-
 
 	@GetMapping("/voyages")
 	public String voyagesList (Model model,
@@ -125,8 +99,19 @@ public class HomeController {
 		
 		model.addAttribute("new_voyage", voyages);
 
-		return "voyageList";
+		return "VoyageListHome";
 	}
 
-	
+	@GetMapping("/voyages/{id}")
+	public String voyagesDetails(@PathVariable int id, Model model) {
+		model.addAttribute("voyage", voyagedao.getbyid(id));
+		return "VoyageDetailsHome";
+	}
+
+	@GetMapping("/booking")
+	public String booking(){
+		return "redirect:/login";
+	}
+
+
 }

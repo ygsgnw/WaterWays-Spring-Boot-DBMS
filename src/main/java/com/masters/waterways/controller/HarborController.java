@@ -19,13 +19,13 @@ public class HarborController {
 	@GetMapping("/admin/harbor")
 	public String listharbors(Model model) {
 		model.addAttribute("harbors", hardao.getAll());
-		return "harborList";
+		return "HarborList";
 	}
 	@GetMapping("/admin/harbor/new")
 	public String createharborform(Model model) {
 		Harbor newharbor =new Harbor();
 		model.addAttribute("newharbor", newharbor);
-		return "createharborform";
+		return "createHarborForm";
 	}
 	
 	@PostMapping("/admin/harbor/new")
@@ -37,7 +37,7 @@ public class HarborController {
 	@GetMapping("/admin/harbor/edit/{id}")
 	public String editharborform(@PathVariable int id, Model model) {
 		model.addAttribute("Harbor", hardao.getById(id));
-		return "editharborform";
+		return "editHarborForm";
 	}
 	
 	@PostMapping("/admin/harbor/edit/{id}")

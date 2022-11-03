@@ -69,4 +69,9 @@ public class VoyageDaoImpl implements VoyageDao {
 		);
 	}
 
+	@Override
+	public List<Voyage> getVoyagesByUserId(int userId) {
+
+	}
+
 }
