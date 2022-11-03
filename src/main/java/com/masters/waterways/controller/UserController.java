@@ -3,12 +3,14 @@ package com.masters.waterways.controller;
 import com.masters.waterways.daos.*;
 import com.masters.waterways.models.Users;
 import com.masters.waterways.models.Voyage;
+import com.masters.waterways.services.AuthenticationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,8 +33,9 @@ public class UserController {
     
     @Autowired
     private FoodBookingDao foodBookingDao;
-    
-    int userId = session_key;
+
+    @Autowired
+    AuthenticationService authenticationService;
     
     @GetMapping("/user")
     public String userhome(){
@@ -45,20 +48,20 @@ public class UserController {
     }
 
     @GetMapping("/profile")
-    public String profile(Model model) {
-        model.addAttribute("user", usersDao.getById(userId));
+    public String profile(Model model, HttpSession session) {
+        model.addAttribute("user", usersDao.getById(authenticationService.getCurrentUser(session)));
         return "Profile";
     }
 
     @GetMapping("/profile/edit")
-    public String editProfile(Model model) {
-        model.addAttribute("user", usersDao.getById(userId));
+    public String editProfile(Model model, HttpSession session) {
+        model.addAttribute("user", usersDao.getById(authenticationService.getCurrentUser(session)));
         return "EditProfile";
     }
 
     @PostMapping("/profile/edit")
-    public String updateProfile(@ModelAttribute("user") Users user, Model model) {
-        usersDao.update(user,userId);
+    public String updateProfile(@ModelAttribute("user") Users user, Model model, HttpSession session) {
+        usersDao.update(user, authenticationService.getCurrentUser(session));
         return "redirect:/profile";
     }
 
@@ -122,26 +125,26 @@ public class UserController {
     }
 
     @GetMapping("/user/voyages/{userId}")
-    public String voyagesDetails(@PathVariable("userId") int voyageId, Model model) {
+    public String voyagesDetails(@PathVariable("userId") int voyageId, Model model, HttpSession session) {
 
-        model.addAttribute("voyage", voyageDao.getById(userId));
-        model.addAttribute("rooms", roomBookingDao.getRoomsByUserIdAndVoyageId(userId, voyageId));
+        model.addAttribute("voyage", voyageDao.getById(authenticationService.getCurrentUser(session)));
+        model.addAttribute("rooms", roomBookingDao.getRoomsByUserIdAndVoyageId(authenticationService.getCurrentUser(session), voyageId));
         model.addAttribute("foodItems", foodItemDao.getAll());
 
         return "VoyageDetailsUser";
     }
 
     @GetMapping("/user/booking/{userId}")
-    public String booking(@PathVariable("userId") int voyageId){
+    public String booking(@PathVariable("userId") int voyageId, HttpSession session){
 //        int userId=session_key;
-        roomBookingDao.bookRoomByVoyageIdAndUserId(userId, voyageId);
+        roomBookingDao.bookRoomByVoyageIdAndUserId(authenticationService.getCurrentUser(session), voyageId);
         return "redirect:/user/voyages/{userId}";
     }
     
     @GetMapping("/user/mybookings")
-    public String mybookings(Model model){
+    public String mybookings(Model model, HttpSession session){
 //        int userId=session_key;
-        model.addAttribute("mybookings",voyageDao.getVoyagesByUserId(userId));
+        model.addAttribute("mybookings",voyageDao.getVoyagesByUserId(authenticationService.getCurrentUser(session)));
         return "MyVoyages"; // will direct to VoyageDetailsUser
     }
     
@@ -149,9 +152,10 @@ public class UserController {
     public String voyagesListUser (@RequestParam(name="voyageId", required = false) int voyageId,
                                    @RequestParam(name="roomId", required = false) int roomId,
                                    @RequestParam(name="foodItemId", required = false) int foodItemId,
-                                   @RequestParam(name="foodCount", required = false) int foodCount
+                                   @RequestParam(name="foodCount", required = false) int foodCount,
+                                   HttpSession session
     ) {
-        foodBookingDao.bookFood(userId, voyageId, roomId, foodItemId, foodCount);
+        foodBookingDao.bookFood(authenticationService.getCurrentUser(session), voyageId, roomId, foodItemId, foodCount);
         return "redirect:/user/voyages/{voyageId}";
     }
     

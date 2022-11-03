@@ -25,10 +25,10 @@ public class AuthenticationController {
     public String login(Model model, HttpSession session) {
         if (authenticationService.isAuthenticated(session)) {
         	System.out.println(1);
-            if(user){
-                return "redirect:/user";
+            if(authenticationService.isAdmin(session)){
+                return "redirect:/admin";
             }
-            return "redirect:/admin";
+            return "redirect:/user";
 
         }
 
@@ -39,10 +39,10 @@ public class AuthenticationController {
     @PostMapping("/login")
     public String postLogin(@ModelAttribute Users credentials, Model model, HttpSession session, RedirectAttributes redirectAttributes) {
         if (authenticationService.isAuthenticated(session)) {
-            if(user){
-                return "redirect:/user";
+            if(authenticationService.isAdmin(session)){
+                return "redirect:/admin";
             }
-            return "redirect:/admin";
+            return "redirect:/user";
 
         }
 
@@ -54,10 +54,10 @@ public class AuthenticationController {
         try {
             if (authenticationService.checkCredentials(id, password)) {
                 authenticationService.loginUser(session, id);
-                if(user){
-                    return "redirect:/user";
+                if(authenticationService.isAdmin(session)){
+                    return "redirect:/admin";
                 }
-                return "redirect:/admin";
+                return "redirect:/user";
             }
             errorMessage = "Incorrect password.";
         } catch (Exception e) {

@@ -11,7 +11,7 @@ import javax.servlet.http.HttpSession;
 public class AuthenticationService {
     @Autowired
     private UsersDao usersDao;
-    private String SESSION_AUTH_KEY = "AUTH_USER";
+    private String SESSION_AUTH_KEY;
 
     public Boolean checkCredentials(int id, String password) {
         Users user = usersDao.getById(id);
@@ -42,5 +42,6 @@ public class AuthenticationService {
 //        try{
 //
 //        }
+        return false;
     }
 }
