@@ -83,9 +83,8 @@ public class RoomBookingDaoImpl implements RoomBookingDao {
 	@Override
 	public void bookRoomByVoyageIdAndUserId (int voyageId, int userId) {
 
-		jdbctemplate.update(
-				"INSERT INTO Transaction (TransactionDate, Amount, UserId) VALUES (NOW(), (SELECT Fare FROM Voyage WHERE VoyageId = ?), ?)",
-				voyageId, userId
+		jdbctemplate.execute(
+				"START TRANSACTION "
 		);
 
 	}

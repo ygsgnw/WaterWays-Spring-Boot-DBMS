@@ -19,8 +19,8 @@ public class FoodItemDaoImpl implements FoodItemDao {
 	@Override
 	public int insert (FoodItem fi) {
 		return jdbctemplate.update(
-				"INSERT INTO FoodItem (VoyageId, FoodName, FoodCost, FoodDescription) VALUES (?, ?, ?, ?)",
-				fi.getVoyageId(), fi.getFoodName(), fi.getFoodCost(), fi.getFoodDescription()
+				"INSERT INTO FoodItem (VoyageId, FoodItemId, FoodName, FoodCost, FoodDescription) VALUES (?, ?, ?, ?, ?)",
+				fi.getVoyageId(), fi.getFoodItemId(), fi.getFoodName(), fi.getFoodCost(), fi.getFoodDescription()
 		);
 	}
 

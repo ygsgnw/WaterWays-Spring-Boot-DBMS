@@ -10,6 +10,5 @@ public interface FoodBookingDao {
 	int delete (int id);
 	List<FoodBooking> getAll ();
 	FoodBooking getById (int id);
-
     void bookFood(int userId, int voyageId, int roomId, int foodItemId, int foodCount);
 }
