@@ -11,30 +11,15 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Voyage {
+
 	private int VoyageId;
 	private int ShipSerialId;
+	private int Fare;
 	private int ArrivalHarborId;
 	private int DepartureHarborId;
 	private LocalDateTime ArrivalTime;
 	private LocalDateTime DepartureTime;
-	private int VoyageStatus;
-
-
-	public LocalDateTime getArrivalTime() {
-		return ArrivalTime;
-	}
-
-	public void setArrivalTime(LocalDateTime arrivalTime) {
-		ArrivalTime = arrivalTime;
-	}
-
-	public LocalDateTime getDepartureTime() {
-		return DepartureTime;
-	}
-
-	public void setDepartureTime(LocalDateTime departureTime) {
-		DepartureTime = departureTime;
-	}
+	private int VoyageStatusCode;
 
 	public int getVoyageId() {
 		return VoyageId;
@@ -50,6 +35,14 @@ public class Voyage {
 
 	public void setShipSerialId(int shipSerialId) {
 		ShipSerialId = shipSerialId;
+	}
+
+	public int getFare() {
+		return Fare;
+	}
+
+	public void setFare(int fare) {
+		Fare = fare;
 	}
 
 	public int getArrivalHarborId() {
@@ -68,13 +61,27 @@ public class Voyage {
 		DepartureHarborId = departureHarborId;
 	}
 
-	
-
-	public int getVoyageStatus() {
-		return VoyageStatus;
+	public LocalDateTime getArrivalTime() {
+		return ArrivalTime;
 	}
 
-	public void setVoyageStatus(int voyageStatus) {
-		VoyageStatus = voyageStatus;
+	public void setArrivalTime(LocalDateTime arrivalTime) {
+		ArrivalTime = arrivalTime;
+	}
+
+	public LocalDateTime getDepartureTime() {
+		return DepartureTime;
+	}
+
+	public void setDepartureTime(LocalDateTime departureTime) {
+		DepartureTime = departureTime;
+	}
+
+	public int getVoyageStatusCode() {
+		return VoyageStatusCode;
+	}
+
+	public void setVoyageStatusCode(int voyageStatus) {
+		VoyageStatusCode = voyageStatus;
 	}
 }

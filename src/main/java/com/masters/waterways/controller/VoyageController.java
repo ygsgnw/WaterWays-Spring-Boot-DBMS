@@ -14,11 +14,11 @@ import com.masters.waterways.models.Voyage;
 public class VoyageController {
 	@Autowired
 	
-	private VoyageDao voydao;
+	private VoyageDao voyagedao;
 	
 	@GetMapping("/admin/voyage")
 	public String listvoyages(Model model) {
-		model.addAttribute("voyages", voydao.getall());
+		model.addAttribute("voyages", voyagedao.getAll());
 		return "voyageList";
 	}
 	@GetMapping("/admin/voyage/new")
@@ -31,13 +31,13 @@ public class VoyageController {
 	
 	@PostMapping("/admin/voyage/new")
 	public String savevoyage(@ModelAttribute("newvoyage") Voyage newvoyage) {
-		voydao.save(newvoyage);	
+		voyagedao.insert(newvoyage);
 		return "redirect:/admin/voyage";
 	}
 	
 	@GetMapping("/admin/voyage/edit/{id}")
 	public String editcrewform(@PathVariable int id, Model model) {
-		model.addAttribute("voyage", voydao.getbyid(id));
+		model.addAttribute("voyage", voyagedao.getById(id));
 		return "editVoyageForm";
 	}
 	
@@ -45,13 +45,13 @@ public class VoyageController {
 	public String updateStudent(@PathVariable int id,
 			@ModelAttribute("voyage") Voyage voyage,
 			Model model) {
-		voydao.update(voyage, id);
+		voyagedao.update(voyage, id);
 		return "redirect:/admin/voyage";
 	}
 	
 	@GetMapping("/admin/voyage/delete/{id}")
 	public String deletevoyage(@PathVariable int id) {
-		voydao.delete(id);
+		voyagedao.delete(id);
 		return "redirect:/admin/voyage";
 	}
 	

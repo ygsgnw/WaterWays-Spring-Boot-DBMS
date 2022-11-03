@@ -6,14 +6,9 @@ import com.masters.waterways.models.Crew;
 
 
 public interface CrewDao {
-
-	int save(Crew crew);
-	
-	int update(Crew crew,int id);
-	
-	int delete(int id);
-	
-	List<Crew> getall();
-	
-	Crew getbyid(int id);
+	int insert (Crew crew);
+	int update (Crew crew, int id);
+	int delete (int id);
+	List<Crew> getAll ();
+	Crew getById (int id);
 }

@@ -45,7 +45,7 @@ public class HomeController {
 
 	@PostMapping("/signup")
 	public String signedup(@ModelAttribute("newUser") Users newUser) {
-		userdao.save(newUser);
+		userdao.insert(newUser);
 		return "redirect:/profile";
 	}
 
@@ -63,7 +63,7 @@ public class HomeController {
 		System.out.println(depart_after_datetime);
 		System.out.println(arrive_before_datetime);
 
-		List<Voyage> voyages = voyagedao.getall();
+		List<Voyage> voyages = voyagedao.getAll();
 
 		if (from_harbour_id != null) {
 			List<Voyage> new_voyages = new ArrayList<>();

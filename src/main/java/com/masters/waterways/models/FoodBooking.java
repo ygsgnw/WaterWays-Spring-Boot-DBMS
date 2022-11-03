@@ -10,10 +10,19 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class FoodBooking {
 
+	private int TransactionId;
 	private int FoodItemId;
 	private int VoyageId;
+	private int RoomId;
 	private int FoodItemCount;
-	private int TransactionId;
+
+	public int getTransactionId() {
+		return TransactionId;
+	}
+
+	public void setTransactionId(int transactionId) {
+		TransactionId = transactionId;
+	}
 
 	public int getFoodItemId() {
 		return FoodItemId;
@@ -31,19 +40,19 @@ public class FoodBooking {
 		VoyageId = voyageId;
 	}
 
+	public int getRoomId() {
+		return RoomId;
+	}
+
+	public void setRoomId(int roomId) {
+		RoomId = roomId;
+	}
+
 	public int getFoodItemCount() {
 		return FoodItemCount;
 	}
 
 	public void setFoodItemCount(int foodItemCount) {
 		FoodItemCount = foodItemCount;
-	}
-
-	public int getTransactionId() {
-		return TransactionId;
-	}
-
-	public void setTransactionId(int transactionId) {
-		TransactionId = transactionId;
 	}
 }

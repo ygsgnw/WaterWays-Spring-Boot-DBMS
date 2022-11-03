@@ -5,14 +5,9 @@ import com.masters.waterways.models.*;
 
 
 public interface TransactionDao {
-	
-    int save(Transaction transaction);
-	
-	int update(Transaction transaction,int id);
-	
-	int delete(int id);
-	
-	List<Transaction> getall();
-	
-	Transaction getbyid(int id);
+    int insert (Transaction transaction);
+	int update (Transaction transaction, int id);
+	int delete (int id);
+	List<Transaction> getAll ();
+	Transaction getById (int id);
 }

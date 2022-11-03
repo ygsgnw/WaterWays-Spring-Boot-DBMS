@@ -18,7 +18,7 @@ public class CrewController {
 	
 	@GetMapping("/admin/crew")
 	public String listcrews(Model model) {
-		model.addAttribute("crews", crewdao.getall());
+		model.addAttribute("crews", crewdao.getAll());
 		return "crewList";
 	}
 	@GetMapping("/admin/crew/new")
@@ -30,13 +30,13 @@ public class CrewController {
 	
 	@PostMapping("/admin/crew/new")
 	public String savecrew(@ModelAttribute("newcrew") Crew newcrew) {
-		crewdao.save(newcrew);	
+		crewdao.insert(newcrew);
 		return "redirect:/admin/crew";
 	}
 	
 	@GetMapping("/admin/crew/edit/{id}")
 	public String editcrewform(@PathVariable int id, Model model) {
-		model.addAttribute("crew", crewdao.getbyid(id));
+		model.addAttribute("crew", crewdao.getById(id));
 		return "editcrewform";
 	}
 	

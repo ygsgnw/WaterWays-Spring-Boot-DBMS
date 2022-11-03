@@ -17,38 +17,46 @@ public class HarborDaoImpl implements HarborDao {
 	JdbcTemplate jdbctemplate;
 	
 	@Override
-	public int save(Harbor harbor) {
+	public int insert (Harbor harbor) {
 		// TODO Auto-generated method stub
 		return jdbctemplate.update(
-				"INSERT INTO harbor (Location,ConstructionDate,ManagerId) VALUES (?,?,?)",
-				new Object[] { harbor.getLocation(),harbor.getConstructionDate(),harbor.getManagerId() });
+				"INSERT INTO Harbor (Location, ConstructionDate, ManagerId) VALUES (?, ?, ?)",
+				harbor.getLocation(), harbor.getConstructionDate(), harbor.getManagerId()
+		);
 	}
 
 	@Override
-	public int update(Harbor harbor, int id) {
+	public int update (Harbor harbor, int id) {
 		// TODO Auto-generated method stub
 		return jdbctemplate.update(
-				"UPDATE harbor SET Location=?,ManagerId=?,ConstructionDate=? WHERE HarborId=?",
-				new Object[] {harbor.getLocation(),harbor.getManagerId(),harbor.getConstructionDate(),id });
+				"UPDATE Harbor SET Location=?,ManagerId=?,ConstructionDate=? WHERE HarborId=?",
+				harbor.getLocation(), harbor.getManagerId(), harbor.getConstructionDate(), id
+		);
 	}
 
 	@Override
-	public int delete(int id) {
+	public int delete (int id) {
 		// TODO Auto-generated method stub
-		return jdbctemplate.update("DELETE FROM harbor WHERE HarborId=?",id);
+		return jdbctemplate.update(
+				"DELETE FROM Harbor WHERE HarborId = ?", id
+		);
 	}
 
 	@Override
-	public List<Harbor> getall() {
+	public List<Harbor> getAll () {
 		// TODO Auto-generated method stub
-		return jdbctemplate.query("SELECT * FROM harbor", new BeanPropertyRowMapper<Harbor>(Harbor.class));
+		return jdbctemplate.query(
+				"SELECT * FROM Harbor", new BeanPropertyRowMapper<Harbor>(Harbor.class)
+		);
 	}
 
 	@Override
-	public Harbor getbyid(int id) {
+	public Harbor getById (int id) {
 		// TODO Auto-generated method stub
-		return jdbctemplate.queryForObject("SELECT * FROM harbor WHERE HarborId=?",
-				new BeanPropertyRowMapper<Harbor>(Harbor.class), id);
+		return jdbctemplate.queryForObject(
+				"SELECT * FROM Harbor WHERE HarborId = ?",
+				new BeanPropertyRowMapper<Harbor>(Harbor.class), id
+		);
 	}
 
 }

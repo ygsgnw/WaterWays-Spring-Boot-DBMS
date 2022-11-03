@@ -16,38 +16,56 @@ public class VoyageDaoImpl implements VoyageDao {
 	JdbcTemplate jdbctemplate;
 	
 	@Override
-	public int save(Voyage voyage) {
+	public int insert (Voyage voyage) {
 		// TODO Auto-generated method stub
 		return jdbctemplate.update(
-				"INSERT INTO voyage (ShipSerialId,ArrivalHarborId,ArrivalTime,DepartureHarborId,DepartureTime) VALUES (?,?,?,?,?)",
-				voyage.getShipSerialId(),voyage.getArrivalHarborId(),voyage.getArrivalTime(),voyage.getDepartureHarborId(),voyage.getDepartureTime());
+				"INSERT INTO Voyage (ShipSerialId, Fare, ArrivalHarborId, ArrivalTime, DepartureHarborId, DepartureTime, VoyageStatusCode) VALUES (?, ?, ?, ?, ?, ?, ?)",
+				voyage.getShipSerialId(), voyage.getFare(), voyage.getArrivalHarborId(), voyage.getArrivalTime(), voyage.getDepartureHarborId(), voyage.getDepartureTime(), voyage.getVoyageStatusCode()
+		);
 	}
 
 	@Override
-	public int update(Voyage voyage, int id) {
+	public int update (Voyage voyage, int id) {
 		// TODO Auto-generated method stub
 		return jdbctemplate.update(
-				"UPDATE voyage SET ShipSerialId=?,ArrivalHarborId=?,ArrivalTime=?,DepartureHarborId=?,DepartureTime=? WHERE Id=?",
-				voyage.getShipSerialId(),voyage.getArrivalHarborId(),voyage.getArrivalTime(),voyage.getDepartureHarborId(),voyage.getDepartureTime(),id);
+				"UPDATE Voyage SET ShipSerialId = ?, Fare = ?, ArrivalHarborId = ?, ArrivalTime = ?, DepartureHarborId = ?, DepartureTime = ? WHERE VoyageId = ?",
+				voyage.getShipSerialId(), voyage.getFare(), voyage.getArrivalHarborId(), voyage.getArrivalTime(), voyage.getDepartureHarborId(), voyage.getDepartureTime(), id
+		);
 	}
 
 	@Override
-	public int delete(int id) {
+	public int delete (int id) {
 		// TODO Auto-generated method stub
-		return jdbctemplate.update("DELETE FROM voyage WHERE VoyageId=?",id);
+		return jdbctemplate.update(
+				"DELETE FROM Voyage WHERE VoyageId = ?",
+				id
+		);
 	}
 
 	@Override
-	public List<Voyage> getall() {
+	public List<Voyage> getAll () {
 		// TODO Auto-generated method stub
-		return jdbctemplate.query("SELECT * FROM voyage", new BeanPropertyRowMapper<Voyage>(Voyage.class));
+		return jdbctemplate.query(
+				"SELECT * FROM Voyage",
+				new BeanPropertyRowMapper<Voyage>(Voyage.class)
+		);
 	}
 
 	@Override
-	public Voyage getbyid(int id) {
+	public Voyage getById (int id) {
 		// TODO Auto-generated method stub
-		return jdbctemplate.queryForObject("SELECT * FROM voyage WHERE VoyageId=?",
-				new BeanPropertyRowMapper<Voyage>(Voyage.class), id);
+		return jdbctemplate.queryForObject(
+				"SELECT * FROM Voyage WHERE VoyageId = ?",
+				new BeanPropertyRowMapper<Voyage>(Voyage.class), id
+		);
+	}
+
+	@Override
+	public List<Voyage> getAllActive () {
+		return jdbctemplate.query(
+				"SELECT * FROM Voyage WHERE DepartureTime > NOW()",
+				new BeanPropertyRowMapper<Voyage>(Voyage.class)
+		);
 	}
 
 	@Override

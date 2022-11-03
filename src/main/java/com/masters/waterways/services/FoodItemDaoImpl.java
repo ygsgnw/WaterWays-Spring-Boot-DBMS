@@ -1,5 +1,6 @@
 package com.masters.waterways.services;
 
+import java.nio.channels.SelectableChannel;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,35 +17,51 @@ public class FoodItemDaoImpl implements FoodItemDao {
 	JdbcTemplate jdbctemplate;
 
 	@Override
-	public int save(FoodItem fi) {
+	public int insert (FoodItem fi) {
 		return jdbctemplate.update(
-				"INSERT INTO fooditem (VoyageId,FoodName,FoodCost,FoodDescription) VALUES (?,?,?,?)",
-				new Object[] {fi.getVoyageId(),fi.getFoodName(),fi.getFoodCost(),fi.getFoodDescription()
-						});
+				"INSERT INTO FoodItem (VoyageId, FoodName, FoodCost, FoodDescription) VALUES (?, ?, ?, ?)",
+				fi.getVoyageId(), fi.getFoodName(), fi.getFoodCost(), fi.getFoodDescription()
+		);
 	}
 
 	@Override
-	public int update(FoodItem fi, int id) {
+	public int update (FoodItem fi, int id) {
 		return jdbctemplate.update(
-				"UPDATE fooditem SET VoyageId=?,FoodName=?,FoodCost=?,FoodDescription=? WHERE FoodItemId=?",
-				new Object[] { fi.getVoyageId(),fi.getFoodName(),fi.getFoodCost(),fi.getFoodDescription(),id});
+				"UPDATE FoodItem SET VoyageId = ?, FoodName = ?, FoodCost = ?, FoodDescription = ? WHERE FoodItemId = ?",
+				fi.getVoyageId(), fi.getFoodName(), fi.getFoodCost(), fi.getFoodDescription(), id
+		);
 	}
 
 	@Override
-	public int delete(int id) {
-
-		return jdbctemplate.update("DELETE FROM fooditem WHERE FoodItemId=?",id);
+	public int delete (int id) {
+		return jdbctemplate.update(
+				"DELETE FROM FoodItem WHERE FoodItemId = ?",id
+		);
 	}
 
 	@Override
-	public List<FoodItem> getall() {
-		return jdbctemplate.query("SELECT * FROM fooditem", new BeanPropertyRowMapper<FoodItem>( FoodItem.class));
+	public List<FoodItem> getAll () {
+		return jdbctemplate.query(
+				"SELECT * FROM FoodItem",
+				new BeanPropertyRowMapper<FoodItem>(FoodItem.class)
+		);
 
 	}
 
 	@Override
-	public FoodItem getbyid(int id) {
-		return jdbctemplate.queryForObject("SELECT * FROM fooditem WHERE FoodItemId=?",
-				new BeanPropertyRowMapper<>( FoodItem.class), id);
+	public FoodItem getById (int id) {
+		return jdbctemplate.queryForObject(
+				"SELECT * FROM FoodItem WHERE FoodItemId = ?",
+				new BeanPropertyRowMapper<FoodItem>(FoodItem.class), id
+		);
 	}
+
+	@Override
+	public List<FoodItem> getFoodItemsByVoyageId (int voyageId) {
+		return jdbctemplate.query(
+				"SELECT * FROM FoodItem WHERE VoyageId = ?",
+				new BeanPropertyRowMapper<FoodItem>(FoodItem.class), voyageId
+		);
+	}
+
 }

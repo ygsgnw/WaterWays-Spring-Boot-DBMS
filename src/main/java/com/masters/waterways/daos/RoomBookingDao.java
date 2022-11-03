@@ -5,14 +5,11 @@ import com.masters.waterways.models.*;
 
 
 public interface RoomBookingDao {
-	
-    int save(RoomBooking roombook);
-	
-	int update(RoomBooking roombook,int id);
-	
-	int deletebytransactionid(int id);
-	
-	List<RoomBooking> getall();
-	
-	RoomBooking getbytransactionid(int id);
+    int insert (RoomBooking room_booking);
+	int update (RoomBooking room_booking, int id);
+	int delete (int id);
+	List<RoomBooking> getAll ();
+	RoomBooking getById (int id);
+	List<RoomBooking> getRoomsByUserIdAndVoyageId (int userId, int voyageId);
+	void bookRoomByVoyageIdAndUserId (int voyageId, int userId);
 }

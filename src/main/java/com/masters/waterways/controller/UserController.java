@@ -22,7 +22,7 @@ public class UserController {
     private UserDao userDao;
 
     @Autowired
-     private VoyageDao voyageDao;
+    private VoyageDao voyageDao;
 
     @Autowired
     private RoomBookingDao roomBookingDao;
@@ -65,10 +65,10 @@ public class UserController {
 
     @GetMapping("/user/voyages")
     public String voyagesListUser (Model model,
-                               @RequestParam(name="fromid", required = false) Integer from_harbour_id,
-                               @RequestParam(name="toid", required = false) Integer to_harbour_id,
-                               @RequestParam(name="fromdate", required = false)@DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime depart_after_datetime,
-                               @RequestParam(name="todate", required = false)@DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime arrive_before_datetime
+                                   @RequestParam(name="fromid", required = false) Integer from_harbour_id,
+                                   @RequestParam(name="toid", required = false) Integer to_harbour_id,
+                                   @RequestParam(name="fromdate", required = false)@DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime depart_after_datetime,
+                                   @RequestParam(name="todate", required = false)@DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime arrive_before_datetime
     ) {
 
         System.out.println("hello");

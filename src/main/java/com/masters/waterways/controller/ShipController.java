@@ -19,7 +19,7 @@ public class ShipController {
 	
 	@GetMapping("/admin/ship")
 	public String listship(Model model) {
-		model.addAttribute("ships", shipdao.getall());
+		model.addAttribute("ships", shipdao.getAll());
 		return "shipList";
 	}
 	@GetMapping("/admin/ship/new")
@@ -32,13 +32,13 @@ public class ShipController {
 	@PostMapping("/admin/ship/new")
 	public String saveship(@ModelAttribute("newship") Ship newship) {
 		System.out.println("ship");
-		shipdao.save(newship);	
+		shipdao.insert(newship);
 		return "redirect:/admin/ship";
 	}
 	
 	@GetMapping("/admin/ship/edit/{id}")
 	public String editshipform(@PathVariable int id, Model model) {
-		model.addAttribute("ship", shipdao.getbyid(id));
+		model.addAttribute("ship", shipdao.getById(id));
 		return "editshipform";
 	}
 	

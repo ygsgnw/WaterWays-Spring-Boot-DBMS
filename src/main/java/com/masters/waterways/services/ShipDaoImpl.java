@@ -16,37 +16,37 @@ public class ShipDaoImpl implements ShipDao {
 	JdbcTemplate jdbctemplate;
 	
 	@Override
-	public int save(Ship ship) {
+	public int insert (Ship ship) {
 		// TODO Auto-generated method stub
 		return jdbctemplate.update(
-				"INSERT INTO ship (ModelId,ShipStatus,MfDate) VALUES (?,?,?)",
-				new Object[] { ship.getModelId() ,ship.getShipStatus(),ship.getMfDate()});
+				"INSERT INTO Ship (ModelId,ShipStatusCode,MfDate) VALUES (?,?,?)",
+				ship.getModelId(),ship.getShipStatusCode(),ship.getMfDate());
 	}
 
 	@Override
-	public int update(Ship ship, int id) {
+	public int update (Ship ship, int id) {
 		// TODO Auto-generated method stub
 		return jdbctemplate.update(
-				"UPDATE ship SET ModelId=?,ShipStatus=?,MfDate=? WHERE ShipSerialId=?",
-				new Object[] { ship.getModelId() ,ship.getShipStatus(),ship.getMfDate(),id });
+				"UPDATE Ship SET ModelId=?,ShipStatusCode=?,MfDate=? WHERE ShipSerialId=?",
+				ship.getModelId(),ship.getShipStatusCode(),ship.getMfDate(),id);
 	}
 
 	@Override
-	public int delete(int id) {
+	public int delete (int id) {
 		// TODO Auto-generated method stub
-		return jdbctemplate.update("DELETE FROM ship WHERE ShipSerialId=?",id);
+		return jdbctemplate.update("DELETE FROM Ship WHERE ShipSerialId=?",id);
 	}
 
 	@Override
-	public List<Ship> getall() {
+	public List<Ship> getAll () {
 		// TODO Auto-generated method stub
-		return jdbctemplate.query("SELECT * FROM ship", new BeanPropertyRowMapper<Ship>(Ship.class));
+		return jdbctemplate.query("SELECT * FROM Ship", new BeanPropertyRowMapper<Ship>(Ship.class));
 	}
 
 	@Override
-	public Ship getbyid(int id) {
+	public Ship getById (int id) {
 		// TODO Auto-generated method stub
-		return jdbctemplate.queryForObject("SELECT * FROM ship WHERE ShipSerialId=?",
+		return jdbctemplate.queryForObject("SELECT * FROM Ship WHERE ShipSerialId=?",
 				new BeanPropertyRowMapper<Ship>(Ship.class), id);
 	}
 
