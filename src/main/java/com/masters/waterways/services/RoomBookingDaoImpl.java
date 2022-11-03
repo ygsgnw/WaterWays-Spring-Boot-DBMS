@@ -79,7 +79,6 @@ public class RoomBookingDaoImpl implements RoomBookingDao {
 				voyageId, userId
 		);
 
-
 	}
 
 

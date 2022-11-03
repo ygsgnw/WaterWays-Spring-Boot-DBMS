@@ -32,7 +32,7 @@ public class UserController {
     @Autowired
     private FoodItemDao foodItemDao;
     
-    int userId=session_key;
+    int userId = session_key;
     
     @GetMapping("/user")
     public String userhome(){
@@ -76,8 +76,8 @@ public class UserController {
         System.out.println(depart_after_datetime);
         System.out.println(arrive_before_datetime);
         
-        List<Voyage> voyages = new ArrayList<>(voyagedao.getAll());
-        
+        List<Voyage> voyages = voyageDao.getAll();
+
         System.out.println("hi");
 
         if (from_harbour_id != null) {
