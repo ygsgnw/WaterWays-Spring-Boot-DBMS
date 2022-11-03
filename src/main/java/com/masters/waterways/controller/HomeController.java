@@ -110,21 +110,17 @@ public class HomeController {
 			getHarbor.put(h.getHarborId(), h.getLocation());
 
 		class VoyageNeat {
-			int VoyageId, Fare;
+			Voyage v;
 			String DepartureHarbor, ArrivalHarbour;
-			LocalDateTime DepartureTime, ArrivalTime;
 		}
 
 		List<VoyageNeat> voyagesNeat = new ArrayList<>();
 
 		for (Voyage v: voyages) {
 			VoyageNeat nv = new VoyageNeat();
-			nv.VoyageId = v.getVoyageId();
-			nv.Fare = v.getFare();
 			nv.DepartureHarbor = getHarbor.get(v.getDepartureHarborId());
 			nv.ArrivalHarbour = getHarbor.get(v.getArrivalHarborId());
-			nv.DepartureTime = v.getDepartureTime();
-			nv.ArrivalTime = v.getArrivalTime();
+			nv.v = v;
 			voyagesNeat.add(nv);
 		}
 		
