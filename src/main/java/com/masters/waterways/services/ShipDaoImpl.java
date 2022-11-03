@@ -4,6 +4,7 @@ import com.masters.waterways.models.Ship;
 
 import java.util.List;
 
+import com.masters.waterways.models.ShipStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -49,5 +50,13 @@ public class ShipDaoImpl implements ShipDao {
 		return jdbctemplate.queryForObject("SELECT * FROM Ship WHERE ShipSerialId=?",
 				new BeanPropertyRowMapper<Ship>(Ship.class), id);
 	}
+
+    @Override
+    public List<ShipStatus> getAllShipStatuses() {
+		return jdbctemplate.query(
+				"SELECT * FROM SHIP_STATUS",
+				new BeanPropertyRowMapper<ShipStatus>(ShipStatus.class)
+		);
+    }
 
 }

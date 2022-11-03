@@ -4,6 +4,7 @@ import com.masters.waterways.models.Voyage;
 
 import java.util.List;
 
+import com.masters.waterways.models.VoyageStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -80,6 +81,13 @@ public class VoyageDaoImpl implements VoyageDao {
 		);
 	}
 
+    @Override
+    public List<VoyageStatus> getAllVoyageStatuses() {
+		return jdbctemplate.query(
+				"SELECT * FROM VOYAGE_STATUS",
+				new BeanPropertyRowMapper<VoyageStatus>(VoyageStatus.class)
+		);
+    }
 
 
 }

@@ -5,6 +5,7 @@ import com.masters.waterways.models.RoomBooking;
 
 import java.util.List;
 
+import com.masters.waterways.models.RoomStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -59,7 +60,15 @@ public class RoomBookingDaoImpl implements RoomBookingDao {
 		);
 	}
 
-	@Override
+    @Override
+    public List<RoomStatus> getAllRoomStatuses() {
+		return jdbctemplate.query(
+				"SELECT * FROM ROOM_STATUS",
+				new BeanPropertyRowMapper<RoomStatus>(RoomStatus.class)
+		);
+    }
+
+    @Override
 	public List<RoomBooking> getRoomsByUserIdAndVoyageId (int userId, int voyageId) {
 		return jdbctemplate.query(
 				"SELECT RoomBooking.TransactionId, RoomBooking.RoomId, RoomBooking.VoyageId, RoomBooking.RoomStatusCode " +

@@ -5,6 +5,7 @@ import com.masters.waterways.daos.UsersDao;
 import com.masters.waterways.daos.VoyageDao;
 import com.masters.waterways.models.Harbor;
 import com.masters.waterways.models.Voyage;
+import com.masters.waterways.models.VoyageStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
@@ -13,12 +14,8 @@ import org.springframework.web.bind.annotation.*;
 
 import com.masters.waterways.models.Users;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Dictionary;
-import java.util.Hashtable;
-import java.util.List;
+import java.util.*;
 
 @Controller
 public class HomeController {
@@ -31,16 +28,11 @@ public class HomeController {
 
 	@Autowired
 	private HarborDao harborDao;
-	
+
 	@GetMapping("/")
 	public String home(){
 		return "Home";
 	}
-
-//	@GetMapping("/login")
-//	public String login() {
-//		return "Login";
-//	}
 
 	@GetMapping("/signup")
 	public String signup(Model model) {
@@ -105,13 +97,18 @@ public class HomeController {
 		List<Harbor> harbors = harborDao.getAll();
 
 		Dictionary<Integer, String> getHarbor = new Hashtable<>();
+		final Map<Integer, String> getVoyageStatus = Map.of (
+				1, "OPERATIONAL",
+				2, "COMPLETED",
+				3, "CANCELLED"
+		);
 
 		for (Harbor h: harbors)
 			getHarbor.put(h.getHarborId(), h.getLocation());
 
 		class VoyageNeat {
 			Voyage v;
-			String DepartureHarbor, ArrivalHarbour;
+			String DepartureHarbor, ArrivalHarbour, VoyageStatusDesc;
 		}
 
 		List<VoyageNeat> voyagesNeat = new ArrayList<>();
@@ -121,6 +118,7 @@ public class HomeController {
 			nv.DepartureHarbor = getHarbor.get(v.getDepartureHarborId());
 			nv.ArrivalHarbour = getHarbor.get(v.getArrivalHarborId());
 			nv.v = v;
+			nv.VoyageStatusDesc = getVoyageStatus.get(v.getVoyageStatusCode());
 			voyagesNeat.add(nv);
 		}
 		
