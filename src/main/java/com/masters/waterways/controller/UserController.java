@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 @Controller
 
@@ -33,7 +32,7 @@ public class UserController {
     @Autowired
     private FoodBookingDao foodBookingDao;
 
-    int userId=session_key;
+    int userId = session_key;
 
     @GetMapping("/user")
     public String userhome(){
@@ -47,7 +46,7 @@ public class UserController {
 
     @GetMapping("/profile")
     public String profile(Model model) {
-        model.addAttribute("user", userDao.getbyid(id));
+        model.addAttribute("user", userDao.getById(id));
         return "Profile";
     }
 
@@ -77,7 +76,10 @@ public class UserController {
         System.out.println(depart_after_datetime);
         System.out.println(arrive_before_datetime);
 
-        List<Voyage> voyages = voyageDao.getall();
+        List<Voyage> voyages = voyageDao.getAll();
+
+
+        System.out.println("hi");
 
         if (from_harbour_id != null) {
             List<Voyage> new_voyages = new ArrayList<>();
@@ -111,7 +113,8 @@ public class UserController {
             voyages = new_voyages;
         }
 
-        model.addAttribute("new_voyage", voyages);
+        System.out.println(voyages.size());
+        model.addAttribute("newVoyages", voyages);
 
         return "VoyageListUser";
     }

@@ -19,14 +19,14 @@ public class VoyageController {
 	@GetMapping("/admin/voyage")
 	public String listvoyages(Model model) {
 		model.addAttribute("voyages", voyagedao.getAll());
-		return "voyageList";
+		return "VoyageList";
 	}
 	@GetMapping("/admin/voyage/new")
 	public String createvoyageform(Model model) {
 		Voyage newvoyage =new Voyage();
 		model.addAttribute("newvoyage", newvoyage);
 		System.out.println(1);
-		return "createvoyageform";
+		return "createVoyageForm";
 	}
 	
 	@PostMapping("/admin/voyage/new")

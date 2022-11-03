@@ -15,17 +15,18 @@ import com.masters.waterways.models.Crew;
 public class CrewController {
 	@Autowired
 	private CrewDao crewdao;
-	
+
+
 	@GetMapping("/admin/crew")
 	public String listcrews(Model model) {
 		model.addAttribute("crews", crewdao.getAll());
-		return "crewList";
+		return "CrewList";
 	}
 	@GetMapping("/admin/crew/new")
 	public String createcrewform(Model model) {
 		Crew newcrew =new Crew();
 		model.addAttribute("newcrew", newcrew);
-		return "createcrewform";
+		return "createCrewForm";
 	}
 	
 	@PostMapping("/admin/crew/new")
@@ -37,7 +38,7 @@ public class CrewController {
 	@GetMapping("/admin/crew/edit/{id}")
 	public String editcrewform(@PathVariable int id, Model model) {
 		model.addAttribute("crew", crewdao.getById(id));
-		return "editcrewform";
+		return "editCrewForm";
 	}
 	
 	@PostMapping("admin/crew/edit/{id}")

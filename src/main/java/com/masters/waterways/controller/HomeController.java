@@ -32,10 +32,10 @@ public class HomeController {
 		return "Home";
 	}
 
-	@GetMapping("/login")
-	public String login() {
-		return "Login";
-	}
+//	@GetMapping("/login")
+//	public String login() {
+//		return "Login";
+//	}
 
 	@GetMapping("/signup")
 	public String signup(Model model) {

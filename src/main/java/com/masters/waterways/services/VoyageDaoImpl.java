@@ -44,6 +44,7 @@ public class VoyageDaoImpl implements VoyageDao {
 
 	@Override
 	public List<Voyage> getAll () {
+//		System.out.println("Hi");
 		// TODO Auto-generated method stub
 		return jdbctemplate.query(
 				"SELECT * FROM Voyage",
