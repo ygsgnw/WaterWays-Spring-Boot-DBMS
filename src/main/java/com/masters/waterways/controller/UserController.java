@@ -32,6 +32,9 @@ public class UserController {
     @Autowired
     private FoodItemDao foodItemDao;
     
+    @Autowired
+    private FoodBookingDao foodBookingDao;
+    
     int userId = session_key;
     
     @GetMapping("/user")
@@ -140,6 +143,16 @@ public class UserController {
 //        int userId=session_key;
         model.addAttribute("mybookings",voyageDao.getVoyagesByUserId(userId));
         return "MyVoyages"; // will direct to VoyageDetailsUser
+    }
+    
+    @GetMapping("/user/foodbooking")
+    public String voyagesListUser (@RequestParam(name="voyageId", required = false) int voyageId,
+                                   @RequestParam(name="roomId", required = false) int roomId,
+                                   @RequestParam(name="foodItemId", required = false) int foodItemId,
+                                   @RequestParam(name="foodCount", required = false) int foodCount
+    ) {
+        foodBookingDao.bookFood(userId, voyageId, roomId, foodItemId, foodCount);
+        return "redirect:/user/voyages/{voyageId}";
     }
     
 }
