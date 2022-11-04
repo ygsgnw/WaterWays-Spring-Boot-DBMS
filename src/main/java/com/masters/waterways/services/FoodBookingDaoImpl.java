@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 @Repository
 public class FoodBookingDaoImpl implements FoodBookingDao {
@@ -44,7 +45,13 @@ public class FoodBookingDaoImpl implements FoodBookingDao {
 	}
 
 	@Override
+	@Transactional
 	public void bookFood(int userId, int roomId, int foodCount, FoodItem foodItem) {
+		jdbctemplate.update(
+				"INSERT INTO Transaction (TransactionDate, Amount, UserId) VALUES (NOW(), ?, ?)",
+				foodCount * foodItem.getFoodCost(), userId
+		);
+
 
 	}
 

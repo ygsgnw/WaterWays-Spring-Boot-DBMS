@@ -5,7 +5,6 @@ import com.masters.waterways.models.Voyage;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -13,7 +12,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class VoyageDaoImpl implements VoyageDao {
 
-	@Autowired
 	JdbcTemplate jdbctemplate;
 
 	@Override
@@ -26,7 +24,7 @@ public class VoyageDaoImpl implements VoyageDao {
 
 		Integer room_count = jdbctemplate.queryForObject(
 				"SELECT RoomCount FROM ShipModel WHERE ModelId = (SELECT ModelId FROM Ship WHERE ShipSerialId = ?)",
-				new BeanPropertyRowMapper<Integer>(Integer.class), voyage.getShipSerialId()
+				new BeanPropertyRowMapper<>(Integer.class), voyage.getShipSerialId()
 		);
 
 		if (room_count == null)
@@ -54,7 +52,7 @@ public class VoyageDaoImpl implements VoyageDao {
 		// TODO Auto-generated method stub
 		return jdbctemplate.query(
 				"SELECT * FROM Voyage",
-				new BeanPropertyRowMapper<Voyage>(Voyage.class)
+				new BeanPropertyRowMapper<>(Voyage.class)
 		);
 	}
 
@@ -63,7 +61,7 @@ public class VoyageDaoImpl implements VoyageDao {
 		// TODO Auto-generated method stub
 		return jdbctemplate.queryForObject(
 				"SELECT * FROM Voyage WHERE VoyageId = ?",
-				new BeanPropertyRowMapper<Voyage>(Voyage.class), id
+				new BeanPropertyRowMapper<>(Voyage.class), id
 		);
 	}
 
@@ -71,7 +69,7 @@ public class VoyageDaoImpl implements VoyageDao {
 	public List<Voyage> getAllActive () {
 		return jdbctemplate.query(
 				"SELECT * FROM Voyage WHERE DepartureTime > NOW()",
-				new BeanPropertyRowMapper<Voyage>(Voyage.class)
+				new BeanPropertyRowMapper<>(Voyage.class)
 		);
 	}
 
@@ -82,7 +80,7 @@ public class VoyageDaoImpl implements VoyageDao {
 						"SELECT VoyageId FROM RoomBooking, Transaction " +
 						"WHERE RoomBooking.TransactionId = Transaction.TransactionId " +
 						"AND Transaction.UserId = ?)",
-				new BeanPropertyRowMapper<Voyage>(Voyage.class), userId
+				new BeanPropertyRowMapper<>(Voyage.class), userId
 		);
 	}
 

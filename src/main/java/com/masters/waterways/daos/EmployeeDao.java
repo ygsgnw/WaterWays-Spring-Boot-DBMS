@@ -10,4 +10,5 @@ public interface EmployeeDao {
 	List<Employee> getAll ();
 	Employee getById (int id);
 	Employee getByUserId (int id);
+	void makeEmployeeByUserId (int id);
 }

@@ -67,4 +67,17 @@ public class EmployeeDaoImpl implements EmployeeDao {
 				new BeanPropertyRowMapper<Employee>(Employee.class), id
 		);
 	}
+
+    @Override
+    public void makeEmployeeByUserId(int userId) {
+        if (jdbctemplate.queryForObject(
+				"SELECT * FROM Employee WHERE UserId = ?",
+				new BeanPropertyRowMapper<>(EmployeeDao.class), userId
+		) != null)
+			throw new RuntimeException("User is already an employee");
+		jdbctemplate.update(
+				"INSERT INTO Employee (UserId, JoinDate) VALUE (?, NOW())",
+				userId
+		);
+    }
 }

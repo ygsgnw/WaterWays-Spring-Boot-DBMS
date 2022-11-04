@@ -47,7 +47,15 @@ public class UsersDaoImpl implements UsersDao {
 
 	}
 
-	@Override
+    @Override
+    public List<Users> getAllNonEmployees() {
+		return jdbctemplate.query(
+				"SELECT * FROM Users WHERE UserId IN (SELECT UserId FROM Employee)",
+				new BeanPropertyRowMapper<>(Users.class)
+		);
+    }
+
+    @Override
 	public Users getById (int id) {
 		return jdbctemplate.queryForObject(
 				"SELECT * FROM Users WHERE UserId = ?",

@@ -10,5 +10,6 @@ public interface UsersDao {
 	int update (Users users, int id);
 	int delete (int id);
 	List<Users> getAll ();
+	List<Users> getAllNonEmployees ();
 	Users getById (int id);
 }
