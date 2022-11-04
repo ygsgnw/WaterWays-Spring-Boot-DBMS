@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 public class Users {
 
 	private int			UserId;
-	private String 		Name;
+	private String 		UserName;
 	private String 		EmailId;
 	private String		UserPassword;
 
@@ -25,15 +25,14 @@ public class Users {
 		UserId = userId;
 	}
 
-	public String getName() {
-		return Name;
+	public String getUserName() {
+		return UserName;
 	}
 
-	public void setName(String name) {
-		Name = name;
+	public void setUserName(String userName) {
+		UserName = userName;
 	}
 
-	
 	public String getEmailId() {
 		return EmailId;
 	}

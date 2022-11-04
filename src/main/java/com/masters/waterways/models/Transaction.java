@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.sql.Date;
+import java.time.LocalDateTime;
 
 
 @Data
@@ -13,10 +14,9 @@ import java.sql.Date;
 public class Transaction {
 
 	private int TransactionId;
-	private Date TransactionDate;
+	private LocalDateTime TransactionDate;
 	private int Amount;
 	private int UserId;
-
 
 	public int getTransactionId() {
 		return TransactionId;
@@ -26,11 +26,11 @@ public class Transaction {
 		TransactionId = transactionId;
 	}
 
-	public Date getTransactionDate() {
+	public LocalDateTime getTransactionDate() {
 		return TransactionDate;
 	}
 
-	public void setTransactionDate(Date transactionDate) {
+	public void setTransactionDate(LocalDateTime transactionDate) {
 		TransactionDate = transactionDate;
 	}
 

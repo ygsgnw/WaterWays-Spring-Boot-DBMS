@@ -15,26 +15,26 @@ public class EmployeeDaoImpl implements EmployeeDao {
 	JdbcTemplate jdbctemplate;
 
 	@Override
-	public int insert (Employee employee) {
-		return jdbctemplate.update(
+	public void insert (Employee employee) {
+		jdbctemplate.update(
 				"INSERT INTO Employee (UserId) VALUES (?, ?)",
 				employee.getUserId()
 		);
 	}
 
 	@Override
-	public int update (Employee employee, int id) {
-		return jdbctemplate.update(
-				"UPDATE Employee SET UserId=? WHERE EmployeeId=?",
-				employee.getUserId(), id
+	public void update (Employee employee) {
+		jdbctemplate.update(
+				"UPDATE Employee SET UserId = ?, JoinDate = ? WHERE EmployeeId = ?",
+				employee.getUserId(), employee.getJoinDate(), employee.getEmployeeId()
 		);
 	}
 
 	@Override
-	public int delete (int id) {
-		return jdbctemplate.update(
+	public void delete (Employee employee) {
+		jdbctemplate.update(
 				"DELETE FROM Employee WHERE EmployeeId = ?",
-				id
+				employee.getEmployeeId()
 		);
 	}
 

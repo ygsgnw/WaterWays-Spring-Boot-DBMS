@@ -4,11 +4,10 @@ import java.util.List;
 import com.masters.waterways.models.*;
 
 public interface FoodBookingDao {
-
-    int insert (FoodBooking fb);
-	int update (FoodBooking fb,int id);
-	int delete (int id);
+    void insert (FoodBooking foodBooking);
+	void update (FoodBooking foodBooking);
+	void delete (FoodBooking foodBooking);
 	List<FoodBooking> getAll ();
 	FoodBooking getById (int id);
-    void bookFood(int userId, int voyageId, int roomId, int foodItemId, int foodCount);
+    void bookFood (int userId, int roomId, int foodCount, FoodItem foodItem);
 }

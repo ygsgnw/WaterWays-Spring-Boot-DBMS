@@ -5,17 +5,23 @@ import com.masters.waterways.models.RoomBooking;
 
 import java.util.List;
 
-import com.masters.waterways.models.RoomStatus;
+import com.masters.waterways.models.RoomStatusProvider;
+import com.masters.waterways.models.Transaction;
+import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 @Repository
 public class RoomBookingDaoImpl implements RoomBookingDao {
 
 	@Autowired
 	JdbcTemplate jdbctemplate;
+
+	@Autowired
+	TransactionDao transactionDao;
 	
 	@Override
 	public int insert (RoomBooking room_booking) {
@@ -27,11 +33,11 @@ public class RoomBookingDaoImpl implements RoomBookingDao {
 	}
 
 	@Override
-	public int update (RoomBooking room_booking, int id) {
+	public int update(RoomBooking room_booking) {
 		// TODO Auto-generated method stub
 		return jdbctemplate.update(
-				"UPDATE RoomBooking SET RoomId = ?, VoyageId = ?, RoomStatusCode = ? WHERE TransactionId = ?",
-				room_booking.getRoomId(), room_booking.getVoyageId(), room_booking.getRoomStatusCode(), id
+				"UPDATE RoomBooking SET RoomStatusCode = ? WHERE VoyageId = ? AND RoomId = ?",
+				room_booking.getRoomStatusCode(), room_booking.getVoyageId(), room_booking.getRoomId()
 		);
 	}
 
@@ -61,14 +67,6 @@ public class RoomBookingDaoImpl implements RoomBookingDao {
 	}
 
     @Override
-    public List<RoomStatus> getAllRoomStatuses() {
-		return jdbctemplate.query(
-				"SELECT * FROM ROOM_STATUS",
-				new BeanPropertyRowMapper<RoomStatus>(RoomStatus.class)
-		);
-    }
-
-    @Override
 	public List<RoomBooking> getRoomsByUserIdAndVoyageId (int userId, int voyageId) {
 		return jdbctemplate.query(
 				"SELECT RoomBooking.TransactionId, RoomBooking.RoomId, RoomBooking.VoyageId, RoomBooking.RoomStatusCode " +
@@ -80,13 +78,45 @@ public class RoomBookingDaoImpl implements RoomBookingDao {
 		);
 	}
 
-	@Override
-	public void bookRoomByVoyageIdAndUserId (int voyageId, int userId) {
 
-		jdbctemplate.execute(
-				"START TRANSACTION "
+	@Override
+	@Transactional(rollbackFor = Exception.class)
+	public RoomBooking reserveRoomByVoyageId (int voyageId) {
+		RoomBooking room = jdbctemplate.queryForObject(
+				"SELECT * FROM RoomBooking WHERE VoyageId = ? AND RoomStatusCode = ?",
+				new BeanPropertyRowMapper<RoomBooking>(RoomBooking.class), voyageId, RoomStatusProvider.getRoomStatusCode.get("AVAILABLE")
 		);
 
+		if (room != null) {
+			room.setRoomStatusCode(RoomStatusProvider.getRoomStatusCode.get("RESERVED"));
+			update(room);
+			return room;
+		} else
+			throw new RuntimeException("No available rooms");
+	}
+
+
+	@Override
+	@Transactional(rollbackFor = Exception.class)
+	public void bookRoomByRoomIdAndUserId(RoomBooking room, int userId, int fare) {
+		assert(room != null);
+
+		jdbctemplate.update(
+				"INSERT INTO Transaction (TransactionDate, Amount, UserId) VALUE (NOW(), ?, ?)",
+				fare, userId
+		);
+
+		Integer transactionId = jdbctemplate.queryForObject(
+				"SELECT LAST_INSERT_ID() FROM Transaction",
+				new BeanPropertyRowMapper<Integer>(Integer.class)
+		);
+
+		if (transactionId != null) {
+			room.setTransactionId(transactionId);
+			room.setRoomStatusCode(RoomStatusProvider.getRoomStatusCode.get("BOOKED"));
+			update(room);
+		} else
+			throw new RuntimeException("Transaction failed");
 	}
 
 

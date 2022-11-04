@@ -3,19 +3,17 @@ package com.masters.waterways.controller;
 import com.masters.waterways.daos.HarborDao;
 import com.masters.waterways.daos.UsersDao;
 import com.masters.waterways.daos.VoyageDao;
-import com.masters.waterways.models.Harbor;
-import com.masters.waterways.models.Voyage;
-import com.masters.waterways.models.VoyageStatus;
+import com.masters.waterways.models.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import com.masters.waterways.models.Users;
-
 import java.time.LocalDateTime;
 import java.util.*;
+
+import com.masters.waterways.models.VoyageStatusProvider;
 
 @Controller
 public class HomeController {
@@ -97,11 +95,6 @@ public class HomeController {
 		List<Harbor> harbors = harborDao.getAll();
 
 		Dictionary<Integer, String> getHarbor = new Hashtable<>();
-		final Map<Integer, String> getVoyageStatus = Map.of (
-				1, "OPERATIONAL",
-				2, "COMPLETED",
-				3, "CANCELLED"
-		);
 
 		for (Harbor h: harbors)
 			getHarbor.put(h.getHarborId(), h.getLocation());
@@ -118,7 +111,7 @@ public class HomeController {
 			nv.DepartureHarbor = getHarbor.get(v.getDepartureHarborId());
 			nv.ArrivalHarbour = getHarbor.get(v.getArrivalHarborId());
 			nv.v = v;
-			nv.VoyageStatusDesc = getVoyageStatus.get(v.getVoyageStatusCode());
+			nv.VoyageStatusDesc = VoyageStatusProvider.getVoyageStatusDesc.get(v.getVoyageStatusCode());
 			voyagesNeat.add(nv);
 		}
 		

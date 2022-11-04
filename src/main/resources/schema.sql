@@ -11,11 +11,6 @@ create table ShipModel (
 );
 
 
-create table SHIP_STATUS (
-    ShipStatusCode int primary key auto_increment,
-    ShipStatusDesc varchar(15)
-);
-
 create table Ship (
 	ShipSerialId int primary key auto_increment,
 	ModelId int not null,
@@ -51,11 +46,6 @@ create table Harbor (
 );
 
 
-create table VOYAGE_STATUS (
-    VoyageStatusCode int primary key,
-    VoyageStatusDesc varchar(15)
-);
-
 create table Voyage (
 	VoyageId int primary key auto_increment,
 	ShipSerialId int not null,
@@ -73,13 +63,12 @@ create table Voyage (
 
 
 create table Crew (
-    CrewId int,
     EmployeeId int not null,
     VoyageId int not null,
     CrewRole varchar(50),
     foreign key (EmployeeId) references Employee(EmployeeId) on delete restrict,
     foreign key (VoyageId) references Voyage(VoyageId) on delete cascade,
-    primary key (CrewId, EmployeeId, VoyageId)
+    primary key (EmployeeId, VoyageId)
     -- Weak Entity Crew
 );
 
@@ -92,11 +81,6 @@ create table Transaction (
     foreign key (UserId) references Users(UserId) on delete restrict
 );
 
-
-create table ROOM_STATUS (
-    RoomStatusCode int primary key,
-    RoomStatusDesc varchar(15)
-);
 
 create table RoomBooking (
     TransactionId int,

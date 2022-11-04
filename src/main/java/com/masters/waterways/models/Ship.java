@@ -37,8 +37,8 @@ public class Ship {
 		return ShipStatusCode;
 	}
 
-	public void setShipStatusCode(int shipStatus) {
-		ShipStatusCode = shipStatus;
+	public void setShipStatusCode(int shipStatusCode) {
+		ShipStatusCode = shipStatusCode;
 	}
 
 	public Date getMfDate() {

@@ -15,10 +15,10 @@ public class Voyage {
 	private int VoyageId;
 	private int ShipSerialId;
 	private int Fare;
-	private int ArrivalHarborId;
 	private int DepartureHarborId;
-	private LocalDateTime ArrivalTime;
+	private int ArrivalHarborId;
 	private LocalDateTime DepartureTime;
+	private LocalDateTime ArrivalTime;
 	private int VoyageStatusCode;
 
 	public int getVoyageId() {

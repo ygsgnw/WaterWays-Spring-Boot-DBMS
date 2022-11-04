@@ -5,6 +5,7 @@ import com.masters.waterways.models.FoodBooking;
 
 import java.util.List;
 
+import com.masters.waterways.models.FoodItem;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -17,27 +18,27 @@ public class FoodBookingDaoImpl implements FoodBookingDao {
 	JdbcTemplate jdbctemplate;
 
 	@Override
-	public int insert (FoodBooking fb) {
+	public void insert (FoodBooking foodBooking) {
 		// TODO Auto-generated method stub
-		return jdbctemplate.update(
+		jdbctemplate.update(
 				"INSERT INTO FoodBooking (FoodItemId, VoyageId, FoodItemCount, TransactionId) VALUES (?, ?, ?, ?)",
-				fb.getFoodItemId(), fb.getVoyageId(), fb.getFoodItemId(), fb.getTransactionId()
+				foodBooking.getFoodItemId(), foodBooking.getVoyageId(), foodBooking.getFoodItemCount(), foodBooking.getTransactionId()
 		);
 	}
 
 	@Override
-	public int update (FoodBooking fb, int id) {
+	public void update (FoodBooking foodBooking) {
 		// TODO Auto-generated method stu
-		return jdbctemplate.update(
+		jdbctemplate.update(
 				"UPDATE FoodBooking SET FoodItemId = ?, VoyageId = ?, FoodItemCount = ? WHERE TransactionId = ?",
-				fb.getFoodItemId(), fb.getVoyageId(), fb.getFoodItemCount(), id
+				foodBooking.getFoodItemId(), foodBooking.getVoyageId(), foodBooking.getFoodItemCount(), id
 		);
 	}
 
 	@Override
-	public int delete (int id) {
+	public void delete (FoodBooking foodBooking) {
 		// TODO Auto-generated method stub
-		return jdbctemplate.update(
+		jdbctemplate.update(
 				"DELETE FROM FoodBooking WHERE TransactionId = ?",
 				id
 		);

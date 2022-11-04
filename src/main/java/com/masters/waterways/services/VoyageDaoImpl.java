@@ -1,10 +1,10 @@
 package com.masters.waterways.services;
 import com.masters.waterways.daos.*;
+import com.masters.waterways.models.RoomStatusProvider;
 import com.masters.waterways.models.Voyage;
 
 import java.util.List;
 
-import com.masters.waterways.models.VoyageStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -17,12 +17,26 @@ public class VoyageDaoImpl implements VoyageDao {
 	JdbcTemplate jdbctemplate;
 	
 	@Override
-	public int insert (Voyage voyage) {
+	public void insert (Voyage voyage) {
 		// TODO Auto-generated method stub
-		return jdbctemplate.update(
+		jdbctemplate.update(
 				"INSERT INTO Voyage (ShipSerialId, Fare, ArrivalHarborId, ArrivalTime, DepartureHarborId, DepartureTime, VoyageStatusCode) VALUES (?, ?, ?, ?, ?, ?, ?)",
 				voyage.getShipSerialId(), voyage.getFare(), voyage.getArrivalHarborId(), voyage.getArrivalTime(), voyage.getDepartureHarborId(), voyage.getDepartureTime(), voyage.getVoyageStatusCode()
 		);
+
+		Integer room_count = jdbctemplate.queryForObject(
+				"SELECT RoomCount FROM ShipModel WHERE ModelId = (SELECT ModelId FROM Ship WHERE ShipSerialId = ?)",
+				new BeanPropertyRowMapper<Integer>(Integer.class), voyage.getShipSerialId()
+		);
+
+		if (room_count == null)
+			throw new RuntimeException("Voyage insertion trigger failed");
+
+		for (int i = 1; i <= room_count; i++)
+			jdbctemplate.update(
+					"INSERT INTO RoomBooking (TransactionId, RoomId, VoyageId, RoomStatusCode) VALUES (null, ?, ?, ?)",
+					i, voyage.getVoyageId(), RoomStatusProvider.getRoomStatusCode.get("AVAILABLE")
+			);
 	}
 
 	@Override
@@ -80,14 +94,4 @@ public class VoyageDaoImpl implements VoyageDao {
 				new BeanPropertyRowMapper<Voyage>(Voyage.class), userId
 		);
 	}
-
-    @Override
-    public List<VoyageStatus> getAllVoyageStatuses() {
-		return jdbctemplate.query(
-				"SELECT * FROM VOYAGE_STATUS",
-				new BeanPropertyRowMapper<VoyageStatus>(VoyageStatus.class)
-		);
-    }
-
-
 }

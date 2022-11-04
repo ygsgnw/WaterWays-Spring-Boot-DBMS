@@ -7,12 +7,11 @@ import org.springframework.stereotype.Repository;
 
 public interface VoyageDao {
 
-    int insert (Voyage voyage);
+    void insert (Voyage voyage);
 	int update (Voyage voyage,int id);
 	int delete (int id);
 	List<Voyage> getAll ();
 	Voyage getById (int id);
 	List<Voyage> getAllActive ();
 	List<Voyage> getVoyagesByUserId (int userId);
-	List<VoyageStatus> getAllVoyageStatuses ();
 }

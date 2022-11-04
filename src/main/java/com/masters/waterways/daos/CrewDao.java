@@ -6,9 +6,10 @@ import com.masters.waterways.models.Crew;
 
 
 public interface CrewDao {
-	int insert (Crew crew);
-	int update (Crew crew, int id);
-	int delete (int id);
+
+	void insert (Crew crew);
+	void update (Crew crew);
+	void delete (Crew crew);
 	List<Crew> getAll ();
 	Crew getById (int id);
 }

@@ -12,8 +12,8 @@ public class FoodItem {
 
 	private int FoodItemId;
 	private int VoyageId;
-	private String FoodName;
 	private int FoodCost;
+	private String FoodName;
 	private String FoodDescription;
 
 	public int getFoodItemId() {

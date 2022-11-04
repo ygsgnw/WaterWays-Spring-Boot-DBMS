@@ -17,12 +17,12 @@ public class Harbor {
 	private Date ConstructionDate;
 	private int ManagerId;
 
-	public int getHarbourId() {
+	public int getHarborId() {
 		return HarborId;
 	}
 
-	public void setHarbourId(int harbourId) {
-		HarborId = harbourId;
+	public void setHarborId(int harborId) {
+		HarborId = harborId;
 	}
 
 	public String getLocation() {

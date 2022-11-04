@@ -10,5 +10,4 @@ public interface ShipDao {
 	int delete (int id);
 	List<Ship> getAll ();
 	Ship getById (int id);
-	List<ShipStatus> getAllShipStatuses ();
 }

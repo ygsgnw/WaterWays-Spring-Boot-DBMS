@@ -1,15 +1,15 @@
 package com.masters.waterways.models;
 
-public class ShipStatus {
-    private int ShipStatusCode;
+public class ShipVerbose {
+    private Ship ship;
     private String ShipStatusDesc;
 
-    public int getShipStatusCode() {
-        return ShipStatusCode;
+    public Ship getShip() {
+        return ship;
     }
 
-    public void setShipStatusCode(int shipStatusCode) {
-        ShipStatusCode = shipStatusCode;
+    public void setShip(Ship ship) {
+        this.ship = ship;
     }
 
     public String getShipStatusDesc() {

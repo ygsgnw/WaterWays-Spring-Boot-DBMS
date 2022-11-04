@@ -9,18 +9,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Crew {
 
-    private int CrewId;
     private int EmployeeId;
     private int VoyageId;
     private String Role;
-
-    public int getCrewId() {
-        return CrewId;
-    }
-
-    public void setCrewId(int crewId) {
-        CrewId = crewId;
-    }
 
     public int getEmployeeId() {
         return EmployeeId;

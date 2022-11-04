@@ -23,9 +23,9 @@ insert into ShipModel values(1004,300,"model4");
 insert into ShipModel values(1005,330,"model5");
 
 
-insert into SHIP_STATUS values(1,"OPERATIONAL");
-insert into SHIP_STATUS values(2,"SUSPENDED");
-insert into SHIP_STATUS values(3,"MAINTAINENCE");
+# insert into SHIP_STATUS values(1,"OPERATIONAL");
+# insert into SHIP_STATUS values(2,"SUSPENDED");
+# insert into SHIP_STATUS values(3,"MAINTAINENCE");
 
 
 insert into Ship values(3001,1001,1,"2000-01-01 00:00:00");
@@ -56,9 +56,9 @@ insert into Harbor values(6004,"location4","1990-09-15 00:00:00",5003);
 insert into Harbor values(6005,"location5","1991-12-10 00:00:00",5003);
 
 
-insert into VOYAGE_STATUS values(1,"OPERATIONAL");
-insert into VOYAGE_STATUS values(2,"COMPLETED");
-insert into VOYAGE_STATUS values(3,"CANCELLED");
+# insert into VOYAGE_STATUS values(1,"OPERATIONAL");
+# insert into VOYAGE_STATUS values(2,"COMPLETED");
+# insert into VOYAGE_STATUS values(3,"CANCELLED");
 
 
 insert into Voyage values(8001,3001,40000,6001,6001,"2022-01-01 10:10:00","2022-02-01 15:00:00",1);
@@ -82,10 +82,10 @@ insert into Transaction values(10004,"2022-08-18 00:00:00",26000,4005);
 insert into Transaction values(10005,"2022-06-06 00:00:00",50000,4001);
 
 
-insert into ROOM_STATUS values(1,"AVAILABLE");
-insert into ROOM_STATUS values(2,"BOOKED");
-insert into ROOM_STATUS values(3,"RESERVED");
-insert into ROOM_STATUS values(4,"MAINTENANCE");
+# insert into ROOM_STATUS values(1,"AVAILABLE");
+# insert into ROOM_STATUS values(2,"BOOKED");
+# insert into ROOM_STATUS values(3,"RESERVED");
+# insert into ROOM_STATUS values(4,"MAINTENANCE");
 
 
 insert into RoomBooking values(10001,11001,8001,1);

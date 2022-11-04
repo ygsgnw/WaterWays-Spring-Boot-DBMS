@@ -10,9 +10,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class RoomBooking {
 
+	private int TransactionId;
 	private int RoomId;
 	private int VoyageId;
-	private int TransactionId;
 	private int RoomStatusCode;
 
 	public int getRoomId() {
