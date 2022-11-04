@@ -41,6 +41,7 @@ create table Harbor (
 	Location varchar(20) not null,
 	ConstructionDate datetime,
 	ManagerId int not null,
+	HarborStatusCode int not null,
 	foreign key (ManagerId) references Employee(EmployeeId) on delete restrict
 );
 

@@ -1,5 +1,7 @@
 package com.masters.waterways.models;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 public class ShipStatusProvider {
@@ -14,4 +16,15 @@ public class ShipStatusProvider {
             "SUSPENDED", 2,
             "MAINTENANCE", 3
     );
+
+    public List<ShipVerbose> transform(List<Ship> shipList) {
+        List<ShipVerbose> shipVerboseList = new ArrayList<>();
+        for (Ship ship: shipList) {
+            ShipVerbose shipVerbose = new ShipVerbose();
+            shipVerbose.setShip(ship);
+            shipVerbose.setShipStatusDesc(getShipStatusDesc.get(ship.getShipStatusCode()));
+            shipVerboseList.add(shipVerbose);
+        }
+        return shipVerboseList;
+    }
 }

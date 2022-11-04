@@ -16,6 +16,7 @@ public class Harbor {
 	private String Location;
 	private Date ConstructionDate;
 	private int ManagerId;
+	private int HarborStatusCode;
 
 	public int getHarborId() {
 		return HarborId;
@@ -47,5 +48,13 @@ public class Harbor {
 
 	public void setManagerId(int managerId) {
 		ManagerId = managerId;
+	}
+
+	public int getHarborStatusCode() {
+		return HarborStatusCode;
+	}
+
+	public void setHarborStatusCode(int harborStatusCode) {
+		HarborStatusCode = harborStatusCode;
 	}
 }
