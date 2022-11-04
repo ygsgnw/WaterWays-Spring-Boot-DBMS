@@ -6,8 +6,8 @@ import com.masters.waterways.models.RoomBooking;
 import java.util.List;
 
 import com.masters.waterways.models.RoomStatusProvider;
-import com.masters.waterways.models.Transaction;
-import org.apache.catalina.User;
+import com.masters.waterways.models.Voyage;
+import com.masters.waterways.models.VoyageStatusProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -22,6 +22,8 @@ public class RoomBookingDaoImpl implements RoomBookingDao {
 
 	@Autowired
 	TransactionDao transactionDao;
+
+	VoyageDao voyageDao;
 	
 	@Override
 	public int insert (RoomBooking room_booking) {
@@ -80,6 +82,21 @@ public class RoomBookingDaoImpl implements RoomBookingDao {
 
 
 	@Override
+	public void roomBookingByVoyageIdAndUserId(int voyageId, int userId) throws RuntimeException {
+		Voyage voyage = voyageDao.getById(voyageId);
+		if (voyage.getVoyageStatusCode() != VoyageStatusProvider.getVoyageStatusCode.get("OPERATIONAL"))
+			throw new RuntimeException("Voyage is not operational");
+		try {
+			RoomBooking reservedRoom = reserveRoomByVoyageId(voyageId);
+			roomBookingByReservedRoomIdAndUserId(reservedRoom, userId, voyage.getFare());
+		} catch (Exception exception) {
+			System.out.println("Room booking failed");
+		}
+
+	}
+
+
+	@Override
 	@Transactional(rollbackFor = Exception.class)
 	public RoomBooking reserveRoomByVoyageId (int voyageId) {
 		RoomBooking room = jdbctemplate.queryForObject(
@@ -98,7 +115,7 @@ public class RoomBookingDaoImpl implements RoomBookingDao {
 
 	@Override
 	@Transactional(rollbackFor = Exception.class)
-	public void bookRoomByRoomIdAndUserId(RoomBooking room, int userId, int fare) {
+	public void roomBookingByReservedRoomIdAndUserId(RoomBooking room, int userId, int fare) {
 		assert(room != null);
 
 		jdbctemplate.update(

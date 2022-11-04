@@ -11,4 +11,6 @@ public interface EmployeeDao {
 	Employee getById (int id);
 	Employee getByUserId (int id);
 	void makeEmployeeByUserId (int id);
+
+	void setSuspended(int employeeId);
 }

@@ -3,6 +3,7 @@ package com.masters.waterways.services;
 import java.util.List;
 import com.masters.waterways.daos.*;
 import com.masters.waterways.models.Employee;
+import com.masters.waterways.models.EmployeeStatusProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -80,4 +81,16 @@ public class EmployeeDaoImpl implements EmployeeDao {
 				userId
 		);
     }
+
+	@Override
+	public void setSuspended (int employeeId) {
+		jdbctemplate.update(
+				"DELETE FROM Crew WHERE Crew.EmployeeId = ? AND EXISTS(SELECT * FROM Voyage WHERE VoyageId = Crew.VoyageId AND DepartureTime > NOW())",
+				employeeId
+		);
+		jdbctemplate.update(
+				"UPDATE Employee SET EmployeeStatusCode = ? WHERE EmployeeId = ?",
+				EmployeeStatusProvider.getEmployeeStatusCode.get("SUSPENDED"), employeeId
+		);
+	}
 }
