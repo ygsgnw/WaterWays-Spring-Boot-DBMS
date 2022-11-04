@@ -14,44 +14,38 @@ import com.masters.waterways.models.ShipModel;
 @Controller
 public class ShipModelController {
 	@Autowired
-	private ShipModelDao modeldao;
+	private ShipModelDao shipModelDao;
 	
 	@GetMapping("/admin/shipmodel")
 	public String listshipmodel(Model model) {
-		model.addAttribute("shipmodels", modeldao.getAll());
+		model.addAttribute("shipmodels", shipModelDao.getAll());
 		return "ShipModelList";
 	}
-	@GetMapping("/admin/shipmodel/new")
+	@GetMapping("/admin/shipmodel/add")
 	public String createshipmodelform(Model model) {
 		ShipModel newshipmodel =new ShipModel();
 		model.addAttribute("newshipmodel", newshipmodel);
 		return "createShipModelForm";
 	}
 	
-	@PostMapping("/admin/shipmodel")
+	@PostMapping("/admin/shipmodel/add")
 	public String saveshimodel(@ModelAttribute("newshipmodel") ShipModel newshipmodel) {
-		modeldao.insert(newshipmodel);
+		shipModelDao.insert(newshipmodel);
 		return "redirect:/admin/shipmodel";
 	}
 	
-	@GetMapping("/admin/shipmodel/edit/{id}")
+	@GetMapping("/admin/shipmodel/update/{id}")
 	public String editshipmodelform(@PathVariable int id, Model model) {
-		model.addAttribute("shipmodel", modeldao.getById(id));
+		model.addAttribute("shipmodel", shipModelDao.getById(id));
 		return "editShipModelForm";
 	}
 	
-	@PostMapping("/admin/shipmodel/edit/{id}")
+	@PostMapping("/admin/shipmodel/update/{id}")
 	public String updateshipmodel(@PathVariable int id,
 			@ModelAttribute("shipmodel") ShipModel shipmodel,
 			Model model) {
 		
-		modeldao.update(shipmodel, id);
-		return "redirect:/admin/shipmodel";
-	}
-	
-	@GetMapping("/admin/shipmodel/delete/{id}")
-	public String deleteshipmodel(@PathVariable int id) {
-		modeldao.delete(id);
+		shipModelDao.update(shipmodel, id);
 		return "redirect:/admin/shipmodel";
 	}
 	
