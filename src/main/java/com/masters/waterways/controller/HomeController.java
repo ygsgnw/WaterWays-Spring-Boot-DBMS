@@ -92,28 +92,7 @@ public class HomeController {
 			voyages = new_voyages;
 		}
 
-		List<Harbor> harbors = harborDao.getAll();
-
-		Dictionary<Integer, String> getHarbor = new Hashtable<>();
-
-		for (Harbor h: harbors)
-			getHarbor.put(h.getHarborId(), h.getLocation());
-
-		class VoyageNeat {
-			Voyage v;
-			String DepartureHarbor, ArrivalHarbour, VoyageStatusDesc;
-		}
-
-		List<VoyageNeat> voyagesNeat = new ArrayList<>();
-
-		for (Voyage v: voyages) {
-			VoyageNeat nv = new VoyageNeat();
-			nv.DepartureHarbor = getHarbor.get(v.getDepartureHarborId());
-			nv.ArrivalHarbour = getHarbor.get(v.getArrivalHarborId());
-			nv.v = v;
-			nv.VoyageStatusDesc = VoyageStatusProvider.getVoyageStatusDesc.get(v.getVoyageStatusCode());
-			voyagesNeat.add(nv);
-		}
+		List<VoyageVerbose> voyageVerboseList = VoyageStatusProvider.transform(voyages);
 		
 		model.addAttribute("new_voyage", voyages);
 

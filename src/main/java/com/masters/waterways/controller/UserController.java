@@ -128,14 +128,15 @@ public class UserController {
     @GetMapping("/user/booking/{userId}")
     public String booking(@PathVariable("userId") int voyageId, HttpSession session){
 //        int userId=session_key;
-        roomBookingDao.bookRoomByRoomIdAndUserId(authenticationService.getCurrentUser(session), voyageId);
+
+        roomBookingDao.roomBookingByVoyageIdAndUserId(authenticationService.getCurrentUser(session), voyageId);
         return "redirect:/user/voyages/{userId}";
     }
     
     @GetMapping("/user/mybookings")
     public String mybookings(Model model, HttpSession session){
 //        int userId=session_key;
-        model.addAttribute("mybookings",voyageDao.getVoyagesByUserId(authenticationService.getCurrentUser(session)));
+        model.addAttribute("mybookings", voyageDao.getAllByUserId(authenticationService.getCurrentUser(session)));
         return "MyVoyages"; // will direct to VoyageDetailsUser
     }
     
@@ -146,7 +147,7 @@ public class UserController {
                                    @RequestParam(name="foodCount", required = false) int foodCount,
                                    HttpSession session
     ) {
-        foodBookingDao.bookFood(authenticationService.getCurrentUser(session), voyageId, roomId, foodItemId, foodCount);
+        foodBookingDao.bookFood(authenticationService.getCurrentUser(session), roomId, foodCount, foodItemDao.getById(voyageId, foodItemId));
         return "redirect:/user/voyages/{voyageId}";
     }
     

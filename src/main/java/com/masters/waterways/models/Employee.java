@@ -13,6 +13,7 @@ public class Employee {
 	private long EmployeeId;
 	private int UserId;
 	private LocalDateTime JoinDate;
+	private int EmployeeStatusCode;
 
 	public long getEmployeeId() {
 		return EmployeeId;
@@ -36,5 +37,13 @@ public class Employee {
 
 	public void setJoinDate(LocalDateTime joinDate) {
 		JoinDate = joinDate;
+	}
+
+	public int getEmployeeStatusCode() {
+		return EmployeeStatusCode;
+	}
+
+	public void setEmployeeStatusCode(int employeeStatusCode) {
+		EmployeeStatusCode = employeeStatusCode;
 	}
 }

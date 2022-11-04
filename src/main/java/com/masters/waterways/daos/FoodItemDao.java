@@ -9,6 +9,7 @@ public interface FoodItemDao {
 	void delete(FoodItem foodItem);
 
 	List<FoodItem> getAll ();
-	FoodItem getById (int id);
+	FoodItem getById (int voyageId, int foodItemId);
+
 	List<FoodItem> getFoodItemsByVoyageId (int voyageId);
 }

@@ -32,6 +32,7 @@ create table Employee (
 	EmployeeId int primary key auto_increment,
 	UserId int not null,
 	JoinDate datetime not null,
+	EmployeeStatusCode int not null,
 	foreign key (UserId) references Users(UserId) on delete cascade
 );
 
