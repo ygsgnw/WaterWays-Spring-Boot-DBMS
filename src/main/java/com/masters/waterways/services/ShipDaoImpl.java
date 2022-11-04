@@ -19,8 +19,8 @@ public class ShipDaoImpl implements ShipDao {
 	public int insert (Ship ship) {
 		// TODO Auto-generated method stub
 		return jdbctemplate.update(
-				"INSERT INTO Ship (ModelId,ShipStatusCode,MfDate) VALUES (?,?,?)",
-				ship.getModelId(),ship.getShipStatusCode(),ship.getMfDate());
+				"INSERT INTO Ship (ModelId, ShipStatusCode,MfDate) VALUES (?,?,?)",
+				ship.getModelId(), ship.getShipStatusCode(),ship.getMfDate());
 	}
 
 	@Override

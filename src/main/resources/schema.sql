@@ -16,7 +16,6 @@ create table Ship (
 	ModelId int not null,
 	ShipStatusCode int not null,
 	MfDate datetime not null,
-	foreign key (ShipStatusCode) references SHIP_STATUS(ShipStatusCode),
 	foreign key (ModelId) references ShipModel(ModelId) on delete cascade
 );
 
@@ -55,7 +54,6 @@ create table Voyage (
 	DepartureTime datetime not null,
 	ArrivalTime datetime not null,
 	VoyageStatusCode int not null,
-	foreign key (VoyageStatusCode) references VOYAGE_STATUS(VoyageStatusCode),
 	foreign key (ShipSerialId) references Ship(ShipSerialId) on delete cascade,
 	foreign key (DepartureHarborId) references Harbor(HarborId) on delete cascade,
 	foreign key (ArrivalHarborId) references Harbor(HarborId) on delete cascade
@@ -88,7 +86,6 @@ create table RoomBooking (
     VoyageId int,
     RoomStatusCode int not null,
     primary key (VoyageId, RoomId),
-    foreign key (RoomStatusCode) references ROOM_STATUS(RoomStatusCode),
     foreign key (VoyageId) references Voyage(VoyageId) on delete cascade,
     foreign key (TransactionId) references Transaction(TransactionId) on delete restrict
     -- Weak Entity RoomBooking
