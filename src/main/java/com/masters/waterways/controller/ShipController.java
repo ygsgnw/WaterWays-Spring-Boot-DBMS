@@ -1,6 +1,9 @@
 package com.masters.waterways.controller;
 
 
+import com.masters.waterways.daos.ShipModelDao;
+import com.masters.waterways.models.ShipModel;
+import com.masters.waterways.models.ShipStatusProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,47 +18,47 @@ import com.masters.waterways.models.Ship;
 @Controller
 public class ShipController {
 	@Autowired
-	private ShipDao shipdao;
-	
+	private ShipDao shipDao;
+
+	@Autowired
+	private ShipModelDao shipModelDao;
+
 	@GetMapping("/admin/ship")
 	public String listship(Model model) {
-		model.addAttribute("ships", shipdao.getAll());
+		model.addAttribute("shipstatuses", ShipStatusProvider.getShipStatusDesc);
+		model.addAttribute("ships", shipDao.getAll());
 		return "ShipList";
 	}
-	@GetMapping("/admin/ship/new")
+	@GetMapping("/admin/ship/add")
 	public String createcrewform(Model model) {
-		Ship newship =new Ship();
-		model.addAttribute("newship", newship);
-		return "createShipForm";
+		model.addAttribute("shipmodels", shipModelDao.getAll());
+		model.addAttribute("shipstatuses", ShipStatusProvider.getShipStatusCode);
+		model.addAttribute("newship", new Ship());
+		return "AddShipForm";
 	}
 	
-	@PostMapping("/admin/ship/new")
+	@PostMapping("/admin/ship/add")
 	public String saveship(@ModelAttribute("newship") Ship newship) {
 		System.out.println("ship");
-		shipdao.insert(newship);
+			shipDao.insert(newship);
 		return "redirect:/admin/ship";
 	}
 	
-	@GetMapping("/admin/ship/edit/{id}")
+	@GetMapping("/admin/ship/update/{id}")
 	public String editshipform(@PathVariable int id, Model model) {
-		model.addAttribute("ship", shipdao.getById(id));
-		return "editShipForm";
+		model.addAttribute("shipstatuses", ShipStatusProvider.getShipStatusCode);
+		model.addAttribute("ship", shipDao.getById(id));
+		return "UpdateShipForm";
 	}
 	
-	@PostMapping("/admin/ship/edit/{id}")
+	@PostMapping("/admin/ship/update/{id}")
 	public String updateship(@PathVariable int id,
 			@ModelAttribute("ship") Ship ship,
 			Model model) {
-		shipdao.update(ship, id);
+		shipDao.update(ship, id);
 		return "redirect:/admin/ship";
 	}
-	
-	@GetMapping("/admin/ship/delete/{id}")
-	public String deleteship(@PathVariable int id) {
-		shipdao.delete(id);
-		return "redirect:/admin/ship";
-	}
-	
+
 	
 	
 	

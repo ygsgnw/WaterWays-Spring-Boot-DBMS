@@ -128,6 +128,7 @@ public class UserController {
     @GetMapping("/user/booking/{userId}")
     public String booking(@PathVariable("userId") int voyageId, HttpSession session){
 //        int userId=session_key;
+
         roomBookingDao.roomBookingByVoyageIdAndUserId(authenticationService.getCurrentUser(session), voyageId);
         return "redirect:/user/voyages/{userId}";
     }
