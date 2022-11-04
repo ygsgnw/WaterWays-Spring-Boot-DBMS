@@ -53,10 +53,10 @@ public class FoodItemDaoImpl implements FoodItemDao {
 	}
 
 	@Override
-	public FoodItem getById (int id) {
+	public FoodItem getById (int voyageId, int foodItemId) {
 		return jdbctemplate.queryForObject(
-				"SELECT * FROM FoodItem WHERE FoodItemId = ?",
-				new BeanPropertyRowMapper<>(FoodItem.class), id
+				"SELECT * FROM FoodItem WHERE FoodItemId = ? AND voyageId = ?",
+				new BeanPropertyRowMapper<>(FoodItem.class), foodItemId, voyageId
 		);
 	}
 

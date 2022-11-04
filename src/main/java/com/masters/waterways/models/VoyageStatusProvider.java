@@ -22,7 +22,7 @@ public class VoyageStatusProvider {
 
     static HarborDao harborDao;
 
-    public List<VoyageVerbose> transform(List<Voyage> voyageList) {
+    public static List<VoyageVerbose> transform(List<Voyage> voyageList) {
 
         List<Harbor> harbors = harborDao.getAll();
         Map<Integer, String> getHarborLocation = new HashMap<>();

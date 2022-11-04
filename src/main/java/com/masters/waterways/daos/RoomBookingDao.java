@@ -6,18 +6,24 @@ import org.springframework.transaction.annotation.Transactional;
 
 
 public interface RoomBookingDao {
-    int insert (RoomBooking room_booking);
+
+	int insert(RoomBooking room_booking);
 
 	int update(RoomBooking room_booking);
 
-	int delete (int id);
-	List<RoomBooking> getAll ();
-	RoomBooking getById (int id);
-	List<RoomBooking> getRoomsByUserIdAndVoyageId (int userId, int voyageId);
+	int delete(int id);
 
-    @Transactional
-    RoomBooking reserveRoomByVoyageId(int voyageId);
+	List<RoomBooking> getAll();
 
-	@Transactional
-	void bookRoomByRoomIdAndUserId(RoomBooking room, int userId, int fare);
+	RoomBooking getById(int id);
+
+	List<RoomBooking> getRoomsByUserIdAndVoyageId(int userId, int voyageId);
+
+	void roomBookingByVoyageIdAndUserId(int voyageId, int userId) throws RuntimeException;
+
+	@Transactional(rollbackFor = Exception.class)
+	RoomBooking reserveRoomByVoyageId(int voyageId);
+
+	@Transactional(rollbackFor = Exception.class)
+	void roomBookingByReservedRoomIdAndUserId(RoomBooking room, int userId, int fare);
 }
