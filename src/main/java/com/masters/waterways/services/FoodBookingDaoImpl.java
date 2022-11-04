@@ -2,9 +2,7 @@ package com.masters.waterways.services;
 
 import com.masters.waterways.daos.*;
 import com.masters.waterways.models.FoodBooking;
-
 import java.util.List;
-
 import com.masters.waterways.models.FoodItem;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -26,23 +24,6 @@ public class FoodBookingDaoImpl implements FoodBookingDao {
 		);
 	}
 
-	@Override
-	public void update (FoodBooking foodBooking) {
-		// TODO Auto-generated method stu
-		jdbctemplate.update(
-				"UPDATE FoodBooking SET FoodItemId = ?, VoyageId = ?, FoodItemCount = ? WHERE TransactionId = ?",
-				foodBooking.getFoodItemId(), foodBooking.getVoyageId(), foodBooking.getFoodItemCount(), id
-		);
-	}
-
-	@Override
-	public void delete (FoodBooking foodBooking) {
-		// TODO Auto-generated method stub
-		jdbctemplate.update(
-				"DELETE FROM FoodBooking WHERE TransactionId = ?",
-				id
-		);
-	}
 
 	@Override
 	public List<FoodBooking> getAll () {
@@ -63,8 +44,9 @@ public class FoodBookingDaoImpl implements FoodBookingDao {
 	}
 
 	@Override
-	public void bookFood(int userId, int voyageId, int roomId, int foodItemId, int foodCount) {
+	public void bookFood(int userId, int roomId, int foodCount, FoodItem foodItem) {
 
 	}
+
 
 }

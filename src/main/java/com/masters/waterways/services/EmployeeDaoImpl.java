@@ -31,11 +31,17 @@ public class EmployeeDaoImpl implements EmployeeDao {
 	}
 
 	@Override
-	public void delete (Employee employee) {
-		jdbctemplate.update(
-				"DELETE FROM Employee WHERE EmployeeId = ?",
-				employee.getEmployeeId()
-		);
+	public void delete (Employee employee) throws RuntimeException {
+		if (jdbctemplate.query(
+				"SELECT EmployeeId FROM Crew, Voyage WHERE Crew.EmployeeId = ? AND Crew.VoyageId = Voyage.VoyageId AND Voyage.DepartureTime < NOW()",
+				new BeanPropertyRowMapper<Integer>(Integer.class), employee.getEmployeeId()
+		).isEmpty())
+			jdbctemplate.update(
+					"DELETE FROM Employee WHERE EmployeeId = ?",
+					employee.getEmployeeId()
+			);
+		else
+			throw new RuntimeException("Cannot dismiss crew of past voyages");
 	}
 
 	@Override

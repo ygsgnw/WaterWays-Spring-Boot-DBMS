@@ -50,12 +50,4 @@ public class ShipDaoImpl implements ShipDao {
 				new BeanPropertyRowMapper<Ship>(Ship.class), id);
 	}
 
-    @Override
-    public List<ShipStatus> getAllShipStatuses() {
-		return jdbctemplate.query(
-				"SELECT * FROM SHIP_STATUS",
-				new BeanPropertyRowMapper<ShipStatus>(ShipStatus.class)
-		);
-    }
-
 }

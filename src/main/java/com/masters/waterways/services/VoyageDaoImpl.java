@@ -15,7 +15,7 @@ public class VoyageDaoImpl implements VoyageDao {
 
 	@Autowired
 	JdbcTemplate jdbctemplate;
-	
+
 	@Override
 	public void insert (Voyage voyage) {
 		// TODO Auto-generated method stub
@@ -37,15 +37,6 @@ public class VoyageDaoImpl implements VoyageDao {
 					"INSERT INTO RoomBooking (TransactionId, RoomId, VoyageId, RoomStatusCode) VALUES (null, ?, ?, ?)",
 					i, voyage.getVoyageId(), RoomStatusProvider.getRoomStatusCode.get("AVAILABLE")
 			);
-	}
-
-	@Override
-	public int update (Voyage voyage, int id) {
-		// TODO Auto-generated method stub
-		return jdbctemplate.update(
-				"UPDATE Voyage SET ShipSerialId = ?, Fare = ?, ArrivalHarborId = ?, ArrivalTime = ?, DepartureHarborId = ?, DepartureTime = ? WHERE VoyageId = ?",
-				voyage.getShipSerialId(), voyage.getFare(), voyage.getArrivalHarborId(), voyage.getArrivalTime(), voyage.getDepartureHarborId(), voyage.getDepartureTime(), id
-		);
 	}
 
 	@Override
@@ -85,13 +76,30 @@ public class VoyageDaoImpl implements VoyageDao {
 	}
 
 	@Override
-	public List<Voyage> getVoyagesByUserId(int userId) {
+	public List<Voyage> getAllByUserId(int userId) {
 		return jdbctemplate.query(
 				"SELECT * FROM Voyage WHERE VoyageId IN (" +
 						"SELECT VoyageId FROM RoomBooking, Transaction " +
 						"WHERE RoomBooking.TransactionId = Transaction.TransactionId " +
 						"AND Transaction.UserId = ?)",
 				new BeanPropertyRowMapper<Voyage>(Voyage.class), userId
+		);
+	}
+
+	@Override
+	public void setSuspended (int voyageId) {
+		jdbctemplate.update(
+				"insert into Transaction (TransactionDate, Amount, UserId) (" +
+					"select now(), -sum(Transaction.Amount), Transaction.UserId " +
+					"from Transaction, RoomBooking where RoomBooking.TransactionId = Transaction.TransactionId and RoomBooking.VoyageId = ? " +
+					"group by Transaction.UserId)", voyageId
+		);
+
+		jdbctemplate.update(
+				"insert into Transaction (TransactionDate, Amount, UserId) (" +
+					"select now(), -sum(Transaction.Amount), Transaction.UserId " +
+					"from Transaction, FoodBooking where Transaction.TransactionId = FoodBooking.TransactionId and FoodBooking.VoyageId = ? " +
+					"group by Transaction.UserId)", voyageId
 		);
 	}
 }

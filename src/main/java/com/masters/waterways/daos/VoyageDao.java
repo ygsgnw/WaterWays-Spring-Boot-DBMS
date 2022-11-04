@@ -8,10 +8,11 @@ import org.springframework.stereotype.Repository;
 public interface VoyageDao {
 
     void insert (Voyage voyage);
-	int update (Voyage voyage,int id);
 	int delete (int id);
 	List<Voyage> getAll ();
 	Voyage getById (int id);
+
 	List<Voyage> getAllActive ();
-	List<Voyage> getVoyagesByUserId (int userId);
+	List<Voyage> getAllByUserId (int userId);
+	void setSuspended (int voyageId);
 }

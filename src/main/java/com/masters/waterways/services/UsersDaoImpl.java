@@ -19,7 +19,7 @@ public class UsersDaoImpl implements UsersDao {
 	public int insert (Users user) {
 		return jdbctemplate.update(
 				"INSERT INTO Users (UserId, UserName, EmailId, UserPassword) VALUES (?, ?, ?, ?)",
-				user.getUserId(), user.getName(), user.getEmailId(), user.getUserPassword()
+				user.getUserId(), user.getUserName(), user.getEmailId(), user.getUserPassword()
 		);
 	}
 
@@ -27,7 +27,7 @@ public class UsersDaoImpl implements UsersDao {
 	public int update (Users user, int id) {
 		return jdbctemplate.update(
 				"UPDATE Users SET UserName = ?, EmailId = ?, UserPassword = ? WHERE UserId = ?",
-				user.getUserId(), user.getName(), user.getEmailId(), user.getUserPassword(), id
+				user.getUserId(), user.getUserName(), user.getEmailId(), user.getUserPassword(), id
 		);
 	}
 
