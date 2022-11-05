@@ -38,7 +38,7 @@ public class FoodBookingVerbose {
 
     static FoodItemDao foodItemDao;
 
-    public List<FoodBookingVerbose> transform(List<FoodBooking> foodBookingList) {
+    static public List<FoodBookingVerbose> transform(List<FoodBooking> foodBookingList) {
 
         List<FoodItem> foodItemList = foodItemDao.getAll();
 

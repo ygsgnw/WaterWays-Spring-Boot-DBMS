@@ -14,5 +14,6 @@ public interface VoyageDao {
 
 	List<Voyage> getAllActive ();
 	List<Voyage> getAllByUserId (int userId);
+
 	void setSuspended (int voyageId);
 }
