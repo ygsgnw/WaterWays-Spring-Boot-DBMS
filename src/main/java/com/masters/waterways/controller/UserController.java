@@ -1,6 +1,7 @@
 package com.masters.waterways.controller;
 
 import com.masters.waterways.daos.*;
+import com.masters.waterways.models.FoodBooking;
 import com.masters.waterways.models.Users;
 import com.masters.waterways.models.Voyage;
 import com.masters.waterways.services.AuthenticationService;
@@ -140,7 +141,16 @@ public class UserController {
         model.addAttribute("my_upcoming_voyages", voyageDao.getAllActiveByUserId(authenticationService.getCurrentUser(session)));
         return "MyVoyagesList"; // will direct to VoyageDetailsUser
     }
-    
+
+    @GetMapping("/user/voyage/{voyageId}/room/{roomId}")
+    public String foodBookingForm(@PathVariable("voyageId") int voyageId, @PathVariable("roomId") int roomId, Model model){
+        FoodBooking foodBooking = new FoodBooking();
+        foodBooking.setRoomId(roomId);
+        foodBooking.setVoyageId(voyageId);
+        model.addAttribute("food_booking", foodBooking);
+        return "FoodBookingForm";
+    }
+
     @GetMapping("/user/foodbooking")
     public String foodBookingForRoom (@RequestParam(name="voyageId", required = false) int voyageId,
                                    @RequestParam(name="roomId", required = false) int roomId,

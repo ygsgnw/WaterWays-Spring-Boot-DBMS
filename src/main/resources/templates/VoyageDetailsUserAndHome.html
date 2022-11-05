@@ -76,8 +76,6 @@
 
                     <br>
 
-                    <form action="" th:object="${product}"
-                          method="post">
 
                     <table class="table table-striped table-bordered">
                         <thead class="table-dark">
@@ -85,8 +83,6 @@
                             <th> Room ID</th>
                             <th> Food Items</th>
                             <th> Count</th>
-                            <th> Book Food Item</th>
-                            <th> Book Count</th>
                             <th> Action</th>
                         </tr>
                         </thead>
@@ -118,24 +114,15 @@
                             </td>
 
                             <td>
-                                <select class="form-control" >
-                                    <option >1</option>
-                                </select>
-                            </td>
-
-                            <td>
-                                <input type="text" />
-                            </td>
-
-                            <td>
-                                <button type="submit">Save</button>
+                                <a class="btn btn-primary" th:href="@{/user/voyage/
+                                                                        {voyageId}(voyageId = ${voyageverboselist.get(0).getVoyage().getVoyageId()})
+                                                                    /room/{roomId}(roomId=${room_booking_details_with_food.getRoomBooking().getRoomId()})}">Book Food</a>
                             </td>
 
                         </tr>
                         </tbody>
                     </table>
 
-                    </form>
 
 
 
