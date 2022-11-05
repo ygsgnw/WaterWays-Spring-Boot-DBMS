@@ -74,6 +74,71 @@
                         </div>
                     </div>
 
+                    <br>
+
+                    <form action="" th:object="${product}"
+                          method="post">
+
+                    <table class="table table-striped table-bordered">
+                        <thead class="table-dark">
+                        <tr>
+                            <th> Room ID</th>
+                            <th> Food Items</th>
+                            <th> Count</th>
+                            <th> Book Food Item</th>
+                            <th> Book Count</th>
+                            <th> Action</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="room_booking_details_with_food:${room_booking_details_with_foods}">
+
+                            <td th:text="${room_booking_details_with_food.getRoomBooking().getRoomId()}"></td>
+
+                            <td>
+                                <table class="table table-striped table-bordered">
+                                    <tbody>
+                                    <tr th:each="fooditem: ${room_booking_details_with_food.getFoodBookingVerboseList()}">
+                                        <td th:text="${fooditem.getFoodName()}"></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+
+                            </td>
+
+                            <td>
+                                <table class="table table-striped table-bordered">
+                                    <tbody>
+                                    <tr th:each="fooditem: ${room_booking_details_with_food.getFoodBookingVerboseList()}">
+                                        <td th:text="${fooditem.getFoodBooking().getCount()}"></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+
+                            </td>
+
+                            <td>
+                                <select class="form-control" >
+                                    <option >1</option>
+                                </select>
+                            </td>
+
+                            <td>
+                                <input type="text" />
+                            </td>
+
+                            <td>
+                                <button type="submit">Save</button>
+                            </td>
+
+                        </tr>
+                        </tbody>
+                    </table>
+
+                    </form>
+
+
+
 
 
                 </div>

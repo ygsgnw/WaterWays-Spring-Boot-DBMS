@@ -136,12 +136,13 @@ public class UserController {
     @GetMapping("/user/mybookings")
     public String mybookings(Model model, HttpSession session){
 //        int userId=session_key;
-        model.addAttribute("mybookings", voyageDao.getAllByUserId(authenticationService.getCurrentUser(session)));
-        return "MyVoyages"; // will direct to VoyageDetailsUser
+        model.addAttribute("my_completed_voyages", voyageDao.getAllCompletedByUserId(authenticationService.getCurrentUser(session)));
+        model.addAttribute("my_upcoming_voyages", voyageDao.getAllActiveByUserId(authenticationService.getCurrentUser(session)));
+        return "MyVoyagesList"; // will direct to VoyageDetailsUser
     }
     
     @GetMapping("/user/foodbooking")
-    public String voyagesListUser (@RequestParam(name="voyageId", required = false) int voyageId,
+    public String foodBookingForRoom (@RequestParam(name="voyageId", required = false) int voyageId,
                                    @RequestParam(name="roomId", required = false) int roomId,
                                    @RequestParam(name="foodItemId", required = false) int foodItemId,
                                    @RequestParam(name="foodCount", required = false) int foodCount,

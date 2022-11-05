@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import com.masters.waterways.daos.VoyageDao;
 import com.masters.waterways.models.Voyage;
 @Controller
-public class VoyageController {
+public class AdminVoyageController {
 	@Autowired
 	
 	private VoyageDao voyagedao;

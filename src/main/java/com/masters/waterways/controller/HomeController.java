@@ -39,6 +39,9 @@ public class HomeController {
 	@Autowired
 	RoomBookingDetailsDao roomBookingDetailsDao;
 
+	@Autowired
+	FoodItemDao foodItemDao;
+
 	@GetMapping("/")
 	public String home(){
 		return "Home";
@@ -120,11 +123,13 @@ public class HomeController {
 		List<VoyageVerbose> voyageVerbose = VoyageVerbose.transform(voyage);
 		model.addAttribute("voyageverboselist", voyageVerbose);
 
-		Boolean signedIn = false;
+		boolean signedIn = false;
 
 		if (authenticationService.isAuthenticated(session)) {
 			signedIn=true;
-			model.addAttribute("room_booking_details_with_food", roomBookingDetailsDao.getAllByUserIdAndVoyageId(authenticationService.getCurrentUser(session), voyageId));
+			model.addAttribute("room_booking_details_with_foods", roomBookingDetailsDao.getAllByUserIdAndVoyageId(authenticationService.getCurrentUser(session), voyageId));
+			model.addAttribute("fooditems", foodItemDao.getAllByVoyageId(voyageId));
+			model.addAttribute("foodbooking", );
 		}
 		model.addAttribute("signedIn", signedIn );
 
