@@ -73,13 +73,24 @@ public class VoyageDaoImpl implements VoyageDao {
 		);
 	}
 
-	@Override
-	public List<Voyage> getAllByUserId(int userId) {
+    @Override
+    public List<Voyage> getAllActiveByUserId(int userId) {
 		return jdbctemplate.query(
 				"SELECT * FROM Voyage WHERE VoyageId IN (" +
 						"SELECT VoyageId FROM RoomBooking, Transaction " +
 						"WHERE RoomBooking.TransactionId = Transaction.TransactionId " +
-						"AND Transaction.UserId = ?)",
+						"AND Transaction.UserId = ? AND DepartureTime > NOW())",
+				new BeanPropertyRowMapper<>(Voyage.class), userId
+		);
+    }
+
+	@Override
+	public List<Voyage> getAllCompletedByUserId(int userId) {
+		return jdbctemplate.query(
+				"SELECT * FROM Voyage WHERE VoyageId IN (" +
+						"SELECT VoyageId FROM RoomBooking, Transaction " +
+						"WHERE RoomBooking.TransactionId = Transaction.TransactionId " +
+						"AND Transaction.UserId = ? AND DepartureTime < NOW())",
 				new BeanPropertyRowMapper<>(Voyage.class), userId
 		);
 	}

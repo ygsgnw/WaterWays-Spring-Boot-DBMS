@@ -13,7 +13,8 @@ public interface VoyageDao {
 	Voyage getById (int id);
 
 	List<Voyage> getAllActive ();
-	List<Voyage> getAllByUserId (int userId);
+	List<Voyage> getAllActiveByUserId (int userId);
+	List<Voyage> getAllCompletedByUserId (int userId);
 
 	void setSuspended (int voyageId);
 }
