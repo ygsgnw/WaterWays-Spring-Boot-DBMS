@@ -1,6 +1,7 @@
 package com.masters.waterways.controller;
 
 import com.masters.waterways.daos.*;
+import com.masters.waterways.models.FoodBooking;
 import com.masters.waterways.models.Users;
 import com.masters.waterways.models.Voyage;
 import com.masters.waterways.services.AuthenticationService;
@@ -142,13 +143,10 @@ public class UserController {
     }
     
     @GetMapping("/user/foodbooking")
-    public String foodBookingForRoom (@RequestParam(name="voyageId", required = false) int voyageId,
-                                   @RequestParam(name="roomId", required = false) int roomId,
-                                   @RequestParam(name="foodItemId", required = false) int foodItemId,
-                                   @RequestParam(name="foodCount", required = false) int foodCount,
-                                   HttpSession session
+    public String foodBookingForRoom (@ModelAttribute("foodBooking")FoodBooking foodBooking,
+                                      HttpSession session
     ) {
-        foodBookingDao.bookFood(authenticationService.getCurrentUser(session), roomId, foodCount, foodItemDao.getById(voyageId, foodItemId));
+        foodBookingDao.bookFood(authenticationService.getCurrentUser(session), foodBooking);
         return "redirect:/user/voyages/{voyageId}";
     }
     
