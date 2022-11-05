@@ -12,7 +12,7 @@ import com.masters.waterways.daos.CrewDao;
 import com.masters.waterways.models.Crew;
 
 @Controller
-public class CrewController {
+public class AdminCrewController {
 	@Autowired
 	private CrewDao crewdao;
 

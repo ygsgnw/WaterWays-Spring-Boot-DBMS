@@ -60,77 +60,77 @@ public class UserController {
         return "redirect:/profile";
     }
 
-    @GetMapping("/user/voyages")
-    public String voyagesListUser (Model model,
-        @RequestParam(name="fromid", required = false) Integer from_harbour_id,
-        @RequestParam(name="toid", required = false) Integer to_harbour_id,
-        @RequestParam(name="fromdate", required = false)@DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime depart_after_datetime,
-        @RequestParam(name="todate", required = false)@DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime arrive_before_datetime
-    ) {
+//    @GetMapping("/user/voyages")
+//    public String voyagesListUser (Model model,
+//        @RequestParam(name="fromid", required = false) Integer from_harbour_id,
+//        @RequestParam(name="toid", required = false) Integer to_harbour_id,
+//        @RequestParam(name="fromdate", required = false)@DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime depart_after_datetime,
+//        @RequestParam(name="todate", required = false)@DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime arrive_before_datetime
+//    ) {
+//
+//        System.out.println(from_harbour_id);
+//        System.out.println(to_harbour_id);
+//        System.out.println(depart_after_datetime);
+//        System.out.println(arrive_before_datetime);
+//
+//        List<Voyage> voyages = voyageDao.getAll();
+//
+//        System.out.println("hi");
+//
+//        if (from_harbour_id != null) {
+//            List<Voyage> new_voyages = new ArrayList<>();
+//            for (Voyage v: voyages)
+//                if (v.getDepartureHarborId() == from_harbour_id)
+//                    new_voyages.add(v);
+//            voyages = new_voyages;
+//        }
+//
+//        if (to_harbour_id != null) {
+//            List<Voyage> new_voyages = new ArrayList<>();
+//            for (Voyage v: voyages)
+//                if (v.getArrivalHarborId() == to_harbour_id)
+//                    new_voyages.add(v);
+//            voyages = new_voyages;
+//        }
+//
+//        if (depart_after_datetime != null) {
+//            List<Voyage> new_voyages = new ArrayList<>();
+//            for (Voyage v: voyages)
+//                if (v.getDepartureTime().isAfter(depart_after_datetime))
+//                    new_voyages.add(v);
+//            voyages = new_voyages;
+//        }
+//
+//        if (arrive_before_datetime != null) {
+//            List<Voyage> new_voyages = new ArrayList<>();
+//            for (Voyage v: voyages)
+//                if (v.getArrivalTime().isBefore(arrive_before_datetime))
+//                    new_voyages.add(v);
+//            voyages = new_voyages;
+//        }
+//
+//        System.out.println(voyages.size());
+//        model.addAttribute("newVoyages", voyages);
+//
+//        return "VoyageListUser";
+//    }
+//
+//    @GetMapping("/user/voyages/{userId}")
+//    public String voyagesDetails(@PathVariable("id") int voyageId, Model model, HttpSession session) {
+//
+//        model.addAttribute("voyage", voyageDao.getById(authenticationService.getCurrentUser(session)));
+//        model.addAttribute("rooms", roomBookingDao.getAllByUserIdAndVoyageId(authenticationService.getCurrentUser(session), voyageId));
+//        model.addAttribute("foodItems", foodItemDao.getAll());
+//
+//        return "VoyageDetailsUser";
+//    }
 
-        System.out.println(from_harbour_id);
-        System.out.println(to_harbour_id);
-        System.out.println(depart_after_datetime);
-        System.out.println(arrive_before_datetime);
-
-        List<Voyage> voyages = voyageDao.getAll();
-
-        System.out.println("hi");
-
-        if (from_harbour_id != null) {
-            List<Voyage> new_voyages = new ArrayList<>();
-            for (Voyage v: voyages)
-                if (v.getDepartureHarborId() == from_harbour_id)
-                    new_voyages.add(v);
-            voyages = new_voyages;
-        }
-
-        if (to_harbour_id != null) {
-            List<Voyage> new_voyages = new ArrayList<>();
-            for (Voyage v: voyages)
-                if (v.getArrivalHarborId() == to_harbour_id)
-                    new_voyages.add(v);
-            voyages = new_voyages;
-        }
-
-        if (depart_after_datetime != null) {
-            List<Voyage> new_voyages = new ArrayList<>();
-            for (Voyage v: voyages)
-                if (v.getDepartureTime().isAfter(depart_after_datetime))
-                    new_voyages.add(v);
-            voyages = new_voyages;
-        }
-
-        if (arrive_before_datetime != null) {
-            List<Voyage> new_voyages = new ArrayList<>();
-            for (Voyage v: voyages)
-                if (v.getArrivalTime().isBefore(arrive_before_datetime))
-                    new_voyages.add(v);
-            voyages = new_voyages;
-        }
-
-        System.out.println(voyages.size());
-        model.addAttribute("newVoyages", voyages);
-
-        return "VoyageListUser";
-    }
-
-    @GetMapping("/user/voyages/{userId}")
-    public String voyagesDetails(@PathVariable("userId") int voyageId, Model model, HttpSession session) {
-
-        model.addAttribute("voyage", voyageDao.getById(authenticationService.getCurrentUser(session)));
-        model.addAttribute("rooms", roomBookingDao.getAllByUserIdAndVoyageId(authenticationService.getCurrentUser(session), voyageId));
-        model.addAttribute("foodItems", foodItemDao.getAll());
-
-        return "VoyageDetailsUser";
-    }
-
-    @GetMapping("/user/booking/{userId}")
-    public String booking(@PathVariable("userId") int voyageId, HttpSession session){
+    @GetMapping("/user/booking/{id}")
+    public String booking(@PathVariable("id") int voyageId, HttpSession session){
 //        int userId=session_key;
 
         roomBookingDao.bookRoomByVoyageIdAndUserId(authenticationService.getCurrentUser(session), voyageId);
-        return "redirect:/user/voyages/{userId}";
+        return "redirect:/voyages/{id}";
     }
     
     @GetMapping("/user/mybookings")

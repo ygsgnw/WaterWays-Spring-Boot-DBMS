@@ -2,7 +2,6 @@ package com.masters.waterways.controller;
 
 
 import com.masters.waterways.daos.ShipModelDao;
-import com.masters.waterways.models.ShipModel;
 import com.masters.waterways.models.ShipStatusProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,7 +15,7 @@ import com.masters.waterways.daos.ShipDao;
 import com.masters.waterways.models.Ship;
 
 @Controller
-public class ShipController {
+public class AdminShipController {
 	@Autowired
 	private ShipDao shipDao;
 

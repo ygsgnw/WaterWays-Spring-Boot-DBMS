@@ -1,9 +1,8 @@
 package com.masters.waterways.controller;
 
-import com.masters.waterways.daos.HarborDao;
-import com.masters.waterways.daos.UsersDao;
-import com.masters.waterways.daos.VoyageDao;
+import com.masters.waterways.daos.*;
 import com.masters.waterways.models.*;
+import com.masters.waterways.services.AuthenticationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
@@ -15,9 +14,13 @@ import java.util.*;
 
 import com.masters.waterways.models.VoyageStatusProvider;
 
+import javax.servlet.http.HttpSession;
+
 @Controller
 public class HomeController {
 
+	@Autowired
+	AuthenticationService authenticationService;
 	@Autowired
 	private UsersDao usersDao;
 
@@ -26,6 +29,15 @@ public class HomeController {
 
 	@Autowired
 	private HarborDao harborDao;
+
+	@Autowired
+	private RoomBookingDao roomBookingDao;
+
+	@Autowired
+	FoodBookingDao foodBookingDao;
+
+	@Autowired
+	RoomBookingDetailsDao roomBookingDetailsDao;
 
 	@GetMapping("/")
 	public String home(){
@@ -58,7 +70,7 @@ public class HomeController {
 		System.out.println(depart_after_datetime);
 		System.out.println(arrive_before_datetime);
 
-		List<Voyage> voyages = voyageDao.getAll();
+		List<Voyage> voyages = voyageDao.getAllActive();
 
 		if (from_harbour_id != null) {
 			List<Voyage> new_voyages = new ArrayList<>();
@@ -92,23 +104,34 @@ public class HomeController {
 			voyages = new_voyages;
 		}
 
-		List<VoyageVerbose> voyageVerboseList = VoyageStatusProvider.transform(voyages);
+		List<VoyageVerbose> voyageVerboseList = VoyageVerbose.transform(voyages);
 		
-		model.addAttribute("new_voyage", voyages);
+		model.addAttribute("upcoming_voyages", voyageVerboseList);
 
-		return "VoyageListHome";
+		return "VoyageListHomeAndUser";
 	}
 
 	@GetMapping("/voyages/{id}")
-	public String voyagesDetails(@PathVariable int id, Model model) {
-		model.addAttribute("voyage", voyageDao.getById(id));
-		return "VoyageDetailsHome";
+	public String voyagesDetails (@PathVariable("id") int voyageId, Model model, HttpSession session) {
+
+		List<Voyage> voyage = new ArrayList<Voyage>();
+		voyage.add(voyageDao.getById(voyageId));
+
+		List<VoyageVerbose> voyageVerbose = VoyageVerbose.transform(voyage);
+		model.addAttribute("voyageverboselist", voyageVerbose);
+
+		Boolean signedIn = false;
+
+		if (authenticationService.isAuthenticated(session)) {
+			signedIn=true;
+			model.addAttribute("room_booking_details_with_food", roomBookingDetailsDao.getAllByUserIdAndVoyageId(authenticationService.getCurrentUser(session), voyageId));
+		}
+		model.addAttribute("signedIn", signedIn );
+
+		return "VoyageDetailsUserAndHome";
 	}
 
-	@GetMapping("/booking")
-	public String booking(){
-		return "redirect:/login";
-	}
+
 
 
 }

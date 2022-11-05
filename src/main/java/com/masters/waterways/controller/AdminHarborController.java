@@ -12,7 +12,7 @@ import com.masters.waterways.daos.HarborDao;
 import com.masters.waterways.models.Harbor;
 
 @Controller
-public class HarborController {
+public class AdminHarborController {
 	@Autowired
 	private HarborDao hardao;
 	

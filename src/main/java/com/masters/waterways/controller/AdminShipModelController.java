@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import com.masters.waterways.daos.ShipModelDao;
 import com.masters.waterways.models.ShipModel;
 @Controller
-public class ShipModelController {
+public class AdminShipModelController {
 	@Autowired
 	private ShipModelDao shipModelDao;
 	
