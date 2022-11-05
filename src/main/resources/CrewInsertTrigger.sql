@@ -13,7 +13,11 @@ begin
         ) as da
         WHERE
             NOT(@ArrivalTime < dtime OR @DepartureTime > atime)
-    ) THEN
+    ) OR exists (
+        
+        )
+
+        THEN
         signal sqlstate '45000' set message_text = 'Employee serves on another voyage at the same time';
     END IF;
 end;
