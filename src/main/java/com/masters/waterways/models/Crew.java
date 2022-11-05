@@ -11,7 +11,7 @@ public class Crew {
 
     private int EmployeeId;
     private int VoyageId;
-    private String Role;
+    private String CrewRole;
 
     public int getEmployeeId() {
         return EmployeeId;
@@ -29,11 +29,11 @@ public class Crew {
         VoyageId = voyageId;
     }
 
-    public String getRole() {
-        return Role;
+    public String getCrewRole() {
+        return CrewRole;
     }
 
-    public void setRole(String role) {
-        Role = role;
+    public void setCrewRole(String crewRole) {
+        CrewRole = crewRole;
     }
 }

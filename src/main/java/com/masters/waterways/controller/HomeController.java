@@ -114,10 +114,11 @@ public class HomeController {
 		return "VoyageListHomeAndUser";
 	}
 
+
 	@GetMapping("/voyages/{id}")
 	public String voyagesDetails (@PathVariable("id") int voyageId, Model model, HttpSession session) {
 
-		List<Voyage> voyage = new ArrayList<Voyage>();
+		List<Voyage> voyage = new ArrayList<>();
 		voyage.add(voyageDao.getById(voyageId));
 
 		List<VoyageVerbose> voyageVerbose = VoyageVerbose.transform(voyage);
@@ -131,6 +132,7 @@ public class HomeController {
 			model.addAttribute("fooditems", foodItemDao.getAllByVoyageId(voyageId));
 			model.addAttribute("foodbooking", );
 		}
+
 		model.addAttribute("signedIn", signedIn );
 
 		return "VoyageDetailsUserAndHome";
