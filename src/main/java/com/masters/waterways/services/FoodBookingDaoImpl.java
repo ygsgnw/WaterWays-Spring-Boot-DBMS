@@ -43,7 +43,16 @@ public class FoodBookingDaoImpl implements FoodBookingDao {
 		);
     }
 
-    @Override
+	@Override
+	public List<FoodBooking> getAllByUserIdAndRoomIdAndVoyageId(int userId, int voyageId, int roomId) {
+		return jdbctemplate.query(
+				"SELECT * FROM FoodBooking WHERE VoyageId = ? AND RoomId = ? AND TransactionId IN (SELECT TransactionId FROM Transaction WHERE UserId = ?)",
+				new BeanPropertyRowMapper<>(FoodBooking.class), voyageId, roomId, userId
+		);
+	}
+
+
+	@Override
 	public FoodBooking getById (int id) {
 		// TODO Auto-generated method stub
 		return jdbctemplate.queryForObject(
