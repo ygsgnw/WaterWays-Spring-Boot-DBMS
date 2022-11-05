@@ -9,5 +9,5 @@ public interface FoodBookingDao {
     List<FoodBooking> getAllByVoyageId (int voyageId);
     List<FoodBooking> getAllByUserIdAndRoomIdAndVoyageId (int userId, int voyageId, int roomId);
 	FoodBooking getById (int id);
-    void bookFood (int userId, int roomId, int foodCount, FoodItem foodItem);
+    void bookFood (int userId, FoodBooking foodBooking);
 }

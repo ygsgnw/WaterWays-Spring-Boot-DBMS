@@ -63,10 +63,10 @@ public class FoodBookingDaoImpl implements FoodBookingDao {
 
 	@Override
 	@Transactional
-	public void bookFood(int userId, int roomId, int foodCount, FoodItem foodItem) {
+	public void bookFood(int userId, FoodBooking foodBooking, int foodCost) {
 		jdbctemplate.update(
 				"INSERT INTO Transaction (TransactionDate, Amount, UserId) VALUES (NOW(), ?, ?)",
-				foodCount * foodItem.getFoodCost(), userId
+				foodBooking.getFoodItemCount() * foodItem.getFoodCost(), userId
 		);
 		jdbctemplate.update(
 				"INSERT INTO FoodBooking (TransactionId, FoodItemId, VoyageId, RoomId, FoodItemCount) Values(" +
@@ -74,6 +74,5 @@ public class FoodBookingDaoImpl implements FoodBookingDao {
 				foodItem.getFoodItemId(), foodItem.getVoyageId(), roomId, foodCount
 		);
 	}
-
 
 }

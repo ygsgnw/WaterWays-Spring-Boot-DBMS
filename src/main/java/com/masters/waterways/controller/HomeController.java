@@ -111,21 +111,23 @@ public class HomeController {
 		return "VoyageListHomeAndUser";
 	}
 
+
 	@GetMapping("/voyages/{id}")
 	public String voyagesDetails (@PathVariable("id") int voyageId, Model model, HttpSession session) {
 
-		List<Voyage> voyage = new ArrayList<Voyage>();
+		List<Voyage> voyage = new ArrayList<>();
 		voyage.add(voyageDao.getById(voyageId));
 
 		List<VoyageVerbose> voyageVerbose = VoyageVerbose.transform(voyage);
 		model.addAttribute("voyageverboselist", voyageVerbose);
 
-		Boolean signedIn = false;
+		boolean signedIn = false;
 
 		if (authenticationService.isAuthenticated(session)) {
 			signedIn=true;
 			model.addAttribute("room_booking_details_with_food", roomBookingDetailsDao.getAllByUserIdAndVoyageId(authenticationService.getCurrentUser(session), voyageId));
 		}
+
 		model.addAttribute("signedIn", signedIn );
 
 		return "VoyageDetailsUserAndHome";
