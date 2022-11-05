@@ -17,14 +17,5 @@ public class HarborStatusProvider {
             "SUSPENDED", 3
     );
 
-    public List<HarborVerbose> transform(List<Harbor> harborList) {
-        List<HarborVerbose> harborVerboseList = new ArrayList<>();
-        for (Harbor harbor: harborList) {
-            HarborVerbose harborVerbose = new HarborVerbose();
-            harborVerbose.setHarbor(harbor);
-            harborVerbose.setHarborStatusDesc(getHarborStatusDesc.get(harbor.getHarborStatusCode()));
-            harborVerboseList.add(harborVerbose);
-        }
-        return harborVerboseList;
-    }
+
 }

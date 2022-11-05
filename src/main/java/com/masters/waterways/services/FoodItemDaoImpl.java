@@ -53,6 +53,14 @@ public class FoodItemDaoImpl implements FoodItemDao {
 	}
 
 	@Override
+	public List<FoodItem> getAllByVoyageId (int voyageId) {
+		return jdbctemplate.query(
+				"SELECT * FROM FoodItem WHERE VoyageId = ?",
+				new BeanPropertyRowMapper<>(FoodItem.class), voyageId
+		);
+	}
+
+	@Override
 	public FoodItem getById (int voyageId, int foodItemId) {
 		return jdbctemplate.queryForObject(
 				"SELECT * FROM FoodItem WHERE FoodItemId = ? AND voyageId = ?",
@@ -60,12 +68,6 @@ public class FoodItemDaoImpl implements FoodItemDao {
 		);
 	}
 
-	@Override
-	public List<FoodItem> getFoodItemsByVoyageId (int voyageId) {
-		return jdbctemplate.query(
-				"SELECT * FROM FoodItem WHERE VoyageId = ?",
-				new BeanPropertyRowMapper<>(FoodItem.class), voyageId
-		);
-	}
+
 
 }

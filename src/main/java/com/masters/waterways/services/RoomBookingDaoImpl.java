@@ -26,7 +26,7 @@ public class RoomBookingDaoImpl implements RoomBookingDao {
 	VoyageDao voyageDao;
 	
 	@Override
-	public int insert (RoomBooking room_booking) {
+	public int insert(RoomBooking room_booking) {
 		// TODO Auto-generated method stub
 		return jdbctemplate.update(
 				"INSERT INTO RoomBooking (RoomId, VoyageId, TransactionId, RoomStatusCode) VALUES (?, ?, ?, ?)",
@@ -44,7 +44,7 @@ public class RoomBookingDaoImpl implements RoomBookingDao {
 	}
 
 	@Override
-	public int delete (int id) {
+	public int delete(int id) {
 		// TODO Auto-generated method stub
 		return jdbctemplate.update("DELETE FROM RoomBooking WHERE TransactionId = ?", id
 		);
@@ -60,7 +60,7 @@ public class RoomBookingDaoImpl implements RoomBookingDao {
 	}
 
 	@Override
-	public RoomBooking getById (int id) {
+	public RoomBooking getById(int id) {
 		// TODO Auto-generated method stub
 		return jdbctemplate.queryForObject(
 				"SELECT * FROM RoomBooking WHERE TransactionId = ?",
@@ -69,7 +69,15 @@ public class RoomBookingDaoImpl implements RoomBookingDao {
 	}
 
     @Override
-	public List<RoomBooking> getRoomsByUserIdAndVoyageId (int userId, int voyageId) {
+    public List<RoomBooking> getAllByVoyageId(int voyageId) {
+		return jdbctemplate.query(
+				"SELECT * FROM RoomBooking WHERE VoyageId = ?",
+				new BeanPropertyRowMapper<>(RoomBooking.class), voyageId
+		);
+    }
+
+    @Override
+	public List<RoomBooking> getAllByUserIdAndVoyageId(int userId, int voyageId) {
 		return jdbctemplate.query(
 				"SELECT RoomBooking.TransactionId, RoomBooking.RoomId, RoomBooking.VoyageId, RoomBooking.RoomStatusCode " +
 						"FROM Transaction, RoomBooking " +
@@ -82,13 +90,13 @@ public class RoomBookingDaoImpl implements RoomBookingDao {
 
 
 	@Override
-	public void roomBookingByVoyageIdAndUserId(int voyageId, int userId) throws RuntimeException {
+	public void bookRoomByVoyageIdAndUserId(int voyageId, int userId) throws RuntimeException {
 		Voyage voyage = voyageDao.getById(voyageId);
 		if (voyage.getVoyageStatusCode() != VoyageStatusProvider.getVoyageStatusCode.get("OPERATIONAL"))
 			throw new RuntimeException("Voyage is not operational");
 		try {
 			RoomBooking reservedRoom = reserveRoomByVoyageId(voyageId);
-			roomBookingByReservedRoomIdAndUserId(reservedRoom, userId, voyage.getFare());
+			bookReservedRoomByUserId(reservedRoom, userId, voyage.getFare());
 		} catch (Exception exception) {
 			System.out.println("Room booking failed");
 		}
@@ -98,7 +106,7 @@ public class RoomBookingDaoImpl implements RoomBookingDao {
 
 	@Override
 	@Transactional(rollbackFor = Exception.class)
-	public RoomBooking reserveRoomByVoyageId (int voyageId) {
+	public RoomBooking reserveRoomByVoyageId(int voyageId) {
 		RoomBooking room = jdbctemplate.queryForObject(
 				"SELECT * FROM RoomBooking WHERE VoyageId = ? AND RoomStatusCode = ?",
 				new BeanPropertyRowMapper<RoomBooking>(RoomBooking.class), voyageId, RoomStatusProvider.getRoomStatusCode.get("AVAILABLE")
@@ -112,10 +120,9 @@ public class RoomBookingDaoImpl implements RoomBookingDao {
 			throw new RuntimeException("No available rooms");
 	}
 
-
 	@Override
-	@Transactional(rollbackFor = Exception.class)
-	public void roomBookingByReservedRoomIdAndUserId(RoomBooking room, int userId, int fare) {
+	@Transactional
+	public void bookReservedRoomByUserId(RoomBooking room, int userId, int fare) {
 		assert(room != null);
 
 		jdbctemplate.update(
@@ -135,6 +142,5 @@ public class RoomBookingDaoImpl implements RoomBookingDao {
 		} else
 			throw new RuntimeException("Transaction failed");
 	}
-
 
 }

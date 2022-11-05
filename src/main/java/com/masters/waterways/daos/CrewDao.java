@@ -12,4 +12,6 @@ public interface CrewDao {
 	void delete (Crew crew);
 	List<Crew> getAll ();
 	Crew getById (int id);
+
+	List<Crew> getAllByVoyageId (int voyageId);
 }

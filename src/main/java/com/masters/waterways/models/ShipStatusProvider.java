@@ -17,14 +17,4 @@ public class ShipStatusProvider {
             "MAINTENANCE", 3
     );
 
-    public List<ShipVerbose> transform(List<Ship> shipList) {
-        List<ShipVerbose> shipVerboseList = new ArrayList<>();
-        for (Ship ship: shipList) {
-            ShipVerbose shipVerbose = new ShipVerbose();
-            shipVerbose.setShip(ship);
-            shipVerbose.setShipStatusDesc(getShipStatusDesc.get(ship.getShipStatusCode()));
-            shipVerboseList.add(shipVerbose);
-        }
-        return shipVerboseList;
-    }
 }

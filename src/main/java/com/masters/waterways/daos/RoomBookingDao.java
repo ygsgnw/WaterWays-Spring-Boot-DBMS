@@ -17,13 +17,15 @@ public interface RoomBookingDao {
 
 	RoomBooking getById(int id);
 
-	List<RoomBooking> getRoomsByUserIdAndVoyageId(int userId, int voyageId);
+	List<RoomBooking> getAllByVoyageId (int voyageId);
 
-	void roomBookingByVoyageIdAndUserId(int voyageId, int userId) throws RuntimeException;
+	List<RoomBooking> getAllByUserIdAndVoyageId(int userId, int voyageId);
+
+	void bookRoomByVoyageIdAndUserId(int voyageId, int userId) throws RuntimeException;
 
 	@Transactional(rollbackFor = Exception.class)
 	RoomBooking reserveRoomByVoyageId(int voyageId);
 
 	@Transactional(rollbackFor = Exception.class)
-	void roomBookingByReservedRoomIdAndUserId(RoomBooking room, int userId, int fare);
+	void bookReservedRoomByUserId(RoomBooking room, int userId, int fare);
 }

@@ -19,14 +19,4 @@ public class RoomStatusProvider {
             "MAINTENANCE", 4
     );
 
-    public List<RoomBookingVerbose> transform(List<RoomBooking> roomBookingList){
-        List<RoomBookingVerbose> roomBookingVerboseList = new ArrayList<>();
-        for (RoomBooking roomBooking: roomBookingList) {
-            RoomBookingVerbose roomBookingVerbose = new RoomBookingVerbose();
-            roomBookingVerbose.setRoomBooking(roomBooking);
-            roomBookingVerbose.setRoomBookingStatusDesc(getRoomStatusDesc.get(roomBooking.getRoomStatusCode()));
-            roomBookingVerboseList.add(roomBookingVerbose);
-        }
-        return roomBookingVerboseList;
-    }
 }

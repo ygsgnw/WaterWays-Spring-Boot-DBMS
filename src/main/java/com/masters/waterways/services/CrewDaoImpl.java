@@ -55,5 +55,13 @@ public class CrewDaoImpl implements CrewDao {
 				new BeanPropertyRowMapper<Crew>( Crew.class), id
 		);
 	}
-	
+
+    @Override
+    public List<Crew> getAllByVoyageId(int voyageId) {
+		return jdbctemplate.query(
+				"SELECT * FROM Crew WHERE VoyageId = ?",
+				new BeanPropertyRowMapper<>(Crew.class), voyageId
+		);
+    }
+
 }

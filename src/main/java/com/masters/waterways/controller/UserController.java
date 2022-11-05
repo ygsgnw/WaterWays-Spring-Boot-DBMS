@@ -119,7 +119,7 @@ public class UserController {
     public String voyagesDetails(@PathVariable("userId") int voyageId, Model model, HttpSession session) {
 
         model.addAttribute("voyage", voyageDao.getById(authenticationService.getCurrentUser(session)));
-        model.addAttribute("rooms", roomBookingDao.getRoomsByUserIdAndVoyageId(authenticationService.getCurrentUser(session), voyageId));
+        model.addAttribute("rooms", roomBookingDao.getAllByUserIdAndVoyageId(authenticationService.getCurrentUser(session), voyageId));
         model.addAttribute("foodItems", foodItemDao.getAll());
 
         return "VoyageDetailsUser";
@@ -129,7 +129,7 @@ public class UserController {
     public String booking(@PathVariable("userId") int voyageId, HttpSession session){
 //        int userId=session_key;
 
-        roomBookingDao.roomBookingByVoyageIdAndUserId(authenticationService.getCurrentUser(session), voyageId);
+        roomBookingDao.bookRoomByVoyageIdAndUserId(authenticationService.getCurrentUser(session), voyageId);
         return "redirect:/user/voyages/{userId}";
     }
     

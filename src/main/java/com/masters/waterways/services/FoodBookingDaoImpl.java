@@ -35,7 +35,15 @@ public class FoodBookingDaoImpl implements FoodBookingDao {
 		);
 	}
 
-	@Override
+    @Override
+    public List<FoodBooking> getAllByVoyageId(int voyageId) {
+		return jdbctemplate.query(
+				"SELECT * FROM FoodBooking WHERE VoyageId = ?",
+				new BeanPropertyRowMapper<>(FoodBooking.class), voyageId
+		);
+    }
+
+    @Override
 	public FoodBooking getById (int id) {
 		// TODO Auto-generated method stub
 		return jdbctemplate.queryForObject(
@@ -51,8 +59,11 @@ public class FoodBookingDaoImpl implements FoodBookingDao {
 				"INSERT INTO Transaction (TransactionDate, Amount, UserId) VALUES (NOW(), ?, ?)",
 				foodCount * foodItem.getFoodCost(), userId
 		);
-
-
+		jdbctemplate.update(
+				"INSERT INTO FoodBooking (TransactionId, FoodItemId, VoyageId, RoomId, FoodItemCount) Values(" +
+						"(SELECT LAST_INSERT_ID() FROM Transaction), ?, ?, ?, ?)",
+				foodItem.getFoodItemId(), foodItem.getVoyageId(), roomId, foodCount
+		);
 	}
 
 
