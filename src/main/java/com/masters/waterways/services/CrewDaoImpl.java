@@ -25,9 +25,9 @@ public class CrewDaoImpl implements CrewDao {
 	}
 
 	@Override
-	public void update (Crew crew) {
+	public void updateRole (Crew crew) {
 		jdbctemplate.update(
-				"UPDATE crew SET Role = ? WHERE EmployeeId = ? AND VoyageId = ?",
+				"UPDATE crew SET CrewRole = ? WHERE EmployeeId = ? AND VoyageId = ?",
 				crew.getCrewRole(), crew.getEmployeeId(), crew.getVoyageId()
 		);
 	}
@@ -48,13 +48,6 @@ public class CrewDaoImpl implements CrewDao {
 		);
 	}
 
-	@Override
-	public Crew getById (int id) {
-		return jdbctemplate.queryForObject(
-				"SELECT * FROM crew WHERE CrewId=?",
-				new BeanPropertyRowMapper<Crew>( Crew.class), id
-		);
-	}
 
     @Override
     public List<Crew> getAllByVoyageId(int voyageId) {
@@ -63,5 +56,10 @@ public class CrewDaoImpl implements CrewDao {
 				new BeanPropertyRowMapper<>(Crew.class), voyageId
 		);
     }
+
+	@Override
+	public List<Integer> getAllNotCrewEmployee() {
+		return null;
+	}
 
 }

@@ -111,4 +111,14 @@ public class VoyageDaoImpl implements VoyageDao {
 					"group by Transaction.UserId)", voyageId
 		);
 	}
+
+	@Override
+	public void updateVoyageByFare(int voyageId, int fare) {
+
+	}
+
+	@Override
+	public boolean isVoyageCompletedByVoyageId(int voyageId) {
+		return false;
+	}
 }

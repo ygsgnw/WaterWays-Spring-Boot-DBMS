@@ -110,6 +110,7 @@ public class HomeController {
 		List<VoyageVerbose> voyageVerboseList = VoyageVerbose.transform(voyages);
 		
 		model.addAttribute("upcoming_voyages", voyageVerboseList);
+		model.addAttribute("harbors", harborDao.getAll());
 
 		return "VoyageListHomeAndUser";
 	}
@@ -130,7 +131,6 @@ public class HomeController {
 			signedIn=true;
 			model.addAttribute("room_booking_details_with_foods", roomBookingDetailsDao.getAllByUserIdAndVoyageId(authenticationService.getCurrentUser(session), voyageId));
 			model.addAttribute("fooditems", foodItemDao.getAllByVoyageId(voyageId));
-			model.addAttribute("foodbooking", );
 		}
 
 		model.addAttribute("signedIn", signedIn );
