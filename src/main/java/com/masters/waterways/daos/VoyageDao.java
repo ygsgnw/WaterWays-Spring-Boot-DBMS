@@ -17,4 +17,8 @@ public interface VoyageDao {
 	List<Voyage> getAllCompletedByUserId (int userId);
 
 	void setSuspended (int voyageId);
+
+	void updateVoyageByFare(int voyageId, int fare);
+
+	boolean isVoyageCompletedByVoyageId(int voyageId);
 }

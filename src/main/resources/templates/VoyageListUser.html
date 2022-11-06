@@ -27,12 +27,12 @@
     </tr>
     </thead>
     <tbody>
-    <tr th:each="my_upcoming_voyage: ${my_upcoming_voyages}">
+    <tr th:each="my_completed_voyage: ${my_completed_voyages}">
 
-      <td th:text="${upcoming_voyage.getDepartureHarborName()}"></td>
-      <td th:text="${upcoming_voyage.getArrivalHarborName()}"></td>
-      <td th:text="${(upcoming_voyage.getVoyage().getDepartureTime())}"></td>
-      <td th:text="${upcoming_voyage.getVoyage().getArrivaltime()}"></td>
+      <td th:text="${my_completed_voyage.getDepartureHarborName()}"></td>
+      <td th:text="${my_completed_voyage.getArrivalHarborName()}"></td>
+      <td th:text="${my_completed_voyage.getVoyage().getDepartureTime())}"></td>
+      <td th:text="${my_completed_voyage.getVoyage().getArrivaltime()}"></td>
     </tr>
     </tbody>
 
@@ -59,10 +59,10 @@
     <tbody>
     <tr th:each="my_upcoming_voyage: ${my_upcoming_voyages}">
 
-      <td th:text="${upcoming_voyage.getDepartureHarborName()}"></td>
-      <td th:text="${upcoming_voyage.getArrivalHarborName()}"></td>
-      <td th:text="${(upcoming_voyage.getVoyage().getDepartureTime())}"></td>
-      <td th:text="${upcoming_voyage.getVoyage().getArrivaltime()}"></td>
+      <td th:text="${my_upcoming_voyages.getDepartureHarborName()}"></td>
+      <td th:text="${my_upcoming_voyages.getArrivalHarborName()}"></td>
+      <td th:text="${(my_upcoming_voyages.getVoyage().getDepartureTime())}"></td>
+      <td th:text="${my_upcoming_voyages.getVoyage().getArrivaltime()}"></td>
       <td>
         <a th:href="@{/voyages/{id}}" class="btn btn-primary">View</a>
       </td>

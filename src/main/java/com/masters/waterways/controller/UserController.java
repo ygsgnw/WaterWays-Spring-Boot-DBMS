@@ -156,7 +156,7 @@ public class UserController {
                                       HttpSession session
     ) {
         foodBookingDao.bookFood(authenticationService.getCurrentUser(session), foodBooking);
-        return "redirect:/user/voyages/{voyageId}";
+        return "redirect:/voyage/{voyageId}";
     }
     
 }

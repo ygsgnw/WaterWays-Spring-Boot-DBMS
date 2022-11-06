@@ -10,7 +10,7 @@ public class AdminUserController {
 
     private UsersDao usersDao;
 
-    @GetMapping
+    @GetMapping("/admin/users")
     public String userslist(Model model){
         model.addAttribute("users", usersDao.getAll());
         return "UsersList";
