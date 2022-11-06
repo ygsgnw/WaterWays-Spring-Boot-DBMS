@@ -19,8 +19,8 @@ public class CrewDaoImpl implements CrewDao {
 	@Override
 	public void insert (Crew crew) {
 		jdbctemplate.update(
-				"INSERT INTO crew (EmployeeId, VoyageId, Role) VALUES (?, ?, ?)",
-				crew.getEmployeeId(), crew.getVoyageId(), crew.getRole()
+				"INSERT INTO crew (EmployeeId, VoyageId, CrewRole) VALUES (?, ?, ?)",
+				crew.getEmployeeId(), crew.getVoyageId(), crew.getCrewRole()
 		);
 	}
 
@@ -28,7 +28,7 @@ public class CrewDaoImpl implements CrewDao {
 	public void update (Crew crew) {
 		jdbctemplate.update(
 				"UPDATE crew SET Role = ? WHERE EmployeeId = ? AND VoyageId = ?",
-				crew.getRole(), crew.getEmployeeId(), crew.getVoyageId()
+				crew.getCrewRole(), crew.getEmployeeId(), crew.getVoyageId()
 		);
 	}
 

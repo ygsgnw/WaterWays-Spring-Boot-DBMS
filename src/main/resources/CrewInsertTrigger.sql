@@ -15,9 +15,7 @@ begin
             NOT(@ArrivalTime < dtime OR @DepartureTime > atime)
     ) OR exists (
         
-        )
-
-        THEN
+    ) THEN
         signal sqlstate '45000' set message_text = 'Employee serves on another voyage at the same time';
     END IF;
 end;
