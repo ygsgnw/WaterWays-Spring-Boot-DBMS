@@ -4,6 +4,7 @@ import com.masters.waterways.models.Ship;
 
 import java.util.List;
 
+import com.masters.waterways.models.ShipStatusProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -24,14 +25,6 @@ public class ShipDaoImpl implements ShipDao {
 	}
 
 	@Override
-	public int update (Ship ship, int id) {
-		// TODO Auto-generated method stub
-		return jdbctemplate.update(
-				"UPDATE Ship SET ShipStatusCode=? WHERE ShipSerialId=?",
-				ship.getShipStatusCode(),id);
-	}
-
-	@Override
 	public int delete (int id) {
 		// TODO Auto-generated method stub
 		return jdbctemplate.update("DELETE FROM Ship WHERE ShipSerialId=?",id);
@@ -48,6 +41,19 @@ public class ShipDaoImpl implements ShipDao {
 		// TODO Auto-generated method stub
 		return jdbctemplate.queryForObject("SELECT * FROM Ship WHERE ShipSerialId=?",
 				new BeanPropertyRowMapper<Ship>(Ship.class), id);
+	}
+
+	@Override
+	public void setActive(int id) {
+		jdbctemplate.update(
+				"UPDATE Ship SET ShipStatusCode = ? WHERE ShipSerialId = ?",
+				ShipStatusProvider.getShipStatusCode.get("OPERATIONAL"), id
+		);
+	}
+
+	@Override
+	public void setSuspended(int id) {
+
 	}
 
 }

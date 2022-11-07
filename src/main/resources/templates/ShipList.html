@@ -31,10 +31,17 @@
 				<td th:text="${ship.getModelId()}"></td>
 				<td th:text="${shipstatuses.get(ship.getShipStatusCode())}"></td>
 				<td th:text="${ship.getMfDate()}"></td>
-				
-				<td>
+<!--				<td>-->
+<!--					<a th:href="@{/admin/ship/{id}/update (id=${ship.getShipSerialId()})}"-->
+<!--					class="btn btn-primary">Update</a>-->
+<!--				</td>-->
+				<td th:if="${shipstatuses.get(ship.getShipStatusCode())} == 'SUSPENDED'">
 					<a th:href="@{/admin/ship/{id}/update (id=${ship.getShipSerialId()})}"
-					class="btn btn-primary">Update</a>
+					   class="btn btn-primary">Activate</a>
+				</td>
+				<td th:if="${shipstatuses.get(ship.getShipStatusCode())} == 'OPERATIONAL'">
+					<a th:href="@{/admin/ship/{id}/update (id=${ship.getShipSerialId()})}"
+					   class="btn btn-primary">Suspend</a>
 				</td>
 			</tr>
 		</tbody>
