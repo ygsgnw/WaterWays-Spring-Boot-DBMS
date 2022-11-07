@@ -33,7 +33,7 @@
                             <select th:field="*{managerId}" class="custom-select" required>
                                 <option th:each="employee: ${employees}"
                                         th:text="${employee.getEmployeeId()}"
-                                        th:value="${harbor.getEmployeeId()}"></option>
+                                        th:value="${employee.getEmployeeId()}"></option>
                             </select>
                         </div>
 

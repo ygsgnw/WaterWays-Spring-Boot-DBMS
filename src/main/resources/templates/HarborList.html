@@ -26,7 +26,6 @@
 					<th> Manager ID</th>
 					<th> Harbor Status</th>
 					<th> Action</th>
-
 				</tr>
 			</thead>
 			<tbody>
@@ -35,10 +34,18 @@
 					<td th:text="${harbor.getLocation()}"></td>
 					<td th:text="${harbor.getConstructionDate()}"></td>
 					<td th:text="${harbor.getManagerId()}"></td>
-					<td th:text="${harborstatuses.get(harbor.getHarborStatus())}"></td>
-					<td>
+					<td th:text="${harborstatuses.get(harbor.getHarborStatusCode())}"></td>
+<!--					<td>-->
+<!--						<a th:href="@{/admin/harbor/{id}/update (id=${harbor.getHarborId()})}"-->
+<!--							class="btn btn-primary">Update</a>-->
+<!--					</td>-->
+					<td th:if="${harborstatuses.get(harbor.getHarborStatusCode())} == 'SUSPENDED'">
 						<a th:href="@{/admin/harbor/{id}/update (id=${harbor.getHarborId()})}"
-							class="btn btn-primary">Update</a>
+						   class="btn btn-primary">Activate</a>
+					</td>
+					<td th:if="${harborstatuses.get(harbor.getHarborStatusCode())} == 'OPERATIONAL'">
+						<a th:href="@{/admin/harbor/{id}/update (id=${harbor.getHarborId()})}"
+						   class="btn btn-primary">Suspend</a>
 					</td>
 				</tr>
 			</tbody>

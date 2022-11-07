@@ -21,7 +21,7 @@ public class AdminEmployeeController {
 
     @GetMapping("/admin/employee")
     public String listEmployee(Model model) {
-        model.addAttribute("empployeestatuses", EmployeeStatusProvider.getEmployeeStatusDesc);
+        model.addAttribute("employeestatuses", EmployeeStatusProvider.getEmployeeStatusDesc);
         model.addAttribute("employees", employeeDao.getAll());
 //        model.addAttribute("status", status)
         return "EmployeeList";
@@ -42,7 +42,7 @@ public class AdminEmployeeController {
     }
 
     @GetMapping("/admin/employee/{id}/update")
-    public String editemployeeform(@PathVariable int id, Model model) {
+    public String updateEmployeeStatus(@PathVariable int id, Model model) {
         Employee employee=employeeDao.getById(id);
         if (EmployeeStatusProvider.getEmployeeStatusDesc.get(employee.getEmployeeStatusCode()).equals("SUSPENDED")){
             employeeDao.setActive(id);

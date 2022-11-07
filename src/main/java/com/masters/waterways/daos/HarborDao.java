@@ -10,4 +10,8 @@ public interface HarborDao {
 	int delete (int id);
 	List<Harbor> getAll ();
 	Harbor getById (int id);
+
+	void setSuspended(int id);
+
+	void setActive(int id);
 }
