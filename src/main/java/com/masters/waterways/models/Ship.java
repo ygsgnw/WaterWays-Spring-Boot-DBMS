@@ -1,10 +1,12 @@
 package com.masters.waterways.models;
 
 import java.sql.Date;
+import java.time.LocalDateTime;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 
 
 @Data
@@ -15,7 +17,9 @@ public class Ship {
 	private int ShipSerialId;
 	private int ModelId;
 	private int ShipStatusCode;
-	private Date MfDate;
+
+	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+	private LocalDateTime MfDate;
 
 	public int getShipSerialId() {
 		return ShipSerialId;
@@ -41,11 +45,11 @@ public class Ship {
 		ShipStatusCode = shipStatusCode;
 	}
 
-	public Date getMfDate() {
+	public LocalDateTime getMfDate() {
 		return MfDate;
 	}
 
-	public void setMfDate(Date mfDate) {
+	public void setMfDate(LocalDateTime mfDate) {
 		MfDate = mfDate;
 	}
 }

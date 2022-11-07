@@ -139,7 +139,7 @@ public class UserController {
 //        int userId=session_key;
         model.addAttribute("my_completed_voyages", voyageDao.getAllCompletedByUserId(authenticationService.getCurrentUser(session)));
         model.addAttribute("my_upcoming_voyages", voyageDao.getAllActiveByUserId(authenticationService.getCurrentUser(session)));
-        return "MyVoyagesList"; // will direct to VoyageDetailsUser
+        return "MyVoyageList"; // will direct to VoyageDetailsUser
     }
 
     @GetMapping("/user/voyage/{voyageId}/room/{roomId}")

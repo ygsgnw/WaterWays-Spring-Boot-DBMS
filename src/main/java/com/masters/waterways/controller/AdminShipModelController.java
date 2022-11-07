@@ -25,7 +25,7 @@ public class AdminShipModelController {
 	public String createshipmodelform(Model model) {
 		ShipModel newshipmodel =new ShipModel();
 		model.addAttribute("newshipmodel", newshipmodel);
-		return "createShipModelForm";
+		return "AddShipModelForm";
 	}
 	
 	@PostMapping("/admin/shipmodel/add")
@@ -34,13 +34,13 @@ public class AdminShipModelController {
 		return "redirect:/admin/shipmodel";
 	}
 	
-	@GetMapping("/admin/shipmodel/update/{id}")
-	public String editshipmodelform(@PathVariable int id, Model model) {
-		model.addAttribute("shipmodel", shipModelDao.getById(id));
-		return "editShipModelForm";
+	@GetMapping("/admin/shipmodel/{id}/update")
+	public String editshipmodelform(@PathVariable("id") int shipModelId, Model model) {
+		model.addAttribute("shipmodel", shipModelDao.getById(shipModelId));
+		return "UpdateShipModelForm";
 	}
 	
-	@PostMapping("/admin/shipmodel/update/{id}")
+	@PostMapping("/admin/shipmodel/{id}/update")
 	public String updateshipmodel(@PathVariable int id,
 			@ModelAttribute("shipmodel") ShipModel shipmodel,
 			Model model) {

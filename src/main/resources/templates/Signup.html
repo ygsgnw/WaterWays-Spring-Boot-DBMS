@@ -1,7 +1,8 @@
 <!-- signup fname, lname, -->
 
 <!doctype html>
-<html lang="en">
+
+<html lang="en" xmlns: th="http://www.thymeleaf.org">
   <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -15,24 +16,32 @@
   <body>
     <div class="pt-5">  
         <div class="container h-100" style="width: 30rem;">  
-          <div class="card login-form">  
+          <div class="card login-form border-info">  
+            <h3 class="card-header text-center bg-info text-light"> Sign Up </h3>  
           <div class="card-body">  
-              <h3 class="card-title text-center"> Sign Up </h3>  
               <div class="card-text">  
-                  <form th:action="@{/profile}" method="post">
+                  <form th:action="@{/signup}" th:object="${newUser}" method="post">
+                      <div class="form-group">
+                          <label for="exampleInputuserName1"> Enter Your Full Name </label>
+                          <input type="text" th:field="*{userName}" class="form-control form-control-sm"  aria-describedby="emailHelp">
+                      </div>
+
                       <div class="form-group">  
                           <label for="exampleInputEmail1"> Enter Email address </label>  
-                          <input type="email" class="form-control form-control-sm" id="exampleInputEmail1" aria-describedby="emailHelp">  
-                      </div>  
+                          <input type="email" th:field="*{emailId}" class="form-control form-control-sm"  aria-describedby="emailHelp">
+                      </div>
+
                       <div class="form-group">  
                           <label for="exampleInputPassword1">Enter Password </label>  
-                          <input type="password" class="form-control form-control-sm" id="exampleInputPassword1">  
-                      </div>  
-                      <button type="submit" class="btn btn-primary btn-block"> Sign in </button>  
+                          <input type="password" th:field="*{userPassword}" class="form-control form-control-sm" id="exampleInputPassword1">  
+                      </div>
+
+                      <button type="submit" class="btn btn-primary btn-block"> Sign Up </button>  
                         
                       <div class="sign-up">  
                           Already have an account? <a th:href="@{/login}"> Login </a>
-                      </div>  
+                      </div>
+
                   </form>  
               </div>  
           </div>  

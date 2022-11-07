@@ -67,11 +67,11 @@ public class HomeController {
 			@RequestParam(name="todate", required = false)@DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime arrive_before_datetime
 	) {
 
-		System.out.println("hello");
-		System.out.println(from_harbour_id);
-		System.out.println(to_harbour_id);
-		System.out.println(depart_after_datetime);
-		System.out.println(arrive_before_datetime);
+//		System.out.println("hello");
+//		System.out.println(from_harbour_id);
+//		System.out.println(to_harbour_id);
+//		System.out.println(depart_after_datetime);
+//		System.out.println(arrive_before_datetime);
 
 		List<Voyage> voyages = voyageDao.getAllActive();
 

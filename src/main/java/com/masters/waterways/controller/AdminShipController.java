@@ -43,14 +43,19 @@ public class AdminShipController {
 		return "redirect:/admin/ship";
 	}
 	
-	@GetMapping("/admin/ship/update/{id}")
+	@GetMapping("/admin/ship/{id}/update")
 	public String editshipform(@PathVariable int id, Model model) {
 		model.addAttribute("shipstatuses", ShipStatusProvider.getShipStatusCode);
+		Ship ship =  shipDao.getById(id);
+//		ship
 		model.addAttribute("ship", shipDao.getById(id));
+		System.out.println(ship.getMfDate());
+		System.out.println(ship.getShipSerialId());
+		System.out.println(id);
 		return "UpdateShipForm";
 	}
 	
-	@PostMapping("/admin/ship/update/{id}")
+	@PostMapping("/admin/ship/{id}/update")
 	public String updateship(@PathVariable int id,
 			@ModelAttribute("ship") Ship ship,
 			Model model) {
