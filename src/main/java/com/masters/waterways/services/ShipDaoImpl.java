@@ -27,8 +27,8 @@ public class ShipDaoImpl implements ShipDao {
 	public int update (Ship ship, int id) {
 		// TODO Auto-generated method stub
 		return jdbctemplate.update(
-				"UPDATE Ship SET ModelId=?,ShipStatusCode=?,MfDate=? WHERE ShipSerialId=?",
-				ship.getModelId(),ship.getShipStatusCode(),ship.getMfDate(),id);
+				"UPDATE Ship SET ShipStatusCode=? WHERE ShipSerialId=?",
+				ship.getShipStatusCode(),id);
 	}
 
 	@Override

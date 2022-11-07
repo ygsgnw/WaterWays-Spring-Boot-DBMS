@@ -1,5 +1,7 @@
 package com.masters.waterways.controller;
 
+import com.masters.waterways.daos.EmployeeDao;
+import com.masters.waterways.models.HarborStatusProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,43 +16,46 @@ import com.masters.waterways.models.Harbor;
 @Controller
 public class AdminHarborController {
 	@Autowired
-	private HarborDao hardao;
+	private HarborDao harborDao;
+
+	@Autowired
+	private EmployeeDao employeeDao;
 	
 	@GetMapping("/admin/harbor")
-	public String listharbors(Model model) {
-		model.addAttribute("harbors", hardao.getAll());
+	public String listHarbors(Model model) {
+		model.addAttribute("harbors", harborDao.getAll());
 		return "HarborList";
 	}
-	@GetMapping("/admin/harbor/new")
-	public String createharborform(Model model) {
-		Harbor newharbor =new Harbor();
-		model.addAttribute("newharbor", newharbor);
-		return "createHarborForm";
+	@GetMapping("/admin/harbor/add")
+	public String addHarborForm(Model model) {
+		Harbor new_harbor =new Harbor();
+		model.addAttribute("new_harbor", new_harbor);
+		model.addAttribute("employees", employeeDao.getAll());
+		model.addAttribute("harborstatuses", HarborStatusProvider.getHarborStatusCode);
+		return "AddHarborForm";
 	}
 	
-	@PostMapping("/admin/harbor/new")
-	public String savecrew(@ModelAttribute("newcrew") Harbor newharbor) {
-		hardao.insert(newharbor);
+	@PostMapping("/admin/harbor/add")
+	public String saveHarbor(@ModelAttribute("new_harbor") Harbor new_harbor) {
+		harborDao.insert(new_harbor);
 		return "redirect:/admin/harbor";
 	}
 	
-	@GetMapping("/admin/harbor/edit/{id}")
-	public String editharborform(@PathVariable int id, Model model) {
-		model.addAttribute("Harbor", hardao.getById(id));
-		return "editHarborForm";
+	@GetMapping("/admin/harbor/{id}/upddate")
+	public String updateHarborForm(@PathVariable int id, Model model) {
+		model.addAttribute("harbor", harborDao.getById(id));
+		model.addAttribute("employees", employeeDao.getAll());
+		model.addAttribute("harborstatuses", HarborStatusProvider.getHarborStatusCode);
+		return "UpdateHarborForm";
 	}
 	
-	@PostMapping("/admin/harbor/edit/{id}")
+	@PostMapping("/admin/harbor/{id}/update")
 	public String updateharbor(@PathVariable int id,
 			@ModelAttribute("harbor") Harbor harbor,
 			Model model) {
-		hardao.update(harbor, id);
+		harborDao.update(harbor, id);
 		return "redirect:/admin/harbor";
 	}
 	
-	@GetMapping("/admin/harbor/delete/{id}")
-	public String deleteharbor(@PathVariable int id) {
-		hardao.delete(id);
-		return "redirect:/admin/harbor";
-	}
+
 }

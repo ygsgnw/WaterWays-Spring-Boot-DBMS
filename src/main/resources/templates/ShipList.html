@@ -11,7 +11,7 @@
 
 	<div class="row">
 		<div class="col-lg-3">
-			<a th:href="@{/admin/ship/new}" class="btn btn-primary btn-sm mb-3">Add ship </a>
+			<a th:href="@{/admin/ship/add}" class="btn btn-primary btn-sm mb-3">Add ship </a>
 		</div>
 	</div>
 	
@@ -20,8 +20,8 @@
 			<tr>
 				<th> Ship Serial ID</th>
 				<th> Model ID</th>
-				<th> Arrival Harbor</th>
 				<th> Manufacturing Date</th>
+				<th> Ship Status</th>
 				<th> Actions</th>
 			</tr>
 		</thead>
@@ -29,14 +29,12 @@
 			<tr th:each="ship: ${ships}">
 				<td th:text="${ship.getShipSerialId()}"></td>
 				<td th:text="${ship.getModelId()}"></td>
-				<td th:text="${ship.getShipStatus()}"></td>
+				<td th:text="${shipstatuses.get(ship.getShipStatusCode())}"></td>
 				<td th:text="${ship.getMfDate()}"></td>
 				
 				<td>
-					<a th:href="@{/admin/ship/edit/{id}(id=${ship.getShipSerialId()})}"
+					<a th:href="@{/admin/ship/{id}/update (id=${ship.getShipSerialId()})}"
 					class="btn btn-primary">Update</a>
-					<a th:href="@{/admin/ship/delete/{id}(id=${ship.getShipSerialId()})}"
-					class="btn btn-danger">Delete</a>
 				</td>
 			</tr>
 		</tbody>
