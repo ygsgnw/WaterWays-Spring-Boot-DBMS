@@ -23,6 +23,7 @@ public class AdminEmployeeController {
     public String listEmployee(Model model) {
         model.addAttribute("empployeestatuses", EmployeeStatusProvider.getEmployeeStatusDesc);
         model.addAttribute("employees", employeeDao.getAll());
+//        model.addAttribute("status", status)
         return "EmployeeList";
     }
 
@@ -42,16 +43,14 @@ public class AdminEmployeeController {
 
     @GetMapping("/admin/employee/{id}/update")
     public String editemployeeform(@PathVariable int id, Model model) {
-        model.addAttribute("employeestatuses", EmployeeStatusProvider.getEmployeeStatusCode);
-        model.addAttribute("employee", employeeDao.getById(id));
-        return "UpdateEmployeeForm";
-    }
-
-    @PostMapping("/admin/employee/{id}/update")
-    public String updateemployee(@PathVariable int id,
-                             @ModelAttribute("employee") Employee employee,
-                             Model model) {
-        employeeDao.update(employee);
+        Employee employee=employeeDao.getById(id);
+        if (EmployeeStatusProvider.getEmployeeStatusDesc.get(employee.getEmployeeStatusCode()).equals("SUSPENDED")){
+            employeeDao.setActive(id);
+        }
+        else {
+            employeeDao.setSuspended(id);
+        }
         return "redirect:/admin/employee";
     }
+
 }

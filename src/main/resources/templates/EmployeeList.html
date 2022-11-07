@@ -31,9 +31,13 @@
 				<td th:text="${employee.getUserId()}"></td>
 				<td th:text="${employee.getJoinDate()}"></td>
                 <td th:text="${empployeestatuses.get(employee.getEmployeeStatusCode())}"></td>
-				<td>
-					<a th:href="@{/admin/employee/{id}/update (id=${employee.getEmployeeId()})}"
-					   class="btn btn-primary">Update</a>
+				<td th:if="EmployeeStatusProvider.getEmployeeStatusDesc.get(employee.getEmployeeId).equals("SUSPENDED")">
+					<a th:href="@{/admin/employee/{id}/activate (id=${employee.getEmployeeId()})}"
+					   class="btn btn-primary">Activate</a>
+				</td>
+				<td th:if="EmployeeStatusProvider.getEmployeeStatusDesc.get(employee.getEmployeeId).equals("ACTIVE")">
+				<a th:href="@{/admin/employee/{id}/activate (id=${employee.getEmployeeId()})}"
+				   class="btn btn-primary">Suspend</a>
 				</td>
 			</tr>
 		</tbody>
