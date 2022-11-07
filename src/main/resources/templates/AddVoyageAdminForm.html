@@ -21,52 +21,65 @@
                <h3 class="card-header text-center text-info"> Add Voyage </h3>
                <div class="card-body">
                        <div class="card-text">
-                        <form th:action="@{/voyages(fromid=fromid)}" method="post" th:object="${voyage}">
+                        <form th:action="@{/admin/voyage/add}" method="post" th:object="${newvoyage}">
+
                             <div class="form-group">
                                 <label>Ship Serial Id </label>
-                                <select th:field="*{newvoyage.shipSerialId}" class="custom-select">
+                                <select th:field="*{shipSerialId}" class="custom-select">
                                     <option value="-1">All</option>
-                                    <option th:each="ship: ${ships}" th:text="${ship.getShipSerialId()}"
+                                    <option th:each="ship: ${shipList}" th:text="${ship.getShipSerialId()}"
                                         th:value="${ship.getShipSerialId()}"></option>
                                 </select>
                             </div>
+
                             <div class="form-group">
                                 <label> Fare </label>
-                                <input type="number" th:field="*{newvoyage.fare}" class="form-control form-control-sm">
+                                <input type="number" th:field="*{fare}" class="form-control form-control-sm">
                             </div>
+
                             <div class="form-group">
                                 <label>Departure Harbor </label>
-                                <select th:field="*{newvoyage.departureHarborId}" class="custom-select">
+                                <select th:field="*{departureHarborId}" class="custom-select">
                                     <option value="-1">All</option>
-                                    <option th:each="harbor: ${harbors}" th:text="${harbor.getLocation()}"
+                                    <option th:each="harbor: ${harborList}" th:text="${harbor.getLocation()}"
                                         th:value="${harbor.getHarborId()}"></option>
                                 </select>
                             </div>
+
                             <div class="form-group">
                                 <label>Arrival Harbor </label>
-                                <select th:field="*{newvoyage.arrivalHarborId}" class="custom-select">
+                                <select th:field="*{arrivalHarborId}" class="custom-select">
                                     <option value="-1">All</option>
-                                    <option th:each="harbor: ${harbors}" th:text="${harbor.getLocation()}"
+                                    <option th:each="harbor: ${harborList}" th:text="${harbor.getLocation()}"
                                         th:value="${harbor.getHarborId()}"></option>
                                 </select>
                             </div>
+
                             <div class="form-group">
-                                <label> Departing Time </label>
-                                <input type="datetime-local" th:field="*{newvoyage.departureTime}" class="form-control form-control-sm">
+                                <label> Departure Time </label>
+                                <input type="datetime-local" th:field="*{departureTime}" class="form-control form-control-sm">
                             </div>
+
                             <div class="form-group">
                                 <label> Arrival Time </label>
-                                <input type="datetime-local" th:field="*{newvoyage.arrivalTime}" class="form-control form-control-sm">
+                                <input type="datetime-local" th:field="*{arrivalTime}" class="form-control form-control-sm">
                             </div>
+
                             <div class="form-group">
                                 <label>Voyage Status Code </label>
-                                <select th:field="*{newvoyage.voyageStatus}" class="custom-select">
+                                <select th:field="*{voyageStatusCode}" class="custom-select">
                                     <option value="-1">All</option>
-                                    <option th:each="provider: ${providers}" th:text="${provider.getKey()}"
-                                        th:value="${provider.getValue()}"></option>
+                                    <option th:each="voyageStatus: ${voyageStatuses}"
+                                            th:text="${voyageStatus.getKey()}"
+                                            th:value="${voyageStatus.getValue()}">
+                                    </option>
                                 </select>
                             </div>
-                            <button type="submit" class="btn btn-primary btn-block"> Submit </button>
+
+                            <button type="submit" class="btn btn-primary btn-block">
+                                Submit
+                            </button>
+
                         </form>
                     </div>
                 </div>

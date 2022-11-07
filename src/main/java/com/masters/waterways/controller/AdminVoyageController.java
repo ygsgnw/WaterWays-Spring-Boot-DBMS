@@ -1,7 +1,9 @@
 package com.masters.waterways.controller;
 
 import com.masters.waterways.daos.HarborDao;
+import com.masters.waterways.daos.ShipDao;
 import com.masters.waterways.daos.VoyageVerboseTransform;
+import com.masters.waterways.models.VoyageStatusProvider;
 import com.masters.waterways.models.VoyageVerbose;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -30,6 +32,9 @@ public class AdminVoyageController {
 
 	@Autowired
 	VoyageVerboseTransform voyageVerboseTransform;
+
+	@Autowired
+	ShipDao shipDao;
 
 	@GetMapping("/admin/voyages")
 	public String voyagesList (Model model,
@@ -90,16 +95,18 @@ public class AdminVoyageController {
 
 	@GetMapping("/admin/voyage/add")
 	public String createvoyageform(Model model) {
-		Voyage newvoyage =new Voyage();
+		Voyage newvoyage = new Voyage();
 		model.addAttribute("newvoyage", newvoyage);
-		model.addAttribute("harbors", harborDao.getAll());
+		model.addAttribute("shipList", shipDao.getAll());
+		model.addAttribute("harborList", harborDao.getAll());
+		model.addAttribute("voyageStatuses", VoyageStatusProvider.getVoyageStatusCode);
 		return "AddVoyageAdminForm";
 	}
 	
 	@PostMapping("/admin/voyage/add")
 	public String savevoyage(@ModelAttribute("newvoyage") Voyage newvoyage) {
 		voyagedao.insert(newvoyage);
-		return "redirect:/admin/voyage";
+		return "redirect:/admin/voyages";
 	}
 
 	@GetMapping("/admin/voyage/{voyageId}")

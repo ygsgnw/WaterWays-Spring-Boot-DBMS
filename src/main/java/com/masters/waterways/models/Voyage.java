@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 
 
 @Data
@@ -17,7 +18,9 @@ public class Voyage {
 	private int Fare;
 	private int DepartureHarborId;
 	private int ArrivalHarborId;
+	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
 	private LocalDateTime DepartureTime;
+	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
 	private LocalDateTime ArrivalTime;
 	private int VoyageStatusCode;
 

@@ -31,19 +31,19 @@
   </thead>
   <tbody>
   <tr th:each="voyage: ${voyages}">
-    <td th:text="${voyage.getVoyageId()}"></td>
-    <td th:text="${voyage.getShipSerialId()}"></td>
-    <td th:text="${voyage.getFare()}"></td>
-    <td th:text="${voyage.getDepartureHarborId()}"></td>
-    <td th:text="${voyage.getArrivalHarborId()}"></td>
-    <td th:text="${voyage.getDepartureTime()}"></td>
-    <td th:text="${voyage.getArrivalTime()}"></td>
-    <td th:text="${voyage.getVoyageStatusCode()}"></td>
+    <td th:text="${voyage.getVoyage().getVoyageId()}"></td>
+    <td th:text="${voyage.getVoyage().getShipSerialId()}"></td>
+    <td th:text="${voyage.getVoyage().getFare()}"></td>
+    <td th:text="${voyage.getDepartureHarborName()}"></td>
+    <td th:text="${voyage.getArrivalHarborName()}"></td>
+    <td th:text="${voyage.getVoyage().getDepartureTime()}"></td>
+    <td th:text="${voyage.getVoyage().getArrivalTime()}"></td>
+    <td th:text="${voyage.getVoyageStatusDesc()}"></td>
 
     <td>
-      <a th:href="@{/admin/voyage/edit/{id}(id=${voyage.getVoyageId()})}"
+      <a th:href="@{/admin/voyage/edit/{id}(id=${voyage.getVoyage().getVoyageId()})}"
          class="btn btn-primary">Update</a>
-      <a th:href="@{/admin/voyage/delete/{id}(id=${voyage.getVoyageId()})}"
+      <a th:href="@{/admin/voyage/delete/{id}(id=${voyage.getVoyage().getVoyageId()})}"
          class="btn btn-danger">Delete</a>
     </td>
   </tr>

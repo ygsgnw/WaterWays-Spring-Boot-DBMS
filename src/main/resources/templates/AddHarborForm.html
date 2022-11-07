@@ -38,6 +38,11 @@
                         </div>
 
                         <div class="form-group">
+                            <label> Construction Date </label>
+                            <input type="date" th:field="*{constructionDate}" class="form-control form-control-sm" required>
+                        </div>
+
+                        <div class="form-group">
                             <label>Harbor Status </label>
                             <select th:field="*{harborStatusCode}" class="custom-select">
                                 <option th:each="harborstatus: ${harborstatuses}"

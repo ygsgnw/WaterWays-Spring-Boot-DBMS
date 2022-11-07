@@ -40,7 +40,7 @@ create table Employee (
 create table Harbor (
 	HarborId int primary key auto_increment,
 	Location varchar(20) not null,
-	ConstructionDate datetime,
+	ConstructionDate datetime not null,
 	ManagerId int not null,
 	HarborStatusCode int not null,
 	foreign key (ManagerId) references Employee(EmployeeId) on delete restrict
@@ -117,4 +117,6 @@ create table FoodBooking (
     foreign key (VoyageId, RoomId) references RoomBooking (VoyageId, RoomId) on delete cascade
     -- Weak Entity FoodBooking
 );
+
+source src/main/resources/VoyageInsertTrigger.sql
 

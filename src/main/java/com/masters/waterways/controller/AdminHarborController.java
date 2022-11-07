@@ -1,8 +1,8 @@
 package com.masters.waterways.controller;
 
+import com.masters.waterways.daos.EmployeeDao;
 import com.masters.waterways.daos.HarborDao;
 import com.masters.waterways.models.Harbor;
-import com.masters.waterways.models.HarborStatusProvider;
 import com.masters.waterways.models.HarborStatusProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,13 +12,13 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import com.masters.waterways.daos.HarborDao;
-import com.masters.waterways.models.Harbor;
-
 @Controller
 public class AdminHarborController {
 	@Autowired
 	private HarborDao harborDao;
+
+	@Autowired
+	private EmployeeDao employeeDao;
 	
 	@GetMapping("/admin/harbor")
 	public String listHarbors(Model model) {
@@ -31,7 +31,7 @@ public class AdminHarborController {
 	public String addHarborForm(Model model) {
 		Harbor new_harbor =new Harbor();
 		model.addAttribute("new_harbor", new_harbor);
-		model.addAttribute("harbors", harborDao.getAll());
+		model.addAttribute("employees", employeeDao.getAll());
 		model.addAttribute("harborstatuses", HarborStatusProvider.getHarborStatusCode);
 		return "AddHarborForm";
 	}
