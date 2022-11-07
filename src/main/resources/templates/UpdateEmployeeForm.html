@@ -7,12 +7,12 @@
 						crossorigin="anonymous">
 </head>
 <body>
-	<form action="#" th:action="@{/admin/employee/update/{id} (id=${ship.getShipSerialId()})}" th:object="${ship}" method="POST" >
+	<form action="#" th:action="@{/admin/employee/{id}/update (id=${employee.getEmployeeId()})}" th:object="${employee}" method="POST" >
 		<div class="form-group">
 			<label>Employee Status </label>
 			<select th:field="*{employeeStatusCode}" class="custom-select">
 				<option
-						th:each="employeestatus: ${employeetatuses}"
+						th:each="employeestatus: ${employeestatuses}"
 						th:text="${employeestatus.getKey()}"
 						th:value="${employeestatus.getValue()}"></option>
 			</select>

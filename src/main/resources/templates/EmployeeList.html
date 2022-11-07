@@ -22,6 +22,7 @@
 				<th> User ID</th>
 				<th> Joining Date</th>
                 <th> Employee Status</th>
+				<th> Action</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -30,6 +31,10 @@
 				<td th:text="${employee.getUserId()}"></td>
 				<td th:text="${employee.getJoinDate()}"></td>
                 <td th:text="${empployeestatuses.get(employee.getEmployeeStatusCode())}"></td>
+				<td>
+					<a th:href="@{/admin/employee/{id}/update (id=${employee.getEmployeeId()})}"
+					   class="btn btn-primary">Update</a>
+				</td>
 			</tr>
 		</tbody>
 	</table>

@@ -50,7 +50,7 @@ public class UsersDaoImpl implements UsersDao {
     @Override
     public List<Users> getAllNonEmployees() {
 		return jdbctemplate.query(
-				"SELECT * FROM Users WHERE UserId IN (SELECT UserId FROM Employee)",
+				"SELECT * FROM Users WHERE UserId NOT IN (SELECT UserId FROM Employee)",
 				new BeanPropertyRowMapper<>(Users.class)
 		);
     }

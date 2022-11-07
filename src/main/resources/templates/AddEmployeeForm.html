@@ -12,9 +12,9 @@
 			<label>User ID</label>
 			<select th:field="*{userId}" class="custom-select">
 				<option
-						th:each="employee: ${employees}"
-						th:text="${employee.getUserId()}"
-						th:value="${employee.getUserId()}"></option>
+						th:each="user: ${users}"
+						th:text="${user.getUserId()}"
+						th:value="${user.getUserId()}"></option>
 			</select>
 		</div>
 
@@ -24,7 +24,7 @@
 				<option
 						th:each="employeestatus: ${employeestatuses}"
 						th:text="${employeestatus.getKey()}"
-						th:value="${employeemodel.getValue()}"></option>
+						th:value="${employeestatus.getValue()}"></option>
 			</select>
 		</div>
 

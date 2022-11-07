@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 @Repository
 public class EmployeeDaoImpl implements EmployeeDao {
@@ -20,14 +21,6 @@ public class EmployeeDaoImpl implements EmployeeDao {
 		jdbctemplate.update(
 				"INSERT INTO Employee (UserId) VALUES (?, ?)",
 				employee.getUserId()
-		);
-	}
-
-	@Override
-	public void update (Employee employee) {
-		jdbctemplate.update(
-				"UPDATE Employee SET UserId = ?, JoinDate = ? WHERE EmployeeId = ?",
-				employee.getUserId(), employee.getJoinDate(), employee.getEmployeeId()
 		);
 	}
 
@@ -70,11 +63,12 @@ public class EmployeeDaoImpl implements EmployeeDao {
 	}
 
     @Override
+	@Transactional
     public void makeEmployee(Employee employee) {
-        if (jdbctemplate.queryForObject(
+        if (!jdbctemplate.query(
 				"SELECT * FROM Employee WHERE UserId = ?",
-				new BeanPropertyRowMapper<>(EmployeeDao.class), employee.getUserId()
-		) != null)
+				new BeanPropertyRowMapper<>(Employee.class), employee.getUserId()
+		).isEmpty())
 			throw new RuntimeException("User is already an employee");
 		jdbctemplate.update(
 				"INSERT INTO Employee (UserId, JoinDate, EmployeeStatusCode) VALUE (?, NOW(), ?)",
@@ -83,7 +77,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
     }
 
 	@Override
-	public void setSuspended (int employeeId) {
+	public void flipEmployeeStatus (int employeeId) {
 		jdbctemplate.update(
 				"DELETE FROM Crew WHERE Crew.EmployeeId = ? AND EXISTS(SELECT * FROM Voyage WHERE VoyageId = Crew.VoyageId AND DepartureTime > NOW())",
 				employeeId

@@ -15,9 +15,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class AdminEmployeeController {
     @Autowired
     private UsersDao usersDao;
+
     @Autowired
     private EmployeeDao employeeDao;
-
 
     @GetMapping("/admin/employee")
     public String listEmployee(Model model) {
@@ -28,10 +28,10 @@ public class AdminEmployeeController {
 
     @GetMapping("/admin/employee/add")
     public String createEmployeeForm(Model model) {
-        model.addAttribute("employeestatuses", EmployeeStatusProvider.getEmployeeStatusDesc);
+        model.addAttribute("employeestatuses", EmployeeStatusProvider.getEmployeeStatusCode);
         model.addAttribute("newemployee", new Employee());
-        model.addAttribute("users", usersDao.getAll());
-        return "AddShipForm";
+        model.addAttribute("users", usersDao.getAllNonEmployees());
+        return "AddEmployeeForm";
     }
 
     @PostMapping("/admin/employee/add")
@@ -40,23 +40,18 @@ public class AdminEmployeeController {
         return "redirect:/admin/employee";
     }
 
-    @GetMapping("/admin/employee/update/{id}")
+    @GetMapping("/admin/employee/{id}/update")
     public String editemployeeform(@PathVariable int id, Model model) {
-        model.addAttribute("employeestatuses", EmployeeStatusProvider.getEmployeeStatusDesc);
+        model.addAttribute("employeestatuses", EmployeeStatusProvider.getEmployeeStatusCode);
         model.addAttribute("employee", employeeDao.getById(id));
         return "UpdateEmployeeForm";
     }
 
-    @PostMapping("/admin/employee/update/{id}")
+    @PostMapping("/admin/employee/{id}/update")
     public String updateemployee(@PathVariable int id,
                              @ModelAttribute("employee") Employee employee,
                              Model model) {
         employeeDao.update(employee);
         return "redirect:/admin/employee";
     }
-
-
-
-
-
 }
