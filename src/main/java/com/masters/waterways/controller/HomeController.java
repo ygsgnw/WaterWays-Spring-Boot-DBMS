@@ -117,7 +117,7 @@ public class HomeController {
 
 
 	@GetMapping("/voyages/{id}")
-	public String voyagesDetails (@PathVariable("id") int voyageId, Model model, HttpSession session) {
+	public String voyageDetails (@PathVariable("id") int voyageId, Model model, HttpSession session) {
 
 		List<Voyage> voyage = new ArrayList<>();
 		voyage.add(voyageDao.getById(voyageId));
