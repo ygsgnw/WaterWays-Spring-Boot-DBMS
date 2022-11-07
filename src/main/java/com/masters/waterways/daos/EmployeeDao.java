@@ -5,7 +5,6 @@ import com.masters.waterways.models.Employee;
 
 public interface EmployeeDao {
 	void insert (Employee employee);
-	void update (Employee employee);
 	void delete (Employee employee);
 	List<Employee> getAll ();
 	Employee getById (int id);
@@ -14,4 +13,5 @@ public interface EmployeeDao {
 	void makeEmployee (Employee employee);
 
 	void setSuspended(int employeeId);
+	void setActive(int employeeId);
 }

@@ -77,14 +77,23 @@ public class EmployeeDaoImpl implements EmployeeDao {
     }
 
 	@Override
-	public void flipEmployeeStatus (int employeeId) {
+	public void setSuspended (int employeeId) {
 		jdbctemplate.update(
 				"DELETE FROM Crew WHERE Crew.EmployeeId = ? AND EXISTS(SELECT * FROM Voyage WHERE VoyageId = Crew.VoyageId AND DepartureTime > NOW())",
 				employeeId
 		);
+
 		jdbctemplate.update(
 				"UPDATE Employee SET EmployeeStatusCode = ? WHERE EmployeeId = ?",
 				EmployeeStatusProvider.getEmployeeStatusCode.get("SUSPENDED"), employeeId
+		);
+	}
+
+	@Override
+	public void setActive (int employeeId) {
+		jdbctemplate.update(
+				"UPDATE Employee SET EmployeeStatusCode = ? WHERE EmployeeId = ?",
+				EmployeeStatusProvider.getEmployeeStatusCode.get("ACTIVE"), employeeId
 		);
 	}
 }
