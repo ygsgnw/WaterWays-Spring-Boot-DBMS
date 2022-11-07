@@ -21,6 +21,7 @@ public class HomeController {
 
 	@Autowired
 	AuthenticationService authenticationService;
+
 	@Autowired
 	private UsersDao usersDao;
 
@@ -41,6 +42,9 @@ public class HomeController {
 
 	@Autowired
 	FoodItemDao foodItemDao;
+
+	@Autowired
+	VoyageVerboseTransform voyageVerboseTransform;
 
 	@GetMapping("/")
 	public String home(){
@@ -107,7 +111,7 @@ public class HomeController {
 			voyages = new_voyages;
 		}
 
-		List<VoyageVerbose> voyageVerboseList = VoyageVerbose.transform(voyages);
+		List<VoyageVerbose> voyageVerboseList = voyageVerboseTransform.transform(voyages);
 		
 		model.addAttribute("upcoming_voyages", voyageVerboseList);
 		model.addAttribute("harbors", harborDao.getAll());
@@ -122,7 +126,7 @@ public class HomeController {
 		List<Voyage> voyage = new ArrayList<>();
 		voyage.add(voyageDao.getById(voyageId));
 
-		List<VoyageVerbose> voyageVerbose = VoyageVerbose.transform(voyage);
+		List<VoyageVerbose> voyageVerbose = voyageVerboseTransform.transform(voyage);
 		model.addAttribute("voyageverboselist", voyageVerbose);
 
 		boolean signedIn = false;

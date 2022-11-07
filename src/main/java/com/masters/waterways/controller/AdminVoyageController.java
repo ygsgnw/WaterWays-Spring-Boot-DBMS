@@ -1,6 +1,7 @@
 package com.masters.waterways.controller;
 
 import com.masters.waterways.daos.HarborDao;
+import com.masters.waterways.daos.VoyageVerboseTransform;
 import com.masters.waterways.models.VoyageVerbose;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -17,13 +18,18 @@ import java.util.List;
 
 @Controller
 public class AdminVoyageController {
+
 	@Autowired
 	private VoyageDao voyagedao;
+
 	@Autowired
 	VoyageDao voyageDao;
 
 	@Autowired
 	HarborDao harborDao;
+
+	@Autowired
+	VoyageVerboseTransform voyageVerboseTransform;
 
 	@GetMapping("/admin/voyages")
 	public String voyagesList (Model model,
@@ -73,7 +79,7 @@ public class AdminVoyageController {
 			voyages = new_voyages;
 		}
 
-		List<VoyageVerbose> voyageVerboseList = VoyageVerbose.transform(voyages);
+		List<VoyageVerbose> voyageVerboseList = voyageVerboseTransform.transform(voyages);
 
 		model.addAttribute("voyages", voyageVerboseList);
 		model.addAttribute("harbors", harborDao.getAll());

@@ -114,28 +114,20 @@
                             </td>
 
                             <td>
-                                <a class="btn btn-primary" th:href="@{/user/voyage/
-                                                                        {voyageId}(voyageId = ${voyageverboselist.get(0).getVoyage().getVoyageId()})
-                                                                    /room/{roomId}(roomId=${room_booking_details_with_food.getRoomBooking().getRoomId()})}">Book Food</a>
+                                <a class="btn btn-primary" th:href="@{/user/voyage/{voyageId}/room/{roomId}
+                                                                        (voyageId = ${voyageverboselist.get(0).getVoyage().getVoyageId()}, roomId=${room_booking_details_with_food.getRoomBooking().getRoomId()})
+                                                                    }">Book Food</a>
                             </td>
 
                         </tr>
                         </tbody>
                     </table>
-
-
-
-
-
-
                 </div>
-
             </div>
         </div>
     </div>
 </div>
 </div>
-
 <br>
 </div>
 
