@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns: th="http://www.thymeleaf.org">
+<head>
+<title>Add Employee Form</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" 
+						integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" 
+						crossorigin="anonymous">
+</head>
+<body>
+	<form action="#" th:action="@{/admin/employee/add}" th:object="${newemployee}" method="POST" >
+		<div class="form-group">
+			<label>User ID</label>
+			<select th:field="*{userId}" class="custom-select">
+				<option
+						th:each="employee: ${employees}"
+						th:text="${employee.getUserId()}"
+						th:value="${employee.getUserId()}"></option>
+			</select>
+		</div>
+
+		<div class="form-group">
+			<label>Employee Status </label>
+			<select th:field="*{employeeStatusCode}" class="custom-select">
+				<option
+						th:each="employeestatus: ${employeestatuses}"
+						th:text="${employeestatus.getKey()}"
+						th:value="${employeemodel.getValue()}"></option>
+			</select>
+		</div>
+
+		
+		<button type="submit" class="btn btn-primary">Submit</button>
+	</form>
+
+</body>
+</html>
+
