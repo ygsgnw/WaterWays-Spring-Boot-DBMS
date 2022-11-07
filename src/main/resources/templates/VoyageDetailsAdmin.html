@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns: th="http://www.thymeleaf.org">
+<head>
+  <title>Voyage Details Admin</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+        crossorigin="anonymous">
+
+</head>
+<body>
+
+<div class="row">
+  <div class="col-lg-3">
+    <a th:href="@{/admin/voyage/{voyageId}(voyageId=${voyageId})/crew}" class="btn btn-primary btn-sm mb-3">Crew List </a>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-lg-3">
+    <a th:href="@{/admin/voyage/{voyageId}(voyageId=${voyageId})/foodbookings}" class="btn btn-primary btn-sm mb-3">Food Booking </a>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-lg-3">
+    <a th:href="@{/admin/voyage/{voyageId}(voyageId=${voyageId})/roombookings}" class="btn btn-primary btn-sm mb-3">Room Booking </a>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-lg-3">
+    <a th:href="@{/admin/voyage/{voyageId}(voyageId=${voyageId})/fooditems}" class="btn btn-primary btn-sm mb-3">Food Items </a>
+  </div>
+</div>
+
+<div class="row" th:if="${isCompleted==false}">
+  <div class="col-lg-3">
+    <a th:href="@{/admin/voyage//{voyageId}(voyageId=${voyageId})/Update}" class="btn btn-primary btn-sm mb-3">Update </a>
+  </div>
+</div>
+
+</body>
+</html>
