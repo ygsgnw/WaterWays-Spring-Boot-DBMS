@@ -2,6 +2,8 @@ package com.masters.waterways.services;
 
 import java.util.List;
 
+import com.masters.waterways.models.Employee;
+import com.masters.waterways.models.Voyage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -58,8 +60,20 @@ public class CrewDaoImpl implements CrewDao {
     }
 
 	@Override
-	public List<Integer> getAllNotCrewEmployee(int voyageId) {
-		return null;
+	public List<Employee> getAllAvailableEmployees(int voyageId) throws RuntimeException {
+
+		Voyage v = jdbctemplate.queryForObject(
+				"SELECT * FROM Voyage WHERE VoyageId = ?",
+				new BeanPropertyRowMapper<>(Voyage.class), voyageId
+		);
+
+		if (v == null)
+			throw new RuntimeException("Voyage doesn't exist");
+
+		return jdbctemplate.query(
+				"SELECT * FROM Employee WHERE EmployeeStatusCode = 1 AND NOT EXISTS (SELECT * FROM Crew INNER JOIN Voyage ON Crew.VoyageId = Voyage.VoyageId AND Crew.EmployeeId = Employee.EmployeeId WHERE Employee.EmployeeId = Crew.EmployeeId AND Voyage.DepartureTime < ? AND Voyage.ArrivalTime > ?)",
+				new BeanPropertyRowMapper<>(Employee.class), v.getArrivalTime(), v.getDepartureTime()
+		);
 	}
 
 }

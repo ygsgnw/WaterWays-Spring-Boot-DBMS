@@ -25,23 +25,6 @@ public class ShipModelImpl implements ShipModelDao {
 	}
 
 	@Override
-	public int update (ShipModel ship_model, int id) {
-		// TODO Auto-generated method stub
-		return jdbctemplate.update(
-				"UPDATE ShipModel SET RoomCount = ?, ModelName = ? WHERE ModelId = ?",
-				ship_model.getRoomCount(), ship_model.getModelName(), id
-		);
-	}
-
-	@Override
-	public int delete(int id) {
-		// TODO Auto-generated method stub
-		return jdbctemplate.update(
-				"DELETE FROM ShipModel WHERE ModelId=?", id
-		);
-	}
-
-	@Override
 	public List<ShipModel> getAll () {
 		// TODO Auto-generated method stub
 		return jdbctemplate.query(

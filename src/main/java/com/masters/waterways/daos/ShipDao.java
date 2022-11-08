@@ -6,11 +6,14 @@ import com.masters.waterways.models.*;
 
 public interface ShipDao {
     int insert (Ship ship);
-	int delete (int id);
+
 	List<Ship> getAll ();
-	Ship getById (int id);
 
-    void setActive(int id);
+    List<Ship> getAllOperational();
 
-	void setSuspended(int id);
+    Ship getById (int id);
+
+    void setOperational(int id);
+
+    void setSuspended(int id);
 }

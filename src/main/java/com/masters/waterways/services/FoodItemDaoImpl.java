@@ -33,26 +33,26 @@ public class FoodItemDaoImpl implements FoodItemDao {
 		);
 	}
 
-	@Override
-	public void delete(FoodItem foodItem) throws RuntimeException {
-		if (jdbctemplate.query(
-				"SELECT VoyageId FROM Voyage WHERE VoyageId = ? AND DepartureTime < NOW()",
-				new BeanPropertyRowMapper<>(Integer.class), foodItem.getVoyageId()
-		).isEmpty()) {
-			jdbctemplate.update(
-					"insert into Transaction (TransactionDate, Amount, UserId) (" +
-						"select now(), -sum(Transaction.amount), Transaction.UserId " +
-						"from Transaction, FoodBooking where FoodBooking.TransactionId = Transaction.TransactionId and FoodBooking.FoodItemId = @FoodItemId and FoodBooking.VoyageId = @VoyageId " +
-						"group by UserId);"
-			);
-			jdbctemplate.update(
-					"DELETE FROM FoodItem WHERE FoodItemId = ? AND VoyageId = ?",
-					foodItem.getFoodItemId(), foodItem.getVoyageId()
-			);
-		} else {
-			throw new RuntimeException("Cannot delete FoodItem that was served on a completed voyage");
-		}
-	}
+//	@Override
+//	public void delete(FoodItem foodItem) throws RuntimeException {
+//		if (jdbctemplate.query(
+//				"SELECT VoyageId FROM Voyage WHERE VoyageId = ? AND DepartureTime < NOW()",
+//				new BeanPropertyRowMapper<>(Integer.class), foodItem.getVoyageId()
+//		).isEmpty()) {
+//			jdbctemplate.update(
+//					"insert into Transaction (TransactionDate, Amount, UserId) (" +
+//						"select now(), -sum(Transaction.amount), Transaction.UserId " +
+//						"from Transaction, FoodBooking where FoodBooking.TransactionId = Transaction.TransactionId and FoodBooking.FoodItemId = @FoodItemId and FoodBooking.VoyageId = @VoyageId " +
+//						"group by UserId);"
+//			);
+//			jdbctemplate.update(
+//					"DELETE FROM FoodItem WHERE FoodItemId = ? AND VoyageId = ?",
+//					foodItem.getFoodItemId(), foodItem.getVoyageId()
+//			);
+//		} else {
+//			throw new RuntimeException("Cannot delete FoodItem that was served on a completed voyage");
+//		}
+//	}
 
 	@Override
 	public List<FoodItem> getAll () {
@@ -60,7 +60,6 @@ public class FoodItemDaoImpl implements FoodItemDao {
 				"SELECT * FROM FoodItem",
 				new BeanPropertyRowMapper<>(FoodItem.class)
 		);
-
 	}
 
 	@Override

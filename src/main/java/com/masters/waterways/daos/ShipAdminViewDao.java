@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface ShipAdminViewDao {
     List<ShipAdminView> getAll();
+
+    List<ShipAdminView> getAllOperational();
 }

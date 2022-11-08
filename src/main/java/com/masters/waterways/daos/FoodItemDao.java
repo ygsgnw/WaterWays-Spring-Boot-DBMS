@@ -6,7 +6,6 @@ import com.masters.waterways.models.FoodItem;
 
 public interface FoodItemDao {
     int insert (FoodItem foodItem);
-	void delete(FoodItem foodItem);
 
 	List<FoodItem> getAll ();
 

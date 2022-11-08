@@ -27,7 +27,7 @@ public class RoomBookingDetailsDaoImpl implements RoomBookingDetailsDao {
 
         for (RoomBooking roomBooking: roomBookingList) {
             roomBookingDetailsList.add(
-                    new RoomBookingDetails(roomBooking, foodBookingDao.getAllByUserIdAndRoomIdAndVoyageId(userId, voyageId, roomBooking.getRoomId()))
+                new RoomBookingDetails(roomBooking, foodBookingDao.getAllByUserIdAndRoomIdAndVoyageId(userId, voyageId, roomBooking.getRoomId()))
             );
         }
 
