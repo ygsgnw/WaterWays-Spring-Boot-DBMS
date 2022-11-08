@@ -20,7 +20,7 @@
             <div class="card-body">
                 <h3 class="card-title text-left"> Voyages </h3>
                 <div class="card-text">
-                    <form th:action="@{/voyages(fromid=fromid)}" method="get">
+                    <form th:action="@{/voyages}" method="get">
                         <div class="form-group">
                             <label>Departing From </label>
                             <select th:name="fromid" class="custom-select">
@@ -34,7 +34,7 @@
                         </div>
                         <div class="form-group">
                             <label>Arriving At </label>
-                            <select th:name="fromid" class="custom-select">
+                            <select th:name="toid" class="custom-select">
                                 <option value="-1">All</option>
                                 <option
                                         th:each="harbor: ${harbors}"
@@ -77,10 +77,12 @@
 
             <td th:text="${upcoming_voyage.getDepartureHarborName()}"></td>
             <td th:text="${upcoming_voyage.getArrivalHarborName()}"></td>
-            <td th:text="${(upcoming_voyage.getVoyage().getDepartureTime())}"></td>
-            <td th:text="${upcoming_voyage.getVoyage().getArrivaltime()}"></td>
+            <td th:text="${(upcoming_voyage.getDepartureTime())}"></td>
+            <td th:text="${upcoming_voyage.getArrivalTime()}"></td>
+            <td th:text="${upcoming_voyage.getFare()}"></td>
+
             <td>
-                <a th:href="@{/voyages/{id}}" class="btn btn-primary">View</a>
+                <a th:href="@{/voyages/{id} (id=${upcoming_voyage.getVoyageId()})}" class="btn btn-primary">View</a>
             </td>
         </tr>
         </tbody>

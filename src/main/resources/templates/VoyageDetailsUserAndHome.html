@@ -17,7 +17,7 @@
 <div class=" col-md-11 toppad VoyageDetailstable">
     <div class="panel panel-info">
         <div class="panel-heading">
-            <h3 class="panel-title  "><strong>Voyage Detail</strong></h3>
+            <h3 class="panel-title  "><strong>Voyage Details</strong></h3>
         </div>
         <br>
         <div class="panel-body">
@@ -27,40 +27,40 @@
                         <tbody>
                         <tr>
                             <td>Voyage Id :</td>
-                            <td th:text="${voyageverboselist.get(0).getVoyage().getVoyageId()}"></td>
+                            <td th:text="${voyage.getVoyageId()}"></td>
                         </tr>
                         <tr>
                             <td>Fare :</td>
-                            <td th:text="${voyageverboselist.get(0).getVoyage().getFare()}"></td>
+                            <td th:text="${voyage.getFare()}"></td>
                         </tr>
                         <tr>
                             <td>Ship Serial Id :</td>
-                            <td th:text="${voyageverboselist.get(0).getVoyage().getShipSerialId()}"></td>
+                            <td th:text="${voyage.getShipSerialId()}"></td>
                         </tr>
                         <tr>
                             <td>Ship Model Name :</td>
-                            <td th:text="${voyageverboselist.get(0).getVoyage().getShipSerialId()}"></td>
+                            <td th:text="${voyage.getModelName()}"></td>
                         </tr>
                         <tr>
                             <td>Departure Harbor :</td>
-                            <td  th:text="${voyageverboselist.get(0).getDepartureHarborName()}"></td>
+                            <td th:text="${voyage.getDepartureHarborName()}"></td>
                         </tr>
                         <tr>
                             <td>Arrival Harbor :</td>
-                            <td th:text="${voyageverboselist.get(0).getArrivalHarborName()}"></td>
+                            <td th:text="${voyage.getArrivalHarborName()}"></td>
                         </tr>
                         <tr>
                             <td>Departure Time :</td>
-                            <td th:text="${voyageverboselist.get(0).getVoyage().getDepartureTime()}"></td>
+                            <td th:text="${voyage.getDepartureTime()}"></td>
                         </tr>
                         <tr>
                             <td>Arrival Time :</td>
-                            <td th:text="${voyageverboselist.get(0).getVoyage().getArrivalTime()}"></td>
+                            <td th:text="${voyage.getArrivalTime()}"></td>
                         </tr>
 
                         <tr>
                             <td>Voyage Status:</td>
-                            <td th:text="${voyageverboselist.get(0).getVoyageStatusDesc()}"></td>
+                            <td th:text="${voyageStatuses.get(voyage.getVoyageStatusCode())}"></td>
                         </tr>
 
                         </tbody>
@@ -73,7 +73,7 @@
                     <div class="container VoyageDetailButton">
                         <div class="row">
                             <div class="col">
-                                <a class="btn btn-primary" th:href="@{/user/booking/{id} (id=${voyageverboselist.get(0).getVoyage().getVoyageId()})}">Book Room</a>
+                                <a class="btn btn-primary" th:href="@{/user/booking/{id} (id=${voyage.getVoyageId()})}">Book Room</a>
                             </div>
                         </div>
                     </div>
@@ -119,7 +119,7 @@
 
                             <td>
                                 <a class="btn btn-primary" th:href="@{/user/voyage/{voyageId}/room/{roomId}
-                                                                        (voyageId = ${voyageverboselist.get(0).getVoyage().getVoyageId()}, roomId=${room_booking_details_with_food.getRoomBooking().getRoomId()})
+                                                                        (voyageId = ${voyage.getVoyageId()}, roomId=${room_booking_details_with_food.getRoomBooking().getRoomId()})
                                                                     }">Book Food</a>
                             </td>
 

@@ -15,40 +15,40 @@
     <tbody>
     <tr>
       <td>Voyage Id :</td>
-      <td th:text="${voyageverboselist.get(0).getVoyage().getVoyageId()}"></td>
+      <td th:text="${voyage.getVoyageId()}"></td>
     </tr>
     <tr>
       <td>Fare :</td>
-      <td th:text="${voyageverboselist.get(0).getVoyage().getFare()}"></td>
+      <td th:text="${voyage.getFare()}"></td>
     </tr>
     <tr>
       <td>Ship Serial Id :</td>
-      <td th:text="${voyageverboselist.get(0).getVoyage().getShipSerialId()}"></td>
+      <td th:text="${voyage.getShipSerialId()}"></td>
     </tr>
     <tr>
       <td>Ship Model Name :</td>
-      <td th:text="${voyageverboselist.get(0).getVoyage().getShipSerialId()}"></td>
+      <td th:text="${voyage.getModelName()}"></td>
     </tr>
     <tr>
       <td>Departure Harbor :</td>
-      <td  th:text="${voyageverboselist.get(0).getDepartureHarborName()}"></td>
+      <td th:text="${voyage.getDepartureHarborName()}"></td>
     </tr>
     <tr>
       <td>Arrival Harbor :</td>
-      <td th:text="${voyageverboselist.get(0).getArrivalHarborName()}"></td>
+      <td th:text="${voyage.getArrivalHarborName()}"></td>
     </tr>
     <tr>
       <td>Departure Time :</td>
-      <td th:text="${voyageverboselist.get(0).getVoyage().getDepartureTime()}"></td>
+      <td th:text="${voyage.getDepartureTime()}"></td>
     </tr>
     <tr>
       <td>Arrival Time :</td>
-      <td th:text="${voyageverboselist.get(0).getVoyage().getArrivalTime()}"></td>
+      <td th:text="${voyage.getArrivalTime()}"></td>
     </tr>
 
     <tr>
       <td>Voyage Status:</td>
-      <td th:text="${voyageverboselist.get(0).getVoyageStatusDesc()}"></td>
+      <td th:text="${voyageStatuses.get(voyage.getVoyageStatusCode())}"></td>
     </tr>
 
     </tbody>

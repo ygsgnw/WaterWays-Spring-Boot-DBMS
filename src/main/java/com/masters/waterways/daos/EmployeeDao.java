@@ -14,4 +14,7 @@ public interface EmployeeDao {
 
 	void setSuspended(int employeeId);
 	void setActive(int employeeId);
+
+	Boolean isEmployee(int id);
+
 }

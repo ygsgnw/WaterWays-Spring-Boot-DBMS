@@ -36,8 +36,8 @@
 
                             <td th:text="${my_completed_voyage.getDepartureHarborName()}"></td>
                             <td th:text="${my_completed_voyage.getArrivalHarborName()}"></td>
-                            <td th:text="${my_completed_voyage.getVoyage().getDepartureTime())}"></td>
-                            <td th:text="${my_completed_voyage.getVoyage().getArrivaltime()}"></td>
+                            <td th:text="${my_completed_voyage.getDepartureTime()}"></td>
+                            <td th:text="${my_completed_voyage.getArrivaltime()}"></td>
                         </tr>
                     </tbody>
 
@@ -69,8 +69,8 @@
 
                             <td th:text="${my_upcoming_voyages.getDepartureHarborName()}"></td>
                             <td th:text="${my_upcoming_voyages.getArrivalHarborName()}"></td>
-                            <td th:text="${(my_upcoming_voyages.getVoyage().getDepartureTime())}"></td>
-                            <td th:text="${my_upcoming_voyages.getVoyage().getArrivaltime()}"></td>
+                            <td th:text="${(my_upcoming_voyages.getDepartureTime())}"></td>
+                            <td th:text="${my_upcoming_voyages.getArrivaltime()}"></td>
                             <td>
                                 <a th:href="@{/voyages/{id}}" class="btn btn-primary">View</a>
                             </td>
@@ -83,6 +83,7 @@
             </div>
         </div>
 
+    </div>
 
 
 
@@ -97,6 +98,7 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
             integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
             crossorigin="anonymous"></script>
+
 </body>
 
 </html>

@@ -15,58 +15,57 @@ import javax.servlet.http.HttpSession;
 
 @Controller
 public class AuthenticationController {
+
     @Autowired
     private AuthenticationService authenticationService;
 
+    @Autowired
     private UsersDao usersDao;
 
-
     @GetMapping("/login")
-    public String login(Model model, HttpSession session) {
-        if (authenticationService.isAuthenticated(session)) {
-        	System.out.println(1);
-            if(authenticationService.isAdmin(session)){
-                return "redirect:/admin";
-            }
-            return "redirect:/user";
-
+    public String login(Model model, HttpSession session){
+        if(authenticationService.isAuthenticated(session)){
+            return "redirect:/";
         }
-
         model.addAttribute("credentials", new Users());
+        model.addAttribute("isCorrect",true);
+        model.addAttribute("isUser",true);
         return "login";
     }
 
     @PostMapping("/login")
-    public String postLogin(@ModelAttribute Users credentials, Model model, HttpSession session, RedirectAttributes redirectAttributes) {
-        if (authenticationService.isAuthenticated(session)) {
-            if(authenticationService.isAdmin(session)){
-                return "redirect:/admin";
-            }
-            return "redirect:/user";
-
+    public String postLogin(@ModelAttribute Users credentials, Model model, HttpSession session, RedirectAttributes redirectAttributes){
+        if(authenticationService.isAuthenticated(session)){
+            return "redirect:/";
         }
 
-        int id = credentials.getUserId();
+        String userID = credentials.getEmailId();
         String password = credentials.getUserPassword();
-        String errorMessage = null;
-//        System.out.println(id);
-//        System.out.println(password);
+
+        boolean isCorrect = true;
+        boolean isUser = true;
         try {
-            if (authenticationService.checkCredentials(id, password)) {
-                authenticationService.loginUser(session, id);
+            Users user = usersDao.getByEmailId(userID);
+            if(authenticationService.checkCredentials(user.getUserId(),password)){
+                authenticationService.loginUser(session,user.getUserId());
+
                 if(authenticationService.isAdmin(session)){
                     return "redirect:/admin";
                 }
-                return "redirect:/user";
-            }
-            errorMessage = "Incorrect password.";
-        } catch (Exception e) {
-            errorMessage = "No user with this username found.";
-        }
-//        System.out.println(1);
 
-        model.addAttribute("credentials", credentials);
-        System.out.println("log");
+                return "redirect:/user";
+
+            }
+            isCorrect = false;
+            System.out.println("Incorrect Password");
+        }
+        catch (Exception e){
+            isUser = false;
+            System.out.println("User Not exist");
+        }
+        model.addAttribute("credentials",new Users());
+        model.addAttribute("isCorrect",isCorrect);
+        model.addAttribute("isUser",isUser);
         return "login";
     }
 
@@ -75,5 +74,17 @@ public class AuthenticationController {
         authenticationService.logoutUser(session);
         return "redirect:/";
     }
+//
+//    @GetMapping("/createEmployee")
+//    public String getEmployee(Model model, HttpSession session){
+//        if(authenticationService.isAdmin(session)){
+//            Employee employee = new Employee();
+//            model.addAttribute("employee", new Employee());
+//            return "createEmployee";
+//        }
+//        return "redirect:/login";
+//    }
+
+
 
 }

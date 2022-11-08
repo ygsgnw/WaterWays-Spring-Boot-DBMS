@@ -96,4 +96,20 @@ public class EmployeeDaoImpl implements EmployeeDao {
 				EmployeeStatusProvider.getEmployeeStatusCode.get("ACTIVE"), employeeId
 		);
 	}
+
+	@Override
+	public Boolean isEmployee(int id) {
+		try{
+			Employee employee = jdbctemplate.queryForObject(
+					"SELECT * FROM Employee WHERE UserId = ?",
+					new BeanPropertyRowMapper<>(Employee.class), id
+			);
+			return employee!=null;
+		}
+		catch (Exception e){
+			System.out.println("Exception in line 109 of employee dao");
+			return false;
+		}
+
+	}
 }

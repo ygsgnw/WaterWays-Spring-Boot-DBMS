@@ -4,7 +4,9 @@ import com.masters.waterways.daos.*;
 import com.masters.waterways.models.FoodBooking;
 import com.masters.waterways.models.Users;
 import com.masters.waterways.models.Voyage;
+import com.masters.waterways.models.VoyageUserView;
 import com.masters.waterways.services.AuthenticationService;
+import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
@@ -36,10 +38,16 @@ public class UserController {
     private FoodBookingDao foodBookingDao;
 
     @Autowired
+    private VoyageUserViewDao voyageUserViewDao;
+
+    @Autowired
     AuthenticationService authenticationService;
     
     @GetMapping("/user")
-    public String userhome(){
+    public String userhome(Model model, HttpSession session){
+        int id = authenticationService.getCurrentUser(session);
+        Users user = usersDao.getById(id);
+        model.addAttribute("user",user);
         return "UserHome";
     }
 
@@ -137,8 +145,9 @@ public class UserController {
     @GetMapping("/user/mybookings")
     public String mybookings(Model model, HttpSession session){
 //        int userId=session_key;
-        model.addAttribute("my_completed_voyages", voyageDao.getAllCompletedByUserId(authenticationService.getCurrentUser(session)));
-        model.addAttribute("my_upcoming_voyages", voyageDao.getAllActiveByUserId(authenticationService.getCurrentUser(session)));
+
+        model.addAttribute("my_completed_voyages", voyageUserViewDao.getAllCompletedByUserId(authenticationService.getCurrentUser(session)));
+        model.addAttribute("my_upcoming_voyages", voyageUserViewDao.getAllActiveByUserId(authenticationService.getCurrentUser(session)));
         return "MyVoyageList"; // will direct to VoyageDetailsUser
     }
 
@@ -151,7 +160,7 @@ public class UserController {
         return "FoodBookingForm";
     }
 
-    @GetMapping("/user/foodbooking")
+    @PostMapping("/user/foodbooking")
     public String foodBookingForRoom (@ModelAttribute("foodBooking")FoodBooking foodBooking,
                                       HttpSession session
     ) {

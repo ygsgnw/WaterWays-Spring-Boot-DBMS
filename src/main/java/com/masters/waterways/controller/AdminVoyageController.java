@@ -119,6 +119,10 @@ public class AdminVoyageController {
 
 		System.out.println(isCompleted);
 
+		VoyageUserView voyage =voyageUserViewDao.getById(voyageId);
+		model.addAttribute("voyage", voyage);
+		model.addAttribute("voyageStatuses", VoyageStatusProvider.getVoyageStatusDesc);
+
 		model.addAttribute("voyageId", voyageId);
 		model.addAttribute("isCompleted", isCompleted);
 		return "VoyageDetailsAdmin";

@@ -46,6 +46,9 @@ public class HomeController {
 	@Autowired
 	VoyageVerboseTransform voyageVerboseTransform;
 
+	@Autowired
+	VoyageUserViewDao voyageUserViewDao;
+
 	@GetMapping("/")
 	public String home(){
 		return "Home";
@@ -77,43 +80,45 @@ public class HomeController {
 //		System.out.println(depart_after_datetime);
 //		System.out.println(arrive_before_datetime);
 
-		List<Voyage> voyages = voyageDao.getAllActive();
+		List<VoyageUserView> voyages = voyageUserViewDao.getAllActive();
 
-		if (from_harbour_id != null) {
-			List<Voyage> new_voyages = new ArrayList<>();
-			for (Voyage v: voyages)
-				if (v.getDepartureHarborId() == from_harbour_id)
+		for (VoyageUserView v: voyages)
+			System.out.println(v.getArrivalHarborId());
+
+		if (from_harbour_id != null && from_harbour_id != -1) {
+			List<VoyageUserView> new_voyages = new ArrayList<>();
+			for (VoyageUserView v: voyages)
+				if (from_harbour_id.equals(v.getDepartureHarborId()))
 					new_voyages.add(v);
 			voyages = new_voyages;
 		}
 
-		if (to_harbour_id != null) {
-			List<Voyage> new_voyages = new ArrayList<>();
-			for (Voyage v: voyages)
-				if (v.getArrivalHarborId() == to_harbour_id)
+		if (to_harbour_id != null && to_harbour_id != -1) {
+			List<VoyageUserView> new_voyages = new ArrayList<>();
+			for (VoyageUserView v: voyages)
+				if (to_harbour_id.equals(v.getArrivalHarborId()))
 					new_voyages.add(v);
 			voyages = new_voyages;
 		}
 
 		if (depart_after_datetime != null) {
-			List<Voyage> new_voyages = new ArrayList<>();
-			for (Voyage v: voyages)
+			List<VoyageUserView> new_voyages = new ArrayList<>();
+			for (VoyageUserView v: voyages)
 				if (v.getDepartureTime().isAfter(depart_after_datetime))
 					new_voyages.add(v);
 			voyages = new_voyages;
 		}
 
 		if (arrive_before_datetime != null) {
-			List<Voyage> new_voyages = new ArrayList<>();
-			for (Voyage v: voyages)
+			List<VoyageUserView> new_voyages = new ArrayList<>();
+			for (VoyageUserView v: voyages)
 				if (v.getArrivalTime().isBefore(arrive_before_datetime))
 					new_voyages.add(v);
 			voyages = new_voyages;
 		}
 
-		List<VoyageVerbose> voyageVerboseList = voyageVerboseTransform.transform(voyages);
-		
-		model.addAttribute("upcoming_voyages", voyageVerboseList);
+
+		model.addAttribute("upcoming_voyages", voyages);
 		model.addAttribute("harbors", harborDao.getAll());
 
 		return "VoyageListHomeAndUser";
@@ -123,11 +128,15 @@ public class HomeController {
 	@GetMapping("/voyages/{id}")
 	public String voyageDetails (@PathVariable("id") int voyageId, Model model, HttpSession session) {
 
-		List<Voyage> voyage = new ArrayList<>();
-		voyage.add(voyageDao.getById(voyageId));
+//		List<Voyage> voyage = new ArrayList<>();
+//		voyage.add(voyageDao.getById(voyageId));
 
-		List<VoyageVerbose> voyageVerbose = voyageVerboseTransform.transform(voyage);
-		model.addAttribute("voyageverboselist", voyageVerbose);
+//		List<VoyageVerbose> voyageVerbose = voyageVerboseTransform.transform(voyage);
+
+		VoyageUserView voyage =voyageUserViewDao.getById(voyageId);
+		model.addAttribute("voyage", voyage);
+		model.addAttribute("voyageStatuses", VoyageStatusProvider.getVoyageStatusDesc);
+
 
 		boolean signedIn = false;
 
