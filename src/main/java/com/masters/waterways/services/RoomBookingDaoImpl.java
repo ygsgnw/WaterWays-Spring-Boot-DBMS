@@ -25,46 +25,46 @@ public class RoomBookingDaoImpl implements RoomBookingDao {
 
 	VoyageDao voyageDao;
 	
-	@Override
-	public int insert(RoomBooking room_booking) {
-		// TODO Auto-generated method stub
-		return jdbctemplate.update(
-				"INSERT INTO RoomBooking (RoomId, VoyageId, TransactionId, RoomStatusCode) VALUES (?, ?, ?, ?)",
-				room_booking.getRoomId(), room_booking.getVoyageId(), room_booking.getTransactionId(), room_booking.getRoomStatusCode()
-		);
-	}
+//	@Override
+//	public int insert(RoomBooking room_booking) {
+//		// TODO Auto-generated method stub
+//		return jdbctemplate.update(
+//				"INSERT INTO RoomBooking (RoomId, VoyageId, TransactionId, RoomStatusCode) VALUES (?, ?, ?, ?)",
+//				room_booking.getRoomId(), room_booking.getVoyageId(), room_booking.getTransactionId(), room_booking.getRoomStatusCode()
+//		);
+//	}
+
+//	@Override
+//	public int update(RoomBooking room_booking) {
+//		// TODO Auto-generated method stub
+//		return jdbctemplate.update(
+//				"UPDATE RoomBooking SET RoomStatusCode = ? WHERE VoyageId = ? AND RoomId = ?",
+//				room_booking.getRoomStatusCode(), room_booking.getVoyageId(), room_booking.getRoomId()
+//		);
+//	}
+
+//	@Override
+//	public int delete(int id) {
+//		// TODO Auto-generated method stub
+//		return jdbctemplate.update("DELETE FROM RoomBooking WHERE TransactionId = ?", id
+//		);
+//	}
+
+//	@Override
+//	public List<RoomBooking> getAll() {
+//		// TODO Auto-generated method stub
+//		return jdbctemplate.query(
+//				"SELECT * FROM RoomBooking",
+//				new BeanPropertyRowMapper<>(RoomBooking.class)
+//		);
+//	}
 
 	@Override
-	public int update(RoomBooking room_booking) {
-		// TODO Auto-generated method stub
-		return jdbctemplate.update(
-				"UPDATE RoomBooking SET RoomStatusCode = ? WHERE VoyageId = ? AND RoomId = ?",
-				room_booking.getRoomStatusCode(), room_booking.getVoyageId(), room_booking.getRoomId()
-		);
-	}
-
-	@Override
-	public int delete(int id) {
-		// TODO Auto-generated method stub
-		return jdbctemplate.update("DELETE FROM RoomBooking WHERE TransactionId = ?", id
-		);
-	}
-
-	@Override
-	public List<RoomBooking> getAll() {
-		// TODO Auto-generated method stub
-		return jdbctemplate.query(
-				"SELECT * FROM RoomBooking",
-				new BeanPropertyRowMapper<RoomBooking>(RoomBooking.class)
-		);
-	}
-
-	@Override
-	public RoomBooking getById(int id) {
+	public RoomBooking getByTransactionId(int id) {
 		// TODO Auto-generated method stub
 		return jdbctemplate.queryForObject(
 				"SELECT * FROM RoomBooking WHERE TransactionId = ?",
-				new BeanPropertyRowMapper<RoomBooking>(RoomBooking.class), id
+				new BeanPropertyRowMapper<>(RoomBooking.class), id
 		);
 	}
 
@@ -84,7 +84,7 @@ public class RoomBookingDaoImpl implements RoomBookingDao {
 						"WHERE UserId = ? " +
 						"AND RoomBooking.TransactionId = Transaction.TransactionId " +
 						"AND VoyageId = ?",
-				new BeanPropertyRowMapper<RoomBooking>(RoomBooking.class), userId, voyageId
+				new BeanPropertyRowMapper<>(RoomBooking.class), userId, voyageId
 		);
 	}
 
@@ -109,12 +109,15 @@ public class RoomBookingDaoImpl implements RoomBookingDao {
 	public RoomBooking reserveRoomByVoyageId(int voyageId) {
 		RoomBooking room = jdbctemplate.queryForObject(
 				"SELECT * FROM RoomBooking WHERE VoyageId = ? AND RoomStatusCode = ?",
-				new BeanPropertyRowMapper<RoomBooking>(RoomBooking.class), voyageId, RoomStatusProvider.getRoomStatusCode.get("AVAILABLE")
+				new BeanPropertyRowMapper<>(RoomBooking.class), voyageId, RoomStatusProvider.getRoomStatusCode.get("AVAILABLE")
 		);
 
 		if (room != null) {
-			room.setRoomStatusCode(RoomStatusProvider.getRoomStatusCode.get("RESERVED"));
-			update(room);
+			jdbctemplate.update(
+					"UPDATE RoomBooking SET RoomStatusCode = ? WHERE VoyageId = ? AND RoomId = ?",
+					RoomStatusProvider.getRoomStatusCode.get("RESERVED"), voyageId, room.getRoomId()
+			);
+
 			return room;
 		} else
 			throw new RuntimeException("No available rooms");
@@ -132,13 +135,14 @@ public class RoomBookingDaoImpl implements RoomBookingDao {
 
 		Integer transactionId = jdbctemplate.queryForObject(
 				"SELECT LAST_INSERT_ID() FROM Transaction",
-				new BeanPropertyRowMapper<Integer>(Integer.class)
+				new BeanPropertyRowMapper<>(Integer.class)
 		);
 
 		if (transactionId != null) {
-			room.setTransactionId(transactionId);
-			room.setRoomStatusCode(RoomStatusProvider.getRoomStatusCode.get("BOOKED"));
-			update(room);
+			jdbctemplate.update(
+					"UPDATE RoomBooking SET RoomStatusCode = ?, TransactionId = ? WHERE VoyageId = ? AND RoomId = ?",
+					RoomStatusProvider.getRoomStatusCode.get("BOOKED"), transactionId, room.getVoyageId(), room.getRoomId()
+			);
 		} else
 			throw new RuntimeException("Transaction failed");
 	}

@@ -25,17 +25,10 @@ public class UsersDaoImpl implements UsersDao {
 	}
 
 	@Override
-	public int update (Users user, int id) {
+	public int update (Users user) {
 		return jdbctemplate.update(
 				"UPDATE Users SET UserName = ?, EmailId = ?, UserPassword = ? WHERE UserId = ?",
-				user.getUserId(), user.getUserName(), user.getEmailId(), user.getUserPassword(), id
-		);
-	}
-
-	@Override
-	public int delete (int id) {
-		return jdbctemplate.update(
-				"DELETE FROM Users WHERE UserId = ?", id
+				user.getUserId(), user.getUserName(), user.getEmailId(), user.getUserPassword(), user.getUserId()
 		);
 	}
 

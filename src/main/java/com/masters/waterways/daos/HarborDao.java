@@ -6,12 +6,12 @@ import com.masters.waterways.models.Harbor;
 
 public interface HarborDao {
 	int insert (Harbor harbor);
-	int update (Harbor harbor, int id);
-	int delete (int id);
+
 	List<Harbor> getAll ();
+
 	Harbor getById (int id);
 
-	void setSuspended(int id);
+	int setSuspended(int id);
 
-	void setActive(int id);
+	int setActive(int id);
 }

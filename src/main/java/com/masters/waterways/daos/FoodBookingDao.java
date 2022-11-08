@@ -4,7 +4,6 @@ import java.util.List;
 import com.masters.waterways.models.*;
 
 public interface FoodBookingDao {
-    void insert (FoodBooking foodBooking);
 	List<FoodBooking> getAll ();
     List<FoodBooking> getAllByVoyageId (int voyageId);
     List<FoodBooking> getAllByUserIdAndRoomIdAndVoyageId (int userId, int voyageId, int roomId);

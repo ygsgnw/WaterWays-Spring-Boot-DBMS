@@ -16,14 +16,14 @@ public class FoodBookingDaoImpl implements FoodBookingDao {
 	@Autowired
 	JdbcTemplate jdbctemplate;
 
-	@Override
-	public void insert (FoodBooking foodBooking) {
-		// TODO Auto-generated method stub
-		jdbctemplate.update(
-				"INSERT INTO FoodBooking (FoodItemId, VoyageId, FoodItemCount, TransactionId) VALUES (?, ?, ?, ?)",
-				foodBooking.getFoodItemId(), foodBooking.getVoyageId(), foodBooking.getFoodItemCount(), foodBooking.getTransactionId()
-		);
-	}
+//	@Override
+//	public void insert (FoodBooking foodBooking) {
+//		// TODO Auto-generated method stub
+//		jdbctemplate.update(
+//				"INSERT INTO FoodBooking (FoodItemId, VoyageId, FoodItemCount, TransactionId) VALUES (?, ?, ?, ?)",
+//				foodBooking.getFoodItemId(), foodBooking.getVoyageId(), foodBooking.getFoodItemCount(), foodBooking.getTransactionId()
+//		);
+//	}
 
 
 	@Override

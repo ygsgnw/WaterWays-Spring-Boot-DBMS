@@ -25,27 +25,10 @@ public class TransactionDaoImpl implements TransactionDao {
 	}
 
 	@Override
-	public int update (Transaction Transaction, int id) {
-		// TODO Auto-generated method stub
-		return jdbctemplate.update(
-				"UPDATE Transaction SET TransactionDate = ?, Amount = ?, UserId = ? WHERE TransactionId = ?",
-				Transaction.getTransactionDate(), Transaction.getAmount(), Transaction.getUserId(), id
-		);
-	}
-
-	@Override
-	public int delete (int id) {
-		// TODO Auto-generated method stub
-		return jdbctemplate.update(
-				"DELETE FROM Transaction WHERE TransactionId = ?", id
-		);
-	}
-
-	@Override
 	public List<Transaction> getAll () {
 		// TODO Auto-generated method stub
 		return jdbctemplate.query(
-				"SELECT * FROM Transaction", new BeanPropertyRowMapper<Transaction>(Transaction.class)
+				"SELECT * FROM Transaction", new BeanPropertyRowMapper<>(Transaction.class)
 		);
 	}
 
@@ -54,7 +37,7 @@ public class TransactionDaoImpl implements TransactionDao {
 		// TODO Auto-generated method stub
 		return jdbctemplate.queryForObject(
 				"SELECT * FROM Transaction WHERE TransactionId = ?",
-				new BeanPropertyRowMapper<Transaction>(Transaction.class), id
+				new BeanPropertyRowMapper<>(Transaction.class), id
 		);
 	}
 

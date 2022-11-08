@@ -7,17 +7,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 public interface RoomBookingDao {
 
-	int insert(RoomBooking room_booking);
+    RoomBooking getByTransactionId(int id);
 
-	int update(RoomBooking room_booking);
-
-	int delete(int id);
-
-	List<RoomBooking> getAll();
-
-	RoomBooking getById(int id);
-
-	List<RoomBooking> getAllByVoyageId (int voyageId);
+    List<RoomBooking> getAllByVoyageId (int voyageId);
 
 	List<RoomBooking> getAllByUserIdAndVoyageId(int userId, int voyageId);
 

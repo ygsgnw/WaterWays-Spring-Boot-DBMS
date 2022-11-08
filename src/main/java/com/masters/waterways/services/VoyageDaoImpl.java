@@ -1,11 +1,10 @@
 package com.masters.waterways.services;
 import com.masters.waterways.daos.*;
-import com.masters.waterways.models.RoomStatusProvider;
-import com.masters.waterways.models.ShipModel;
 import com.masters.waterways.models.Voyage;
 
 import java.util.List;
 
+import com.masters.waterways.models.VoyageStatusProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -20,9 +19,9 @@ public class VoyageDaoImpl implements VoyageDao {
 
 	@Override
 	@Transactional
-	public void insert (Voyage voyage) {
+	public int insert (Voyage voyage) {
 		// TODO Auto-generated method stub
-		jdbctemplate.update(
+		return jdbctemplate.update(
 				"INSERT INTO Voyage (ShipSerialId, Fare, ArrivalHarborId, ArrivalTime, DepartureHarborId, DepartureTime, VoyageStatusCode) VALUES (?, ?, ?, ?, ?, ?, ?)",
 				voyage.getShipSerialId(), voyage.getFare(), voyage.getArrivalHarborId(), voyage.getArrivalTime(), voyage.getDepartureHarborId(), voyage.getDepartureTime(), voyage.getVoyageStatusCode()
 		);
@@ -42,14 +41,6 @@ public class VoyageDaoImpl implements VoyageDao {
 //			);
 	}
 
-	@Override
-	public int delete (int id) {
-		// TODO Auto-generated method stub
-		return jdbctemplate.update(
-				"DELETE FROM Voyage WHERE VoyageId = ?",
-				id
-		);
-	}
 
 	@Override
 	public List<Voyage> getAll () {
@@ -101,25 +92,44 @@ public class VoyageDaoImpl implements VoyageDao {
 	}
 
 	@Override
-	public void setSuspended (int voyageId) {
-		jdbctemplate.update(
-				"insert into Transaction (TransactionDate, Amount, UserId) (" +
-					"select now(), -sum(Transaction.Amount), Transaction.UserId " +
-					"from Transaction, RoomBooking where RoomBooking.TransactionId = Transaction.TransactionId and RoomBooking.VoyageId = ? " +
-					"group by Transaction.UserId)", voyageId
-		);
+	public int setSuspended (int voyageId) {
 
-		jdbctemplate.update(
-				"insert into Transaction (TransactionDate, Amount, UserId) (" +
-					"select now(), -sum(Transaction.Amount), Transaction.UserId " +
-					"from Transaction, FoodBooking where Transaction.TransactionId = FoodBooking.TransactionId and FoodBooking.VoyageId = ? " +
-					"group by Transaction.UserId)", voyageId
+
+
+//		jdbctemplate.update(
+//				"insert into Transaction (TransactionDate, Amount, UserId) (" +
+//					"select now(), -sum(Transaction.Amount), Transaction.UserId " +
+//					"from Transaction, RoomBooking where RoomBooking.TransactionId = Transaction.TransactionId and RoomBooking.VoyageId = ? " +
+//					"group by Transaction.UserId)", voyageId
+//		);
+//
+//		jdbctemplate.update(
+//				"insert into Transaction (TransactionDate, Amount, UserId) (" +
+//					"select now(), -sum(Transaction.Amount), Transaction.UserId " +
+//					"from Transaction, FoodBooking where Transaction.TransactionId = FoodBooking.TransactionId and FoodBooking.VoyageId = ? " +
+//					"group by Transaction.UserId)", voyageId
+//		);
+
+		return jdbctemplate.update(
+				"UPDATE Voyage SET VoyageStatusCode = ? WHERE VoyageId = ?",
+				VoyageStatusProvider.getVoyageStatusCode.get("SUSPENDED"), voyageId
 		);
 	}
 
 	@Override
-	public void updateVoyageByFare(int voyageId, int fare) {
+	public int setOperational(int voyageId) {
+		return jdbctemplate.update(
+				"UPDATE Voyage SET VoyageStatusCode = ? WHERE VoyageId = ?",
+				VoyageStatusProvider.getVoyageStatusCode.get("OPERATIONAL"), voyageId
+		);
+	}
 
+	@Override
+	public int updateVoyageByFare(int voyageId, int fare) {
+		return jdbctemplate.update(
+				"UPDATE Voyage SET Fare = ? WHERE VoyageId = ?",
+				fare, voyageId
+		);
 	}
 
 	@Override

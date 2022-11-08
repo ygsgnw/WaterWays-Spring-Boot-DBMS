@@ -8,8 +8,7 @@ import org.apache.catalina.User;
 
 public interface UsersDao {
 	int insert (Users users);
-	int update (Users users, int id);
-	int delete (int id);
+	int update (Users users);
 	List<Users> getAll ();
 	List<Users> getAllNonEmployees ();
 	Users getById (int id);

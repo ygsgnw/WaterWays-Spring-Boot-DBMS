@@ -33,7 +33,7 @@ public class VoyageUserViewDaoImpl implements VoyageUserViewDao {
     }
 
     @Override
-    public List<VoyageUserView> getAllActive () {
+    public List<VoyageUserView> getAllFuture() {
         return jdbcTemplate.query(
                 "SELECT * FROM VoyageUserView WHERE DepartureTime > NOW()",
                 new BeanPropertyRowMapper<>(VoyageUserView.class)
@@ -41,7 +41,7 @@ public class VoyageUserViewDaoImpl implements VoyageUserViewDao {
     }
 
     @Override
-    public List<VoyageUserView> getAllActiveByUserId(int userId) {
+    public List<VoyageUserView> getAllFutureByUserId(int userId) {
         return jdbcTemplate.query(
                 "SELECT * FROM VoyageUserView WHERE VoyageId IN (" +
                         "SELECT VoyageId FROM RoomBooking, Transaction " +

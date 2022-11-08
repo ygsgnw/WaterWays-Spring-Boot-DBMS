@@ -39,7 +39,7 @@ begin
         );
 
         update RoomBooking set TransactionId = null, RoomStatusCode = 1
-        where RoomBooking.VoyageId = NEW.VoyageId and RoomStatusCode = 2;
+        where RoomBooking.VoyageId = NEW.VoyageId;
 
         delete from FoodBooking where FoodBooking.VoyageId = NEW.VoyageId;
     end if;

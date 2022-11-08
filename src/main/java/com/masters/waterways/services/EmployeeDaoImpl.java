@@ -16,27 +16,19 @@ public class EmployeeDaoImpl implements EmployeeDao {
 	@Autowired
 	JdbcTemplate jdbctemplate;
 
-	@Override
-	public void insert (Employee employee) {
-		jdbctemplate.update(
-				"INSERT INTO Employee (UserId) VALUES (?, ?)",
-				employee.getUserId()
-		);
-	}
-
-	@Override
-	public void delete (Employee employee) throws RuntimeException {
-		if (jdbctemplate.query(
-				"SELECT EmployeeId FROM Crew, Voyage WHERE Crew.EmployeeId = ? AND Crew.VoyageId = Voyage.VoyageId AND Voyage.DepartureTime < NOW()",
-				new BeanPropertyRowMapper<Integer>(Integer.class), employee.getEmployeeId()
-		).isEmpty())
-			jdbctemplate.update(
-					"DELETE FROM Employee WHERE EmployeeId = ?",
-					employee.getEmployeeId()
-			);
-		else
-			throw new RuntimeException("Cannot dismiss crew of past voyages");
-	}
+//	@Override
+//	public void delete (Employee employee) throws RuntimeException {
+//		if (jdbctemplate.query(
+//				"SELECT EmployeeId FROM Crew, Voyage WHERE Crew.EmployeeId = ? AND Crew.VoyageId = Voyage.VoyageId AND Voyage.DepartureTime < NOW()",
+//				new BeanPropertyRowMapper<Integer>(Integer.class), employee.getEmployeeId()
+//		).isEmpty())
+//			jdbctemplate.update(
+//					"DELETE FROM Employee WHERE EmployeeId = ?",
+//					employee.getEmployeeId()
+//			);
+//		else
+//			throw new RuntimeException("Cannot dismiss crew of past voyages");
+//	}
 
 	@Override
 	public List<Employee> getAll () {

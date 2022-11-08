@@ -3,6 +3,7 @@ package com.masters.waterways.daos;
 import java.util.List;
 
 import com.masters.waterways.models.Crew;
+import com.masters.waterways.models.Employee;
 
 
 public interface CrewDao {
@@ -14,5 +15,5 @@ public interface CrewDao {
 
 	List<Crew> getAllByVoyageId (int voyageId);
 
-	List<Integer> getAllNotCrewEmployee(int voyageId);
+	List<Employee> getAllAvailableEmployees(int voyageId);
 }

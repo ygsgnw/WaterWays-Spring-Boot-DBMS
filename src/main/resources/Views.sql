@@ -45,4 +45,4 @@ create view FoodBookingAdminView as
             inner join FoodItem on FoodBooking.VoyageId = FoodItem.VoyageId and FoodBooking.FoodItemId = FoodItem.FoodItemId
             inner join Transaction T on FoodBooking.TransactionId = T.TransactionId
             inner join Users U on T.UserId = U.UserId
-
+;

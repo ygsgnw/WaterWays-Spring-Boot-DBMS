@@ -3,6 +3,7 @@ package com.masters.waterways.services;
 import java.util.List;
 
 import com.masters.waterways.models.HarborStatusProvider;
+import com.masters.waterways.models.VoyageStatusProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Repository;
 
 import com.masters.waterways.daos.HarborDao;
 import com.masters.waterways.models.Harbor;
+import org.springframework.transaction.annotation.Transactional;
 
 @Repository
 public class HarborDaoImpl implements HarborDao {
@@ -23,23 +25,6 @@ public class HarborDaoImpl implements HarborDao {
 		return jdbctemplate.update(
 				"INSERT INTO Harbor (Location, ConstructionDate, ManagerId, HarborStatusCode) VALUES (?, ?, ?, ?)",
 				harbor.getLocation(), harbor.getConstructionDate(), harbor.getManagerId(), harbor.getHarborStatusCode()
-		);
-	}
-
-	@Override
-	public int update (Harbor harbor, int id) {
-		// TODO Auto-generated method stub
-		return jdbctemplate.update(
-				"UPDATE Harbor SET Location=?,ManagerId=?,ConstructionDate=? WHERE HarborId=?",
-				harbor.getLocation(), harbor.getManagerId(), harbor.getConstructionDate(), id
-		);
-	}
-
-	@Override
-	public int delete (int id) {
-		// TODO Auto-generated method stub
-		return jdbctemplate.update(
-				"DELETE FROM Harbor WHERE HarborId = ?", id
 		);
 	}
 
@@ -61,13 +46,22 @@ public class HarborDaoImpl implements HarborDao {
 	}
 
 	@Override
-	public void setSuspended(int id) {
+	@Transactional
+	public int setSuspended(int id) {
+		jdbctemplate.update(
+				"UPDATE Harbor SET HarborStatusCode = ? WHERE HarborId = ?",
+				HarborStatusProvider.getHarborStatusCode.get("SUSPENDED"), id
+		);
 
+		return jdbctemplate.update(
+				"UPDATE Voyage SET VoyageStatusCode = ? WHERE DepartureTime > NOW() AND ArrivalHarborId = ? OR DepartureHarborId = ?",
+				VoyageStatusProvider.getVoyageStatusCode.get("SUSPENDED"), id, id
+		);
 	}
 
 	@Override
-	public void setActive(int id) {
-		jdbctemplate.update(
+	public int setActive(int id) {
+		return jdbctemplate.update(
 				"UPDATE Harbor SET HarborStatusCode = ? WHERE HarborId = ?",
 				HarborStatusProvider.getHarborStatusCode.get("ACTIVE"), id
 		);
