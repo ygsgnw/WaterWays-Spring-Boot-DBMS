@@ -92,23 +92,28 @@ public class RoomBookingDaoImpl implements RoomBookingDao {
 	@Override
 	public void bookRoomByVoyageIdAndUserId(int voyageId, int userId) throws RuntimeException {
 		Voyage voyage = voyageDao.getById(voyageId);
+
+		System.out.println("booking");
+		System.out.println(voyage.getFare());
+
 		if (voyage.getVoyageStatusCode() != VoyageStatusProvider.getVoyageStatusCode.get("OPERATIONAL"))
 			throw new RuntimeException("Voyage is not operational");
+
 		try {
 			RoomBooking reservedRoom = reserveRoomByVoyageId(voyageId);
 			bookReservedRoomByUserId(reservedRoom, userId, voyage.getFare());
 		} catch (Exception exception) {
 			System.out.println("Room booking failed");
 		}
-
 	}
 
 
 	@Override
-	@Transactional(rollbackFor = Exception.class)
+	@Transactional
 	public RoomBooking reserveRoomByVoyageId(int voyageId) {
+
 		RoomBooking room = jdbctemplate.queryForObject(
-				"SELECT * FROM RoomBooking WHERE VoyageId = ? AND RoomStatusCode = ?",
+				"SELECT * FROM RoomBooking WHERE VoyageId = ? AND RoomStatusCode = ? LIMIT 1",
 				new BeanPropertyRowMapper<>(RoomBooking.class), voyageId, RoomStatusProvider.getRoomStatusCode.get("AVAILABLE")
 		);
 
@@ -121,6 +126,7 @@ public class RoomBookingDaoImpl implements RoomBookingDao {
 			return room;
 		} else
 			throw new RuntimeException("No available rooms");
+
 	}
 
 	@Override
@@ -128,23 +134,17 @@ public class RoomBookingDaoImpl implements RoomBookingDao {
 	public void bookReservedRoomByUserId(RoomBooking room, int userId, int fare) {
 		assert(room != null);
 
-		jdbctemplate.update(
-				"INSERT INTO Transaction (TransactionDate, Amount, UserId) VALUE (NOW(), ?, ?)",
-				fare, userId
-		);
-
-		Integer transactionId = jdbctemplate.queryForObject(
-				"SELECT LAST_INSERT_ID() FROM Transaction",
-				new BeanPropertyRowMapper<>(Integer.class)
-		);
-
-		if (transactionId != null) {
+		try {
 			jdbctemplate.update(
-					"UPDATE RoomBooking SET RoomStatusCode = ?, TransactionId = ? WHERE VoyageId = ? AND RoomId = ?",
-					RoomStatusProvider.getRoomStatusCode.get("BOOKED"), transactionId, room.getVoyageId(), room.getRoomId()
+					"INSERT INTO Transaction (TransactionDate, Amount, UserId) VALUES (NOW(), ?, ?)",
+					fare, userId
 			);
-		} else
+			jdbctemplate.update(
+					"UPDATE RoomBooking SET RoomStatusCode = ?, TransactionId = LAST_INSERT_ID() WHERE VoyageId = ? AND RoomId = ?",
+					RoomStatusProvider.getRoomStatusCode.get("BOOKED"), room.getVoyageId(), room.getRoomId()
+			);
+		} catch (Exception e) {
 			throw new RuntimeException("Transaction failed");
+		}
 	}
-
 }
