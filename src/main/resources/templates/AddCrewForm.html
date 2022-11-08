@@ -29,17 +29,11 @@
                             <label> EmployeeId</label>
                             <select th:field="*{employeeId}" class="custom-select">
                                 <option th:each="not_crew_employee: ${not_crew_employees}"
-                                    th:text="${not_crew_employee}" th:value="${not_crew_employees}"></option>
+                                    th:text="${not_crew_employee.getEmployeeId}" th:value="${not_crew_employee.getEmployeeId}"></option>
                             </select>
 
 
                             <label>Crew Role</label>
-                            <!--		<select th:field="*{crewRole}" class="custom-select">-->
-                            <!--			<option-->
-                            <!--					th:each="crew_role: ${crew_roles}"-->
-                            <!--					th:text="${crew_role}"-->
-                            <!--					th:value="${crew_role}"></option>-->
-                            <!--		</select>-->
                             <input type="text" th:field="*{crewRole}" class="form-control form-control-sm">
                             </div>
                             <button type="submit" class="btn btn-primary btn-block">Submit</button>

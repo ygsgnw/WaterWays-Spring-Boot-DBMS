@@ -24,7 +24,7 @@
                 <div class="card-body">
                     <div class="card-text">
                         <form action="#"
-                            th:action="@{/admin/{voyageId}/crew/update/{employeeId} (voyageId=${voyageId}, employeeId=${crew.getEmployeeId()})}"
+                            th:action="@{/admin/voyage/{voyageId}/crew/update/{employeeId} (voyageId=${voyageId}, employeeId=${crew.getEmployeeId()})}"
                             th:object="${crew}" method="POST">
 							<div class="form-group">
                             <label>Crew Role</label>

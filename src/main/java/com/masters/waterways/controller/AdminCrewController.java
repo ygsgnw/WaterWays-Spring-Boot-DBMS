@@ -49,12 +49,12 @@ public class AdminCrewController {
 
 		model.addAttribute("new_crew", new_crew);
 
-		List<String> crew_roles=new ArrayList<String>();
-		crew_roles.add("role1");
-		crew_roles.add("role2");
-		crew_roles.add("role3");
+//		List<String> crew_roles=new ArrayList<String>();
+//		crew_roles.add("role1");
+//		crew_roles.add("role2");
+//		crew_roles.add("role3");
 
-		model.addAttribute("crew_roles", crew_roles);
+//		model.addAttribute("crew_roles", crew_roles);
 		model.addAttribute("not_crew_employees", crewDao.getAllAvailableEmployees(voyageId));
 		return "AddCrewForm";
 	}
@@ -62,7 +62,7 @@ public class AdminCrewController {
 	@PostMapping("/admin/voyage/{voyageId}/crew/add")
 	public String insertCrew(@ModelAttribute("new_crew") Crew new_crew) {
 		crewDao.insert(new_crew);
-		return "redirect:/admin/voyage/{voyageId}/crew/add";
+		return "redirect:/admin/voyage/{voyageId}/crew";
 	}
 	
 	@GetMapping("/admin/voyage/{voyageId}/crew/update/{employeeId}")
