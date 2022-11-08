@@ -34,11 +34,11 @@ public class AdminShipModelController {
 		return "redirect:/admin/shipmodel";
 	}
 	
-	@GetMapping("/admin/shipmodel/{id}/update")
-	public String editshipmodelform(@PathVariable("id") int shipModelId, Model model) {
-		model.addAttribute("shipmodel", shipModelDao.getById(shipModelId));
-		return "UpdateShipModelForm";
-	}
+//	@GetMapping("/admin/shipmodel/{id}/update")
+//	public String editshipmodelform(@PathVariable("id") int shipModelId, Model model) {
+//		model.addAttribute("shipmodel", shipModelDao.getById(shipModelId));
+//		return "UpdateShipModelForm";
+//	}
 	
 //	@PostMapping("/admin/shipmodel/{id}/update")
 //	public String updateshipmodel(@PathVariable int id,

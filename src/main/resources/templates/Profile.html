@@ -33,33 +33,29 @@
                                             <div class=" col-md-9 col-lg-9 "> 
                                                 <table class="table table-user-information">
                                                     <tbody>
+
                                                     <tr>
-                                                        <td>First Name:</td>
-                                                        <td>fname</td>
+                                                        <td>User Id:</td>
+                                                        <td th:text="${user.getUserId()}"></td>
                                                     </tr>
+
                                                     <tr>
-                                                        <td>Last Name:</td>
-                                                        <td>lname</td>
+                                                        <td>User Name:</td>
+                                                        <td th:text="${user.getUserName()}"></td>
                                                     </tr>
+
                                                     <tr>
-                                                        <td>Gender:</td>
-                                                        <td>sex</td>
+                                                        <td>Email Id:</td>
+                                                        <td th:text="${user.getEmailId()}"></td>
                                                     </tr>
-                                                    <tr>
-                                                        <td>Date of Birth:</td>
-                                                        <td>dob</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Phone:</td>
-                                                        <td>phone</td>
-                                                    </tr>
+
                                                     </tbody>
                                                 </table>
 
                                                 <div class="container">
                                                     <div class="row">
                                                         <div class="col">
-                                                            <a class="btn btn-primary" href="editProfile.html">Edit</a>
+                                                            <a class="btn btn-primary" th:href="@{/profile/edit}">Edit</a>
                                                         </div>
                                                     </div>
                                                 </div>
