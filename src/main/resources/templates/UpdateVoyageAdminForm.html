@@ -23,7 +23,7 @@
                <h3 class="card-header text-center text-info"> Update Voyage </h3>
                <div class="card-body">
                        <div class="card-text">
-                        <form th:action="@{/voyageID}" method="post" th:object="${fare}">
+                        <form th:action="@{/admin/voyageId}" method="post" th:object="${fare}">
                             <div class="form-group">
                                 <label> Fare </label>
                                 <input type="number" th:field="*{fare}" class="form-control form-control-sm">

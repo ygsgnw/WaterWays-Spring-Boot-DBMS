@@ -90,7 +90,7 @@ public class AdminVoyageController {
 
 		model.addAttribute("voyages", voyages);
 		model.addAttribute("harbors", harborDao.getAll());
-		model.addAttribute("voyageStatuses", VoyageStatusProvider.getVoyageStatusCode);
+		model.addAttribute("voyageStatuses", VoyageStatusProvider.getVoyageStatusDesc);
 
 		return "VoyageListAdmin";
 	}

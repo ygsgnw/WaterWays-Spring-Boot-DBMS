@@ -70,7 +70,6 @@
                             <div class="form-group">
                                 <label>Voyage Status Code </label>
                                 <select th:field="*{voyageStatusCode}" class="custom-select">
-                                    <option value="-1">All</option>
                                     <option th:each="voyageStatus: ${voyageStatuses}"
                                             th:text="${voyageStatus.getKey()}"
                                             th:value="${voyageStatus.getValue()}">
