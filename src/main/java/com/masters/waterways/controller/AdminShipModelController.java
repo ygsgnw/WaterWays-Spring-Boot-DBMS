@@ -40,13 +40,13 @@ public class AdminShipModelController {
 		return "UpdateShipModelForm";
 	}
 	
-	@PostMapping("/admin/shipmodel/{id}/update")
-	public String updateshipmodel(@PathVariable int id,
-			@ModelAttribute("shipmodel") ShipModel shipmodel,
-			Model model) {
-		
-		shipModelDao.update(shipmodel, id);
-		return "redirect:/admin/shipmodel";
-	}
+//	@PostMapping("/admin/shipmodel/{id}/update")
+//	public String updateshipmodel(@PathVariable int id,
+//			@ModelAttribute("shipmodel") ShipModel shipmodel,
+//			Model model) {
+//
+//		shipModelDao.update(shipmodel, id);
+//		return "redirect:/admin/shipmodel";
+//	}
 	
 }
