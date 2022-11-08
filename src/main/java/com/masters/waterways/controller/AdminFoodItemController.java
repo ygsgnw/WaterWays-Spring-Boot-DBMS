@@ -5,6 +5,7 @@ import com.masters.waterways.daos.VoyageDao;
 import com.masters.waterways.daos.VoyageUserViewDao;
 import com.masters.waterways.models.Crew;
 import com.masters.waterways.models.FoodItem;
+import com.masters.waterways.services.AuthenticationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,8 +27,14 @@ public class AdminFoodItemController {
     @Autowired
     FoodItemDao foodItemDao;
 
+    @Autowired
+    AuthenticationService authenticationService;
+
     @GetMapping("/admin/voyage/{voyageId}/fooditems")
-    public String listFoodItems(@PathVariable int voyageId, Model model) {
+    public String listFoodItems(@PathVariable int voyageId, Model model, HttpSession session) {
+
+        if (!authenticationService.isAdmin(session))
+            return "redirect:/login";
 
         FoodItem foodItem = new FoodItem();
         foodItem.setVoyageId(voyageId);
@@ -55,7 +63,10 @@ public class AdminFoodItemController {
 //    }
 
     @PostMapping("/admin/voyage/{voyageId}/fooditems/add")
-    public String insertFoodItem(@ModelAttribute("foodItem") FoodItem foodItem) {
+    public String insertFoodItem(@ModelAttribute("foodItem") FoodItem foodItem, HttpSession session) {
+
+        if (!authenticationService.isAdmin(session))
+            return "redirect:/login";
         foodItemDao.insert(foodItem);
         System.out.println(foodItem.getFoodName());
         return "redirect:/admin/voyage/{voyageId}/fooditems";

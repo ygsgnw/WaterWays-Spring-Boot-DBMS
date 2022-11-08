@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import com.masters.waterways.daos.CrewDao;
 import com.masters.waterways.models.Crew;
 
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,9 +30,10 @@ public class AdminCrewController {
 	private VoyageDao voyageDao;
 
 	@GetMapping("/admin/voyage/{voyageId}/crew")
-	public String listCrew(@PathVariable int voyageId, Model model) {
+	public String listCrew(@PathVariable int voyageId, Model model, HttpSession session) {
 
-//		if (authenticationService.isAdmin(session))
+		if (!authenticationService.isAdmin(session))
+			return "redirect:/login";
 
 		System.out.println(voyageId);
 		boolean isCompleted = voyageDao.isVoyageCompletedByVoyageId(voyageId);
@@ -42,7 +44,10 @@ public class AdminCrewController {
 		return "VoyageCrewList";
 	}
 	@GetMapping("/admin/voyage/{voyageId}/crew/add")
-	public String createcrewform(@PathVariable int voyageId, Model model) {
+	public String createcrewform(@PathVariable int voyageId, Model model, HttpSession session) {
+
+		if (!authenticationService.isAdmin(session))
+			return "redirect:/login";
 
 		Crew new_crew = new Crew();
 		new_crew.setVoyageId(voyageId);
@@ -60,13 +65,20 @@ public class AdminCrewController {
 	}
 	
 	@PostMapping("/admin/voyage/{voyageId}/crew/add")
-	public String insertCrew(@ModelAttribute("new_crew") Crew new_crew) {
+	public String insertCrew(@ModelAttribute("new_crew") Crew new_crew, HttpSession session) {
+
+		if (!authenticationService.isAdmin(session))
+			return "redirect:/login";
+
 		crewDao.insert(new_crew);
 		return "redirect:/admin/voyage/{voyageId}/crew";
 	}
 	
 	@GetMapping("/admin/voyage/{voyageId}/crew/update/{employeeId}")
-	public String editcrewform(@PathVariable int voyageId, @PathVariable int employeeId, Model model) {
+	public String editcrewform(@PathVariable int voyageId, @PathVariable int employeeId, Model model, HttpSession session) {
+
+		if (!authenticationService.isAdmin(session))
+			return "redirect:/login";
 
 		Crew crew = new Crew();
 		crew.setVoyageId(voyageId);
@@ -84,13 +96,20 @@ public class AdminCrewController {
 	}
 	
 	@PostMapping("/admin/voyage/{voyageId}/crew/update/{employeeId}")
-	public String updateRole(@ModelAttribute("crew") Crew crew, Model model) {
+	public String updateRole(@ModelAttribute("crew") Crew crew, Model model, HttpSession session) {
+
+		if (!authenticationService.isAdmin(session))
+			return "redirect:/login";
+
 		crewDao.updateRole(crew);
 		return "redirect:/admin/voyage/{voyageId}/crew";
 	}
 	
 	@GetMapping("/admin/voyage/{voyageId}/crew/delete/{employeeId}")
-	public String deleteCrew(@PathVariable int voyageId, @PathVariable int employeeId) {
+	public String deleteCrew(@PathVariable int voyageId, @PathVariable int employeeId, HttpSession session) {
+
+		if (!authenticationService.isAdmin(session))
+			return "redirect:/login";
 
 		Crew crew = new Crew();
 		crew.setVoyageId(voyageId);

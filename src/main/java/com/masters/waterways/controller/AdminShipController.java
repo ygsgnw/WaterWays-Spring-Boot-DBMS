@@ -6,6 +6,7 @@ import com.masters.waterways.daos.ShipModelDao;
 import com.masters.waterways.models.Ship;
 import com.masters.waterways.models.ShipStatusProvider;
 import com.masters.waterways.models.ShipStatusProvider;
+import com.masters.waterways.services.AuthenticationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,6 +17,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import com.masters.waterways.daos.ShipDao;
 import com.masters.waterways.models.Ship;
+
+import javax.servlet.http.HttpSession;
 
 @Controller
 public class AdminShipController {
@@ -28,14 +31,25 @@ public class AdminShipController {
 	@Autowired
 	private ShipAdminViewDao shipAdminViewDao;
 
+	@Autowired
+	AuthenticationService authenticationService;
+
 	@GetMapping("/admin/ship")
-	public String listship(Model model) {
+	public String listship(Model model, HttpSession session) {
+
+		if (!authenticationService.isAdmin(session))
+			return "redirect:/login";
+
 		model.addAttribute("shipstatuses", ShipStatusProvider.getShipStatusDesc);
 		model.addAttribute("ships", shipAdminViewDao.getAll());
 		return "ShipList";
 	}
 	@GetMapping("/admin/ship/add")
-	public String createcrewform(Model model) {
+	public String createcrewform(Model model, HttpSession session) {
+
+		if (!authenticationService.isAdmin(session))
+			return "redirect:/login";
+
 		model.addAttribute("shipmodels", shipModelDao.getAll());
 		model.addAttribute("shipstatuses", ShipStatusProvider.getShipStatusCode);
 		model.addAttribute("newship", new Ship());
@@ -43,7 +57,11 @@ public class AdminShipController {
 	}
 	
 	@PostMapping("/admin/ship/add")
-	public String saveship(@ModelAttribute("newship") Ship newship) {
+	public String saveship(@ModelAttribute("newship") Ship newship, HttpSession session) {
+
+		if (!authenticationService.isAdmin(session))
+			return "redirect:/login";
+
 		System.out.println("ship");
 			shipDao.insert(newship);
 		return "redirect:/admin/ship";
@@ -70,7 +88,11 @@ public class AdminShipController {
 //	}
 
 	@GetMapping("/admin/ship/{id}/update")
-	public String updateShipStatus(@PathVariable int id, Model model) {
+	public String updateShipStatus(@PathVariable int id, Model model, HttpSession session) {
+
+		if (!authenticationService.isAdmin(session))
+			return "redirect:/login";
+
 		Ship ship = shipDao.getById(id);
 
 		if (ShipStatusProvider.getShipStatusDesc.get(ship.getShipStatusCode()).equals("SUSPENDED"))

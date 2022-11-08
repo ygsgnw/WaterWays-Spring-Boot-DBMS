@@ -2,12 +2,14 @@ package com.masters.waterways.controller;
 
 import com.masters.waterways.daos.*;
 import com.masters.waterways.models.*;
+import com.masters.waterways.services.AuthenticationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -33,13 +35,19 @@ public class AdminVoyageController {
 	@Autowired
 	ShipDao shipDao;
 
+	@Autowired
+	AuthenticationService authenticationService;
+
 	@GetMapping("/admin/voyages")
 	public String voyagesList (Model model,
 							   @RequestParam(name="fromid", required = false) Integer from_harbour_id,
 							   @RequestParam(name="toid", required = false) Integer to_harbour_id,
 							   @RequestParam(name="fromdate", required = false)@DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime depart_after_datetime,
 							   @RequestParam(name="todate", required = false)@DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime arrive_before_datetime
-	) {
+			, HttpSession session) {
+
+		if (!authenticationService.isAdmin(session))
+			return "redirect:/login";
 
 		System.out.println("hello");
 		System.out.println(from_harbour_id);
@@ -93,7 +101,11 @@ public class AdminVoyageController {
 
 
 	@GetMapping("/admin/voyage/add")
-	public String createvoyageform(Model model) {
+	public String createvoyageform(Model model, HttpSession session) {
+
+		if (!authenticationService.isAdmin(session))
+			return "redirect:/login";
+
 		Voyage newvoyage = new Voyage();
 		model.addAttribute("newvoyage", newvoyage);
 		model.addAttribute("shipList", shipDao.getAll());
@@ -103,13 +115,20 @@ public class AdminVoyageController {
 	}
 	
 	@PostMapping("/admin/voyage/add")
-	public String savevoyage(@ModelAttribute("newvoyage") Voyage newvoyage) {
+	public String savevoyage(@ModelAttribute("newvoyage") Voyage newvoyage, HttpSession session) {
+
+		if (!authenticationService.isAdmin(session))
+			return "redirect:/login";
+
 		voyagedao.insert(newvoyage);
 		return "redirect:/admin/voyages";
 	}
 
 	@GetMapping("/admin/voyage/{voyageId}")
-	public String voyageDetailsAdmin(@PathVariable int voyageId, Model model){
+	public String voyageDetailsAdmin(@PathVariable int voyageId, Model model, HttpSession session) {
+
+		if (!authenticationService.isAdmin(session))
+			return "redirect:/login";
 
 		boolean isCompleted = voyageDao.isVoyageCompletedByVoyageId(voyageId);
 
@@ -128,7 +147,11 @@ public class AdminVoyageController {
 
 
 	@GetMapping("/admin/voyage/{id}/updatestatus")
-	public String updateVoyageStatus(@PathVariable int id, Model model) {
+	public String updateVoyageStatus(@PathVariable int id, Model model , HttpSession session) {
+
+		if (!authenticationService.isAdmin(session))
+			return "redirect:/login";
+
 
 		if (VoyageStatusProvider.getVoyageStatusDesc.get(voyageDao.getById(id).getVoyageStatusCode()).equals("SUSPENDED")){
 			voyageDao.setOperational(id);
@@ -141,7 +164,11 @@ public class AdminVoyageController {
 
 
 	@PostMapping("/admin/voyage/{voyageId}/updatefare")
-	public String updateVoyageForm(@ModelAttribute Voyage voyageForFare, @PathVariable int voyageId,Model model) {
+	public String updateVoyageForm(@ModelAttribute Voyage voyageForFare, @PathVariable int voyageId,Model model, HttpSession session) {
+
+		if (!authenticationService.isAdmin(session))
+			return "redirect:/login";
+
 
 		System.out.println(voyageForFare.getFare());
 		voyageDao.updateVoyageByFare(voyageId, voyageForFare.getFare());

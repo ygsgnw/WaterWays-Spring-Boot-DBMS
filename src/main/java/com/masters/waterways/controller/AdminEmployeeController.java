@@ -39,6 +39,9 @@ public class AdminEmployeeController {
 
     @GetMapping("/admin/employee/add")
     public String createEmployeeForm(Model model, HttpSession session) {
+
+        if (!authenticationService.isAdmin(session))
+            return "redirect:/login";
         model.addAttribute("employeestatuses", EmployeeStatusProvider.getEmployeeStatusCode);
         model.addAttribute("newemployee", new Employee());
         model.addAttribute("users", usersDao.getAllNonEmployees());
@@ -46,13 +49,21 @@ public class AdminEmployeeController {
     }
 
     @PostMapping("/admin/employee/add")
-    public String saveEmployee(@ModelAttribute("newemployee") Employee newemployee) {
+    public String saveEmployee(@ModelAttribute("newemployee") Employee newemployee, HttpSession session) {
+
+        if (!authenticationService.isAdmin(session))
+            return "redirect:/login";
+
         employeeDao.makeEmployee(newemployee);
         return "redirect:/admin/employee";
     }
 
     @GetMapping("/admin/employee/{id}/update")
-    public String updateEmployeeStatus(@PathVariable int id, Model model) {
+    public String updateEmployeeStatus(@PathVariable int id, Model model, HttpSession session) {
+
+        if (!authenticationService.isAdmin(session))
+            return "redirect:/login";
+
         Employee employee=employeeDao.getById(id);
         if (EmployeeStatusProvider.getEmployeeStatusDesc.get(employee.getEmployeeStatusCode()).equals("SUSPENDED")){
             employeeDao.setActive(id);

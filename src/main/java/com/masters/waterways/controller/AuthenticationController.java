@@ -39,7 +39,10 @@ public class AuthenticationController {
     @PostMapping("/login")
     public String postLogin(@ModelAttribute Users credentials, Model model, HttpSession session){
         if (authenticationService.isAuthenticated(session)) {
-            return "redirect:/";
+            if (authenticationService.isAdmin(session))
+                return "redirect:/admin";
+            else
+                return "redirect:/user";
         }
 
         String emailId = credentials.getEmailId();

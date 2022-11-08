@@ -4,6 +4,7 @@ import com.masters.waterways.daos.EmployeeDao;
 import com.masters.waterways.daos.HarborDao;
 import com.masters.waterways.models.Harbor;
 import com.masters.waterways.models.HarborStatusProvider;
+import com.masters.waterways.services.AuthenticationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,6 +13,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import javax.servlet.http.HttpSession;
+
 @Controller
 public class AdminHarborController {
 	@Autowired
@@ -19,16 +22,27 @@ public class AdminHarborController {
 
 	@Autowired
 	private EmployeeDao employeeDao;
+
+	@Autowired
+	AuthenticationService authenticationService;
 	
 	@GetMapping("/admin/harbor")
-	public String listHarbors(Model model) {
+	public String listHarbors(Model model, HttpSession session) {
+
+		if (!authenticationService.isAdmin(session))
+			return "redirect:/login";
+
 		model.addAttribute("harbors", harborDao.getAll());
 		model.addAttribute("harborstatuses", HarborStatusProvider.getHarborStatusDesc);
 		return "HarborList";
 	}
 
 	@GetMapping("/admin/harbor/add")
-	public String addHarborForm(Model model) {
+	public String addHarborForm(Model model, HttpSession session) {
+
+		if (!authenticationService.isAdmin(session))
+			return "redirect:/login";
+
 		Harbor new_harbor =new Harbor();
 		model.addAttribute("new_harbor", new_harbor);
 		model.addAttribute("employees", employeeDao.getAll());
@@ -37,7 +51,11 @@ public class AdminHarborController {
 	}
 	
 	@PostMapping("/admin/harbor/add")
-	public String saveHarbor(@ModelAttribute("new_harbor") Harbor new_harbor) {
+	public String saveHarbor(@ModelAttribute("new_harbor") Harbor new_harbor, HttpSession session) {
+
+		if (!authenticationService.isAdmin(session))
+			return "redirect:/login";
+
 		harborDao.insert(new_harbor);
 		return "redirect:/admin/harbor";
 	}
@@ -59,7 +77,11 @@ public class AdminHarborController {
 //	}
 
 	@GetMapping("/admin/harbor/{id}/update")
-	public String updateHarborStatus(@PathVariable int id, Model model) {
+	public String updateHarborStatus(@PathVariable int id, Model model , HttpSession session) {
+
+		if (!authenticationService.isAdmin(session))
+			return "redirect:/login";
+
 		Harbor harbor=harborDao.getById(id);
 		if (HarborStatusProvider.getHarborStatusDesc.get(harbor.getHarborStatusCode()).equals("SUSPENDED")){
 			harborDao.setActive(id);
