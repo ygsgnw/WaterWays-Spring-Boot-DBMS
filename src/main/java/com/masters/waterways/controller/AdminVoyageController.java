@@ -53,6 +53,9 @@ public class AdminVoyageController {
 
 		List<VoyageUserView> voyages = voyageUserViewDao.getAll();
 
+		for (VoyageUserView v: voyages)
+			System.out.println(v.getArrivalHarborId());
+
 		if (from_harbour_id != null && from_harbour_id != -1) {
 			List<VoyageUserView> new_voyages = new ArrayList<>();
 			for (VoyageUserView v: voyages)

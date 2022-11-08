@@ -57,6 +57,22 @@ public class VoyageUserView {
         ModelName = modelName;
     }
 
+    public int getDepartureHarborId() {
+        return DepartureHarborId;
+    }
+
+    public void setDepartureHarborId(int departureHarborId) {
+        DepartureHarborId = departureHarborId;
+    }
+
+    public int getArrivalHarborId() {
+        return ArrivalHarborId;
+    }
+
+    public void setArrivalHarborId(int arrivalHarborId) {
+        ArrivalHarborId = arrivalHarborId;
+    }
+
     public String getDepartureHarborName() {
         return DepartureHarborName;
     }
