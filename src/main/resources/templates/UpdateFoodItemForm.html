@@ -20,7 +20,7 @@
             <div class="card-body">
                 <div class="card-text">
                     <form action="#"
-                          th:action="@{/admin/{voyageId}/fooditems/update/{foodItemId} (voyageId=${voyageId}, foodItemId=${foodItem.getFoodItemId()})}"
+                          th:action="@{/admin/voyage/{voyageId}/fooditems/update/{foodItemId} (voyageId=${voyageId}, foodItemId=${foodItem.getFoodItemId()})}"
                           th:object="${fooditem}" method="POST">
                         <div class="form-group">
                             <label>Crew Role</label>
@@ -30,7 +30,7 @@
                             <!--					th:text="${crew_role}"-->
                             <!--					th:value="${crew_role}"></option>-->
                             <!--		</select>-->
-                            <input type="text" th:field="*{crewRole}" class="form-control form-control-sm">
+                            <input type="text" th:field="*{cost}" class="form-control form-control-sm">
                         </div>
                         <button type="submit" class="btn btn-primary btn-block">Submit</button>
                     </form>

@@ -47,7 +47,7 @@
           <th> Food Name</th>
           <th> Food Cost</th>
           <th> Food Description</th>
-          <th th:if="${isCompleted == false}"> Actions</th>
+<!--          <th th:if="${isCompleted == false}"> Actions</th>-->
         </tr>
         </thead>
         <tbody>
@@ -55,12 +55,12 @@
           <td th:text="${fooditem.getFoodName()}"></td>
           <td th:text="${fooditem.getFoodCost()}"></td>
           <td th:text="${fooditem.getFoodDescription()}"></td>
-          <td th:if="${isCompleted == false}">
-            <a th:href="@{/admin/{voyageId}/fooditems/update/{foodItemId} (voyageId=${voyageId}, foodItemId=${fooditem.getFoodItemId()})}"
-               class="btn btn-primary">Update</a>
-            <a th:href="@{/admin/{voyageId}/fooditems/delete/{foodItemId} (voyageId=${voyageId}, foodItemId=${fooditem.getFoodItemId()})}"
-               class="btn btn-danger">Delete</a>
-          </td>
+<!--          <td th:if="${isCompleted == false}">-->
+<!--            <a th:href="@{/admin/voyage/{voyageId}/fooditems/update/{foodItemId} (voyageId=${voyageId}, foodItemId=${fooditem.getFoodItemId()})}"-->
+<!--               class="btn btn-primary">Update</a>-->
+<!--            <a th:href="@{/admin/voyage/{voyageId}/fooditems/delete/{foodItemId} (voyageId=${voyageId}, foodItemId=${fooditem.getFoodItemId()})}"-->
+<!--               class="btn btn-danger">Delete</a>-->
+<!--          </td>-->
         </tr>
         </tbody>
       </table>

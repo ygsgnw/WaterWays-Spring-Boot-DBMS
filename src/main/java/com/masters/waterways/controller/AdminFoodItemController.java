@@ -61,25 +61,19 @@ public class AdminFoodItemController {
         return "redirect:/admin/voyage/{voyageId}/fooditems";
     }
 
-//    @GetMapping("/admin/voyage/{voyageId}/crew/update/{employeeId}")
+//    @GetMapping("/admin/voyage/{voyageId}/fooditem/update")
 //    public String editcrewform(@PathVariable int voyageId, @PathVariable int employeeId, Model model) {
 //
-//        Crew crew = new Crew();
+//        FoodItem foodItem = foodItemDao.g;
 //        crew.setVoyageId(voyageId);
 //        crew.setEmployeeId(employeeId);
 //
 //        model.addAttribute("crew", crew);
 //
-//		List<String> crew_roles=new ArrayList<>();
-//		crew_roles.add("role1");
-//		crew_roles.add("role2");
-//		crew_roles.add("role3");
-//		model.addAttribute("crew_roles", crew_roles);
-//
 //        return "UpdateCrewForm";
 //    }
 //
-//    @GetMapping("/admin/voyage/{voyageId}/crew/delete/{employeeId}")
+//    @GetMapping("/admin/voyage/{voyageId}/fooditem/delete")
 //    public String deleteCrew(@PathVariable int voyageId, @PathVariable int employeeId) {
 //
 //        Crew crew = new Crew();
