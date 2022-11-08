@@ -9,6 +9,54 @@
 </head>
 <body>
 
+
+<div style="padding: 10px;">
+  <!--form  -->
+  <div class="card" style="width:40rem;">
+    <div class="card login-form">
+      <div class="card-body">
+        <h3 class="card-title text-left"> Voyages </h3>
+        <div class="card-text">
+          <form th:action="@{/voyages(fromid=fromid)}" method="get">
+            <div class="form-group">
+              <label>Departing From </label>
+              <select th:name="fromid" class="custom-select">
+                <option value="-1">All</option>
+                <option
+                        th:each="harbor: ${harbors}"
+                        th:text="${harbor.getLocation()}"
+                        th:value="${harbor.getHarborId()}"></option>
+              </select>
+
+            </div>
+            <div class="form-group">
+              <label>Arriving At </label>
+              <select th:name="fromid" class="custom-select">
+                <option value="-1">All</option>
+                <option
+                        th:each="harbor: ${harbors}"
+                        th:text="${harbor.getLocation()}"
+                        th:value="${harbor.getHarborId()}"></option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label> Departing Time </label>
+              <input type="datetime-local" th:name="fromdate" class="form-control form-control-sm">
+            </div>
+            <div class="form-group">
+              <label> Arrival Time </label>
+              <input type="datetime-local" th:name="todate" class="form-control form-control-sm">
+            </div>
+            <button  type="submit" class="btn btn-primary btn-block" > Search </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
 <div class="row">
   <div class="col-lg-3">
     <a th:href="@{/admin/voyage/add}" class="btn btn-primary btn-sm mb-3">Add Voyage </a>
