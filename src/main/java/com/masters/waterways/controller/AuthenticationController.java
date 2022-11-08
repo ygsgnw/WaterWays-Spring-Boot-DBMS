@@ -29,7 +29,7 @@ public class AuthenticationController {
         model.addAttribute("credentials", new Users());
         model.addAttribute("isCorrect",true);
         model.addAttribute("isUser",true);
-        return "login";
+        return "Login";
     }
 
     @PostMapping("/login")
@@ -64,7 +64,7 @@ public class AuthenticationController {
         model.addAttribute("credentials",new Users());
         model.addAttribute("isCorrect",isCorrect);
         model.addAttribute("isUser",isUser);
-        return "login";
+        return "Login";
     }
 
     @GetMapping("/logout")

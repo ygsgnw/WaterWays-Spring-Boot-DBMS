@@ -23,7 +23,7 @@ create table Ship (
 create table Users (
 	UserId int primary key auto_increment,
 	UserName varchar(50) not null,
-	EmailId	varchar(50),
+	EmailId	varchar(50) unique,
 	UserPassword varchar(10) not null
 );
 
@@ -118,5 +118,8 @@ create table FoodBooking (
     -- Weak Entity FoodBooking
 );
 
-source src/main/resources/VoyageInsertTrigger.sql
-source src/main/resources/VoyageUpdateTrigger.sql
+source src/main/resources/VoyageInsertTrigger.sql;
+source src/main/resources/VoyageUpdateTrigger.sql;
+source src/main/resources/Views.sql;
+source src/main/resources/FoodItemDeleteTrigger.sql;
+source src/main/resources/CrewInsertTrigger.sql;

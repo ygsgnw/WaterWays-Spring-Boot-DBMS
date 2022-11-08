@@ -47,7 +47,7 @@ public class AdminCrewController {
 		crew_roles.add("role3");
 
 		model.addAttribute("crew_roles", crew_roles);
-		model.addAttribute("not_crew_employees", crewDao.getAllNotCrewEmployee(voyageId));
+		model.addAttribute("not_crew_employees", crewDao.getAllAvailableEmployees(voyageId));
 		return "AddCrewForm";
 	}
 	

@@ -65,7 +65,8 @@ public class UserController {
 
     @PostMapping("/profile/edit")
     public String updateProfile(@ModelAttribute("user") Users user, Model model, HttpSession session) {
-        usersDao.update(user, authenticationService.getCurrentUser(session));
+        user.setUserId(authenticationService.getCurrentUser(session));
+        usersDao.update(user);
         return "redirect:/profile";
     }
 
@@ -147,7 +148,7 @@ public class UserController {
 //        int userId=session_key;
 
         model.addAttribute("my_completed_voyages", voyageUserViewDao.getAllCompletedByUserId(authenticationService.getCurrentUser(session)));
-        model.addAttribute("my_upcoming_voyages", voyageUserViewDao.getAllActiveByUserId(authenticationService.getCurrentUser(session)));
+        model.addAttribute("my_upcoming_voyages", voyageUserViewDao.getAllFutureByUserId(authenticationService.getCurrentUser(session)));
         return "MyVoyageList"; // will direct to VoyageDetailsUser
     }
 

@@ -73,7 +73,7 @@ public class AdminShipController {
 	public String updateShipStatus(@PathVariable int id, Model model) {
 		Ship ship=shipDao.getById(id);
 		if (ShipStatusProvider.getShipStatusDesc.get(ship.getShipStatusCode()).equals("SUSPENDED")){
-			shipDao.setActive(id);
+			shipDao.setOperational(id);
 		}
 		else {
 			shipDao.setSuspended(id);
