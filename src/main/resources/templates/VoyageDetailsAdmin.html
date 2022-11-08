@@ -9,6 +9,55 @@
 </head>
 <body>
 
+
+<div class=" col-md-9 col-lg-9 ">
+  <table class="table table-user-information">
+    <tbody>
+    <tr>
+      <td>Voyage Id :</td>
+      <td th:text="${voyageverboselist.get(0).getVoyage().getVoyageId()}"></td>
+    </tr>
+    <tr>
+      <td>Fare :</td>
+      <td th:text="${voyageverboselist.get(0).getVoyage().getFare()}"></td>
+    </tr>
+    <tr>
+      <td>Ship Serial Id :</td>
+      <td th:text="${voyageverboselist.get(0).getVoyage().getShipSerialId()}"></td>
+    </tr>
+    <tr>
+      <td>Departure Harbor :</td>
+      <td  th:text="${voyageverboselist.get(0).getDepartureHarborName()}"></td>
+    </tr>
+    <tr>
+      <td>Arrival Harbor :</td>
+      <td th:text="${voyageverboselist.get(0).getArrivalHarborName()}"></td>
+    </tr>
+    <tr>
+      <td>Departure Time :</td>
+      <td th:text="${voyageverboselist.get(0).getVoyage().getDepartureTime()}"></td>
+    </tr>
+    <tr>
+      <td>Arrival Time :</td>
+      <td th:text="${voyageverboselist.get(0).getVoyage().getArrivalTime()}"></td>
+    </tr>
+
+    <tr>
+      <td>Voyage Status:</td>
+      <td th:text="${voyageverboselist.get(0).getVoyageStatusDesc()}"></td>
+    </tr>
+
+    </tbody>
+  </table>
+
+</div>
+
+<div class="row" th:if="${isCompleted==false}">
+  <div class="col-lg-3">
+    <a th:href="@{/admin/voyage/{voyageId}/update (voyageId=${voyageId})}" class="btn btn-primary">Update </a>
+  </div>
+</div>
+
 <div class="row">
   <div class="col-lg-3">
     <a th:href="@{/admin/voyage/{voyageId}/crew (voyageId=${voyageId})}" class="btn btn-primary btn-sm mb-3">Crew List </a>
@@ -33,11 +82,6 @@
   </div>
 </div>
 
-<div class="row" th:if="${isCompleted==false}">
-  <div class="col-lg-3">
-    <a th:href="@{/admin/voyage/{voyageId}/update (voyageId=${voyageId})}" class="btn btn-primary btn-sm mb-3">Update </a>
-  </div>
-</div>
 
 </body>
 </html>
