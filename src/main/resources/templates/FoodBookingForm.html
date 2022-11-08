@@ -50,14 +50,15 @@
             <h3 class="card-header text-center text-info"> Book Food </h3>
             <div class="card-body">
                 <div class="card-text">
-                    <form th:action="@{/user/foodbooking}" th:object="${foodBooking}" method="post">
+                    <form th:action="@{/user/voyage/{voyageId}/room/{roomId}/bookfood (voyageId = ${voyageId}, roomId=${roomId})}" th:object="${foodBooking}" method="post">
                         <div class="form-group">
                             <label>Food Name </label>
                             <select th:field="*{foodItemId}" class="custom-select">
-                                <option value="-1">None</option>
                                 <option th:each="FoodItem: ${foodItemList}"
                                         th:text="${FoodItem.getFoodName()}"
-                                        th:value="${FoodItem.getFoodItemId()}"></option>
+                                        th:value="${FoodItem.getFoodItemId()}">
+
+                                </option>
                             </select>
                         </div>
                         <div class="form-group">

@@ -64,16 +64,36 @@ public class FoodBookingDaoImpl implements FoodBookingDao {
 	@Override
 	@Transactional
 	public void bookFood(int userId, FoodBooking foodBooking) {
-		jdbctemplate.update(
-				"INSERT INTO Transaction (TransactionDate, Amount, UserId) VALUES (NOW(), ? * (SELECT FoodCost FROM FoodItem WHERE FoodItemId = ?), ?)",
-				foodBooking.getFoodItemCount(), foodBooking.getFoodItemId(), userId
+
+		System.out.println("HI");
+
+		Integer foodCost = jdbctemplate.queryForObject(
+				"SELECT FoodCost FROM FoodItem WHERE FoodItemId = ?",
+				Integer.class, foodBooking.getFoodItemId()
 		);
 
-		jdbctemplate.update(
-				"INSERT INTO FoodBooking (TransactionId, FoodItemId, VoyageId, RoomId, FoodItemCount) Values(" +
-						"(SELECT LAST_INSERT_ID()), ?, ?, ?, ?)",
-				foodBooking.getFoodItemId(), foodBooking.getVoyageId(), foodBooking.getRoomId(), foodBooking.getFoodItemCount()
-		);
+		if (foodCost != null) {
+			jdbctemplate.update(
+					"INSERT INTO Transaction (TransactionDate, Amount, UserId) VALUES (NOW(), ?, ?)",
+					foodBooking.getFoodItemCount() * foodCost, userId
+			);
+			jdbctemplate.update(
+					"INSERT INTO FoodBooking (TransactionId, FoodItemId, VoyageId, RoomId, FoodItemCount) Values(" +
+							"(SELECT LAST_INSERT_ID()), ?, ?, ?, ?)",
+					foodBooking.getFoodItemId(), foodBooking.getVoyageId(), foodBooking.getRoomId(), foodBooking.getFoodItemCount()
+			);
+		}
+
+//		jdbctemplate.update(
+//				"INSERT INTO Transaction (TransactionDate, Amount, UserId) VALUES (NOW(), (?) * (SELECT FoodCost FROM FoodItem WHERE FoodItemId = ?), ?)",
+//				foodBooking.getFoodItemCount(), foodBooking.getFoodItemId(), userId
+//		);
+//
+//		jdbctemplate.update(
+//				"INSERT INTO FoodBooking (TransactionId, FoodItemId, VoyageId, RoomId, FoodItemCount) Values(" +
+//						"(SELECT LAST_INSERT_ID()), ?, ?, ?, ?)",
+//				foodBooking.getFoodItemId(), foodBooking.getVoyageId(), foodBooking.getRoomId(), foodBooking.getFoodItemCount()
+//		);
 	}
 
 }

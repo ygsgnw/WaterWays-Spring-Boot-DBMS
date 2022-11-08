@@ -159,17 +159,22 @@ public class UserController {
         foodBooking.setRoomId(roomId);
         foodBooking.setVoyageId(voyageId);
 
+
+
         model.addAttribute("foodBooking", foodBooking);
         model.addAttribute("foodItemList", foodItemDao.getAllByVoyageId(voyageId));
         return "FoodBookingForm";
     }
 
-    @PostMapping("/user/foodbooking")
-    public String foodBookingForRoom (@ModelAttribute("foodBooking")FoodBooking foodBooking,
+    @PostMapping("/user/voyage/{voyageId}/room/{roomId}/bookfood")
+    public String foodBookingForRoom (@PathVariable("voyageId") int voyageId, @PathVariable("roomId") int roomId, @ModelAttribute("foodBooking")FoodBooking foodBooking,
                                       HttpSession session
     ) {
+        foodBooking.setRoomId(roomId);
+        foodBooking.setVoyageId(voyageId);
+
         foodBookingDao.bookFood(authenticationService.getCurrentUser(session), foodBooking);
-        return "redirect:/voyage/{voyageId}";
+        return "redirect:/voyages/{voyageId}";
     }
     
 }

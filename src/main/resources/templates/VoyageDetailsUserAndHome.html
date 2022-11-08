@@ -90,8 +90,8 @@
                         <thead class="table-dark">
                         <tr>
                             <th> Room ID</th>
-                            <th> Food Items</th>
-                            <th> Counts</th>
+                            <th> Food Name</th>
+                            <th> Count</th>
                             <th> Action</th>
                         </tr>
                         </thead>
@@ -115,7 +115,7 @@
                                 <table class="table table-striped table-bordered">
                                     <tbody>
                                     <tr th:each="fooditem: ${room_booking_details_with_food.getFoodBookingViewList()}">
-                                        <td th:text="${fooditem.getFoodBooking().getCount()}"></td>
+                                        <td th:text="${fooditem.getFoodItemCount()}"></td>
                                     </tr>
                                     </tbody>
                                 </table>
