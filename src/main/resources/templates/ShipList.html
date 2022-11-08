@@ -20,7 +20,7 @@
 		<thead class="table-dark">
 			<tr>
 				<th> Ship Serial ID</th>
-				<th> Model ID</th>
+				<th> Model Name</th>
 				<th> Manufacturing Date</th>
 				<th> Ship Status</th>
 				<th> Actions</th>
@@ -29,7 +29,7 @@
 		<tbody>
 			<tr th:each="ship: ${ships}">
 				<td th:text="${ship.getShipSerialId()}"></td>
-				<td th:text="${ship.getModelId()}"></td>
+				<td th:text="${ship.getModelName()}"></td>
 				<td th:text="${shipstatuses.get(ship.getShipStatusCode())}"></td>
 				<td th:text="${ship.getMfDate()}"></td>
 <!--				<td>-->

@@ -1,6 +1,7 @@
 package com.masters.waterways.controller;
 
 
+import com.masters.waterways.daos.ShipAdminViewDao;
 import com.masters.waterways.daos.ShipModelDao;
 import com.masters.waterways.models.Ship;
 import com.masters.waterways.models.ShipStatusProvider;
@@ -24,10 +25,13 @@ public class AdminShipController {
 	@Autowired
 	private ShipModelDao shipModelDao;
 
+	@Autowired
+	private ShipAdminViewDao shipAdminViewDao;
+
 	@GetMapping("/admin/ship")
 	public String listship(Model model) {
 		model.addAttribute("shipstatuses", ShipStatusProvider.getShipStatusDesc);
-		model.addAttribute("ships", shipDao.getAll());
+		model.addAttribute("ships", shipAdminViewDao.getAll());
 		return "ShipList";
 	}
 	@GetMapping("/admin/ship/add")
