@@ -15,11 +15,17 @@
     <title>navbar</title>
   </head>
   <body>
+  <div th:fragment="navUser">
+
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <img th:src="@{/favicon.ico}" alt="" width="40" height="35">
-    </a>
-    <a class="navbar-brand" th:href="@{/user}">Waterways</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+
+
+      <a th:if="${session.AUTH_USER}" class="navbar-brand" th:href="@{/user}">Waterways</a>
+      <a th:unless="${session.AUTH_USER}" class="navbar-brand" th:href="@{/}">Waterways</a>
+
+
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
       aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -31,16 +37,20 @@
 
       <ul class="nav navbar-nav ml-auto">
         <li class="nav-item">
-          <a class="nav-link" th:href="@{/profile}"><span class="fas fa-user"></span> Profile</a>
+          <a th:if="${session.AUTH_USER}" class="nav-link" th:href="@{/profile}"><span class="fas fa-user"></span> Profile</a>
+          <a th:unless="${session.AUTH_USER}" class="nav-link" th:href="@{/signup}"><span class="fas fa-user"></span> Sign Up</a>
         </li>
+
         <li class="nav-item">
-          <a class="nav-link" th:href="@{/logout}"><span class="fas fa-sign-in-alt"></span> Logout</a>
+          <a th:if="${session.AUTH_USER}" class="nav-link" th:href="@{/logout}"><span class="fas fa-sign-in-alt"></span> Logout</a>
+          <a th:unless="${session.AUTH_USER}" class="nav-link" th:href="@{/login}"><span class="fas fa-sign-in-alt"></span> Login</a>
         </li>
 
       </ul>
 
     </div>
   </nav>
+  </div>
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
