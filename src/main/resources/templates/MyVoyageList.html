@@ -35,6 +35,7 @@
                             <th> Arrival Harbor</th>
                             <th> Departure Time</th>
                             <th> Arrival Time</th>
+                            <th> Action </th>
                         </tr>
                     </thead>
                     <tbody>
@@ -43,7 +44,10 @@
                             <td th:text="${my_completed_voyage.getDepartureHarborName()}"></td>
                             <td th:text="${my_completed_voyage.getArrivalHarborName()}"></td>
                             <td th:text="${my_completed_voyage.getDepartureTime()}"></td>
-                            <td th:text="${my_completed_voyage.getArrivaltime()}"></td>
+                            <td th:text="${my_completed_voyage.getArrivalTime()}"></td>
+                            <td>
+                                <a th:href="@{/voyages/{id} (id = ${my_completed_voyage.getVoyageId()})}" class="btn btn-primary">View</a>
+                            </td>
                         </tr>
                     </tbody>
 
@@ -73,12 +77,12 @@
                     <tbody>
                         <tr th:each="my_upcoming_voyage: ${my_upcoming_voyages}">
 
-                            <td th:text="${my_upcoming_voyages.getDepartureHarborName()}"></td>
-                            <td th:text="${my_upcoming_voyages.getArrivalHarborName()}"></td>
-                            <td th:text="${(my_upcoming_voyages.getDepartureTime())}"></td>
-                            <td th:text="${my_upcoming_voyages.getArrivaltime()}"></td>
+                            <td th:text="${my_upcoming_voyage.getDepartureHarborName()}"></td>
+                            <td th:text="${my_upcoming_voyage.getArrivalHarborName()}"></td>
+                            <td th:text="${my_upcoming_voyage.getDepartureTime()}"></td>
+                            <td th:text="${my_upcoming_voyage.getArrivalTime()}"></td>
                             <td>
-                                <a th:href="@{/voyages/{id}}" class="btn btn-primary">View</a>
+                                <a th:href="@{/voyages/{id} (id = ${my_upcoming_voyage.getVoyageId()})}" class="btn btn-primary">View</a>
                             </td>
                         </tr>
                     </tbody>

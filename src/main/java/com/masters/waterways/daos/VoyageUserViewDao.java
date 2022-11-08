@@ -9,7 +9,7 @@ public interface VoyageUserViewDao {
 
     List<VoyageUserView> getAll();
 
-    List<VoyageUserView> getAllFuture();
+    List<VoyageUserView> getAllFutureOperational();
 
     List<VoyageUserView> getAllFutureByUserId(int userId);
 

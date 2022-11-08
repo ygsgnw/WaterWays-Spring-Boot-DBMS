@@ -68,8 +68,8 @@ public class FoodBookingDaoImpl implements FoodBookingDao {
 		System.out.println("HI");
 
 		Integer foodCost = jdbctemplate.queryForObject(
-				"SELECT FoodCost FROM FoodItem WHERE FoodItemId = ?",
-				Integer.class, foodBooking.getFoodItemId()
+				"SELECT FoodCost FROM FoodItem WHERE FoodItemId = ? AND VoyageId = ?",
+				Integer.class, foodBooking.getFoodItemId(), foodBooking.getVoyageId()
 		);
 
 		if (foodCost != null) {

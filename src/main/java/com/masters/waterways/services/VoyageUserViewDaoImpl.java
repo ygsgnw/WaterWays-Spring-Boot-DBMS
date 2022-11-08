@@ -1,6 +1,7 @@
 package com.masters.waterways.services;
 
 import com.masters.waterways.daos.VoyageUserViewDao;
+import com.masters.waterways.models.VoyageStatusProvider;
 import com.masters.waterways.models.VoyageUserView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -33,10 +34,10 @@ public class VoyageUserViewDaoImpl implements VoyageUserViewDao {
     }
 
     @Override
-    public List<VoyageUserView> getAllFuture() {
+    public List<VoyageUserView> getAllFutureOperational() {
         return jdbcTemplate.query(
-                "SELECT * FROM VoyageUserView WHERE DepartureTime > NOW()",
-                new BeanPropertyRowMapper<>(VoyageUserView.class)
+                "SELECT * FROM VoyageUserView WHERE DepartureTime > NOW() AND VoyageStatusCode = ?",
+                new BeanPropertyRowMapper<>(VoyageUserView.class), VoyageStatusProvider.getVoyageStatusCode.get("OPERATIONAL")
         );
     }
 

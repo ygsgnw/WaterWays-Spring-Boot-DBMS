@@ -62,7 +62,7 @@ public class ShipDaoImpl implements ShipDao {
 
 		jdbctemplate.update(
 				"UPDATE Voyage SET VoyageStatusCode = ? WHERE ShipSerialId = ? AND DepartureTime > NOW()",
-				VoyageStatusProvider.getVoyageStatusCode.get("SUSPENDED")
+				VoyageStatusProvider.getVoyageStatusCode.get("SUSPENDED"), id
 		);
 
 		return jdbctemplate.update(

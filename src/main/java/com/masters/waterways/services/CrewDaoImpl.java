@@ -21,7 +21,7 @@ public class CrewDaoImpl implements CrewDao {
 	@Override
 	public void insert (Crew crew) {
 		jdbctemplate.update(
-				"INSERT INTO crew (EmployeeId, VoyageId, CrewRole) VALUES (?, ?, ?)",
+				"INSERT INTO Crew (EmployeeId, VoyageId, CrewRole) VALUES (?, ?, ?)",
 				crew.getEmployeeId(), crew.getVoyageId(), crew.getCrewRole()
 		);
 	}
@@ -29,7 +29,7 @@ public class CrewDaoImpl implements CrewDao {
 	@Override
 	public void updateRole (Crew crew) {
 		jdbctemplate.update(
-				"UPDATE crew SET CrewRole = ? WHERE EmployeeId = ? AND VoyageId = ?",
+				"UPDATE Crew SET CrewRole = ? WHERE EmployeeId = ? AND VoyageId = ?",
 				crew.getCrewRole(), crew.getEmployeeId(), crew.getVoyageId()
 		);
 	}
@@ -37,7 +37,7 @@ public class CrewDaoImpl implements CrewDao {
 	@Override
 	public void delete (Crew crew) {
 		jdbctemplate.update(
-				"DELETE FROM crew WHERE EmployeeId = ? AND VoyageId = ?",
+				"DELETE FROM Crew WHERE EmployeeId = ? AND VoyageId = ?",
 				crew.getEmployeeId(), crew.getVoyageId()
 		);
 	}
@@ -45,7 +45,7 @@ public class CrewDaoImpl implements CrewDao {
 	@Override
 	public List<Crew> getAll () {
 		return jdbctemplate.query(
-				"SELECT * FROM crew",
+				"SELECT * FROM Crew",
 				new BeanPropertyRowMapper<>(Crew.class)
 		);
 	}

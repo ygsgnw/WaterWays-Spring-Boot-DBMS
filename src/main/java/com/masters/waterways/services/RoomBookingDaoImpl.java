@@ -22,6 +22,7 @@ public class RoomBookingDaoImpl implements RoomBookingDao {
 
 	@Autowired
 	TransactionDao transactionDao;
+
 	@Autowired
 	VoyageDao voyageDao;
 	
@@ -91,6 +92,7 @@ public class RoomBookingDaoImpl implements RoomBookingDao {
 
 	@Override
 	public void bookRoomByVoyageIdAndUserId(int voyageId, int userId) throws RuntimeException {
+
 		Voyage voyage = voyageDao.getById(voyageId);
 
 		System.out.println("booking");
@@ -112,20 +114,25 @@ public class RoomBookingDaoImpl implements RoomBookingDao {
 	@Transactional
 	public RoomBooking reserveRoomByVoyageId(int voyageId) {
 
-		RoomBooking room = jdbctemplate.queryForObject(
-				"SELECT * FROM RoomBooking WHERE VoyageId = ? AND RoomStatusCode = ? LIMIT 1",
-				new BeanPropertyRowMapper<>(RoomBooking.class), voyageId, RoomStatusProvider.getRoomStatusCode.get("AVAILABLE")
-		);
-
-		if (room != null) {
-			jdbctemplate.update(
-					"UPDATE RoomBooking SET RoomStatusCode = ? WHERE VoyageId = ? AND RoomId = ?",
-					RoomStatusProvider.getRoomStatusCode.get("RESERVED"), voyageId, room.getRoomId()
+		try {
+			RoomBooking room = jdbctemplate.queryForObject(
+					"SELECT * FROM RoomBooking WHERE VoyageId = ? AND RoomStatusCode = ? LIMIT 1",
+					new BeanPropertyRowMapper<>(RoomBooking.class), voyageId, RoomStatusProvider.getRoomStatusCode.get("AVAILABLE")
 			);
 
-			return room;
-		} else
-			throw new RuntimeException("No available rooms");
+			if (room != null) {
+				jdbctemplate.update(
+						"UPDATE RoomBooking SET RoomStatusCode = ? WHERE VoyageId = ? AND RoomId = ?",
+						RoomStatusProvider.getRoomStatusCode.get("RESERVED"), voyageId, room.getRoomId()
+				);
+
+				return room;
+			} else
+				throw new RuntimeException("No available rooms");
+		} catch (Exception e) {
+			return null;
+		}
+
 
 	}
 

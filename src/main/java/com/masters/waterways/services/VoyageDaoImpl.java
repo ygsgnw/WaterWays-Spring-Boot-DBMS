@@ -55,6 +55,8 @@ public class VoyageDaoImpl implements VoyageDao {
 	@Override
 	public Voyage getById (int id) {
 		// TODO Auto-generated method stub
+		System.out.println(id);
+
 		return jdbctemplate.queryForObject(
 				"SELECT * FROM Voyage WHERE VoyageId = ?",
 				new BeanPropertyRowMapper<>(Voyage.class), id
