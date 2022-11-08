@@ -1,16 +1,12 @@
 package com.masters.waterways.controller;
 
 import com.masters.waterways.daos.*;
-import com.masters.waterways.models.VoyageStatusProvider;
-import com.masters.waterways.models.VoyageUserView;
-import com.masters.waterways.models.VoyageVerbose;
+import com.masters.waterways.models.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
-import com.masters.waterways.models.Voyage;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -119,6 +115,8 @@ public class AdminVoyageController {
 
 		System.out.println(isCompleted);
 
+		model.addAttribute("new_fare", voyageDao.getById(voyageId).getFare());
+
 		VoyageUserView voyage =voyageUserViewDao.getById(voyageId);
 		model.addAttribute("voyage", voyage);
 		model.addAttribute("voyageStatuses", VoyageStatusProvider.getVoyageStatusDesc);
@@ -128,22 +126,34 @@ public class AdminVoyageController {
 		return "VoyageDetailsAdmin";
 	}
 
-	@GetMapping("/admin/voyage/{voyageId}/update")
-	public String updateVoyageForm(@PathVariable int voyageId, Model model) {
-		int new_fare = 0;
-		model.addAttribute("fare", new_fare);
-		model.addAttribute("voyageId", voyageId);
 
-		return "UpdateVoyageAdminForm";
+	@GetMapping("/admin/voyage/{id}/updatestatus")
+	public String updateVoyageStatus(@PathVariable int id, Model model) {
+
+		if (VoyageStatusProvider.getVoyageStatusDesc.get(voyageDao.getById(id).getVoyageStatusCode()).equals("SUSPENDED")){
+			voyageDao.setOperational(id);
+		}
+		else {
+			voyageDao.setSuspended(id);
+		}
+		return "redirect:/admin/voyage/{id}";
 	}
-	
-	@PostMapping("/admin/voyage/edit/{id}")
-	public String update(@PathVariable("id") int voyageId,
-			@ModelAttribute("fare") int fare,
-			Model model) {
-		voyagedao.updateVoyageByFare(voyageId, fare);
-		return "redirect:/admin/voyage";
+
+
+	@PostMapping("/admin/voyage/{voyageId}/updatefare")
+	public String updateVoyageForm(@ModelAttribute("new_fare") int fare, @PathVariable int voyageId) {
+
+		voyageDao.updateVoyageByFare(voyageId, fare);
+		return "redirect:/admin/voyage/{voyageId}";
 	}
+//
+//	@PostMapping("/admin/voyage/edit/{id}")
+//	public String update(@PathVariable("id") int voyageId,
+//			@ModelAttribute("fare") int fare,
+//			Model model) {
+//		voyagedao.updateVoyageByFare(voyageId, fare);
+//		return "redirect:/admin/voyage";
+//	}
 
 	
 }

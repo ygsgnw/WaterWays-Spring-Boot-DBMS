@@ -62,7 +62,11 @@ public class AuthenticationService {
     }
 
     public Boolean isAdmin(HttpSession session) {
-        return Integer.parseInt(session.getAttribute(SESSION_ADMIN).toString()) == 1;
+        try {
+            return Integer.parseInt(session.getAttribute(SESSION_ADMIN).toString()) == 1;
+        } catch (Exception e) {
+            return false;
+        }
     }
 
 //    public boolean checkCredentials(int userID, String password){

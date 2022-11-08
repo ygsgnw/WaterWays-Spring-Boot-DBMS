@@ -63,7 +63,7 @@ public class HarborDaoImpl implements HarborDao {
 	public int setActive(int id) {
 		return jdbctemplate.update(
 				"UPDATE Harbor SET HarborStatusCode = ? WHERE HarborId = ?",
-				HarborStatusProvider.getHarborStatusCode.get("ACTIVE"), id
+				HarborStatusProvider.getHarborStatusCode.get("OPERATIONAL"), id
 		);
 	}
 
