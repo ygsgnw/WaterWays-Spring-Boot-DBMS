@@ -71,13 +71,13 @@ public class AdminShipController {
 
 	@GetMapping("/admin/ship/{id}/update")
 	public String updateShipStatus(@PathVariable int id, Model model) {
-		Ship ship=shipDao.getById(id);
-		if (ShipStatusProvider.getShipStatusDesc.get(ship.getShipStatusCode()).equals("SUSPENDED")){
+		Ship ship = shipDao.getById(id);
+
+		if (ShipStatusProvider.getShipStatusDesc.get(ship.getShipStatusCode()).equals("SUSPENDED"))
 			shipDao.setOperational(id);
-		}
-		else {
+		else
 			shipDao.setSuspended(id);
-		}
+
 		return "redirect:/admin/ship";
 	}
 	

@@ -13,7 +13,7 @@ public interface ShipDao {
 
     Ship getById (int id);
 
-    void setOperational(int id);
+    int setOperational(int id);
 
-    void setSuspended(int id);
+    int setSuspended(int id);
 }

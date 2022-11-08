@@ -50,18 +50,23 @@ public class ShipDaoImpl implements ShipDao {
 	}
 
 	@Override
-	public void setOperational(int id) {
-		jdbctemplate.update(
+	public int setOperational(int id) {
+		return jdbctemplate.update(
 				"UPDATE Ship SET ShipStatusCode = ? WHERE ShipSerialId = ?",
 				ShipStatusProvider.getShipStatusCode.get("OPERATIONAL"), id
 		);
 	}
 
 	@Override
-	public void setSuspended(int id) {
+	public int setSuspended(int id) {
+
 		jdbctemplate.update(
-				"UPDATE Voyage SET VoyageStatusCode = ? WHERE ShipSerialId = ?",
-				VoyageStatusProvider.getVoyageStatusCode.get("SUSPENDED"), id
+				"UPDATE Voyage SET VoyageStatusCode = ? WHERE ShipSerialId = ? AND DepartureTime > NOW()"
+		);
+
+		return jdbctemplate.update(
+				"UPDATE Ship SET ShipStatusCode = ? WHERE ShipSerialId = ?",
+				ShipStatusProvider.getShipStatusCode.get("SUSPENDED"), id
 		);
 	}
 }
