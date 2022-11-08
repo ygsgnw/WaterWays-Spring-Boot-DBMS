@@ -26,6 +26,7 @@
                 <thead class="table-dark">
                     <tr>
                         <th> Room Id</th>
+                        <th> User Name</th>
                         <th> Food Name</th>
                         <th> Count</th>
                     </tr>
@@ -33,8 +34,9 @@
                 <tbody>
                     <tr th:each="foodbooking: ${food_bookings}">
                         <td th:text="${foodbooking.getRoomId()}"></td>
-                        <td th:text="${foodbooking.getFoodBookingId()}"></td>
-                        <td th:text="${foodbooking.getFoodCount()}"></td>
+                        <td th:text="${foodbooking.getUserName}"></td>
+                        <td th:text="${foodbooking.getFoodName()}"></td>
+                        <td th:text="${foodbooking.getFoodItemCount()}"></td>
                     </tr>
                 </tbody>
             </table>

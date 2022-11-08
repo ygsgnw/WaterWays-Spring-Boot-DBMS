@@ -75,10 +75,12 @@
 
                 <div th:if="${signedIn==true}">
 
-                    <div class="container VoyageDetailButton">
-                        <div class="row">
-                            <div class="col">
-                                <a class="btn btn-primary" th:href="@{/user/booking/{id} (id=${voyage.getVoyageId()})}">Book Room</a>
+                    <div th:if="${isCompleted!=true}">
+                        <div class="container VoyageDetailButton">
+                            <div class="row">
+                                <div class="col">
+                                    <a class="btn btn-primary" th:href="@{/user/booking/{id} (id=${voyage.getVoyageId()})}">Book Room</a>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -92,7 +94,7 @@
                             <th> Room ID</th>
                             <th> Food Name</th>
                             <th> Count</th>
-                            <th> Action</th>
+                            <th th:if="${isCompleted!=true}"> Action</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -121,8 +123,8 @@
                                 </table>
 
                             </td>
-                            <td>
-                                <a class="btn btn-primary" th:href="@{/user/voyage/{voyageId}/room/{roomId}
+                            <td th:if="${isCompleted!=true}">
+                                <a  class="btn btn-primary" th:href="@{/user/voyage/{voyageId}/room/{roomId}
                                                                         (voyageId = ${voyage.getVoyageId()}, roomId=${room_booking_details_with_food.getRoomBooking().getRoomId()})
                                                                     }">Book Food</a>
                             </td>

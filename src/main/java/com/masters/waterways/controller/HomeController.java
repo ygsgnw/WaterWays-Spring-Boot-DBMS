@@ -131,6 +131,8 @@ public class HomeController {
 		model.addAttribute("voyage", voyage);
 		model.addAttribute("voyageStatuses", VoyageStatusProvider.getVoyageStatusDesc);
 
+		boolean isCompleted=voyageDao.isVoyageCompletedByVoyageId(voyageId);
+
 		boolean signedIn = false;
 
 		if (authenticationService.isAuthenticated(session)) {
@@ -140,6 +142,7 @@ public class HomeController {
 		}
 
 		model.addAttribute("signedIn", signedIn );
+		model.addAttribute("isCompleted", isCompleted);
 
 		return "VoyageDetailsUserAndHome";
 	}
