@@ -1,6 +1,7 @@
 package com.masters.waterways.services;
 
 import com.masters.waterways.daos.FoodBookingDao;
+import com.masters.waterways.daos.FoodBookingViewDao;
 import com.masters.waterways.daos.RoomBookingDao;
 import com.masters.waterways.daos.RoomBookingDetailsDao;
 import com.masters.waterways.models.RoomBooking;
@@ -18,16 +19,21 @@ public class RoomBookingDetailsDaoImpl implements RoomBookingDetailsDao {
     RoomBookingDao roomBookingDao;
 
     @Autowired
-    FoodBookingDao foodBookingDao;
+    FoodBookingViewDao foodBookingViewDao;
 
     @Override
     public List<RoomBookingDetails> getAllByUserIdAndVoyageId(int userId, int voyageId) {
+
         List<RoomBookingDetails> roomBookingDetailsList = new ArrayList<>();
+
         List<RoomBooking> roomBookingList = roomBookingDao.getAllByUserIdAndVoyageId(userId, voyageId);
 
         for (RoomBooking roomBooking: roomBookingList) {
+            RoomBookingDetails roomBookingDetails = new RoomBookingDetails();
+            roomBookingDetails.setRoomBooking(roomBooking);
+            roomBookingDetails.setFoodBookingViewList(foodBookingViewDao.getAllByRoomIdAndVoyageId(voyageId, roomBooking.getRoomId()));
             roomBookingDetailsList.add(
-                new RoomBookingDetails(roomBooking, foodBookingDao.getAllByUserIdAndRoomIdAndVoyageId(userId, voyageId, roomBooking.getRoomId()))
+                    roomBookingDetails
             );
         }
 

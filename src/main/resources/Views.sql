@@ -46,3 +46,21 @@ create view FoodBookingAdminView as
             inner join Transaction T on FoodBooking.TransactionId = T.TransactionId
             inner join Users U on T.UserId = U.UserId
 ;
+
+
+
+drop view if exists FoodBookingView;
+
+create view FoodBookingView as
+select U.UserName as UserName,
+       FoodBooking.TransactionId as TransactionId,
+       RoomId,
+       FoodBooking.VoyageId as VoyageId,
+       FoodName,
+       FoodDescription,
+       FoodItemCount
+from FoodBooking
+         inner join FoodItem on FoodBooking.VoyageId = FoodItem.VoyageId and FoodBooking.FoodItemId = FoodItem.FoodItemId
+         inner join Transaction T on FoodBooking.TransactionId = T.TransactionId
+         inner join Users U on T.UserId = U.UserId
+;

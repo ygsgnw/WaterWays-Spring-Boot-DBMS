@@ -26,7 +26,7 @@ public class UserController {
     private UsersDao usersDao;
 
     @Autowired
-     private VoyageDao voyageDao;
+    private VoyageDao voyageDao;
 
     @Autowired
     private RoomBookingDao roomBookingDao;
@@ -154,10 +154,13 @@ public class UserController {
 
     @GetMapping("/user/voyage/{voyageId}/room/{roomId}")
     public String foodBookingForm(@PathVariable("voyageId") int voyageId, @PathVariable("roomId") int roomId, Model model){
+
         FoodBooking foodBooking = new FoodBooking();
         foodBooking.setRoomId(roomId);
         foodBooking.setVoyageId(voyageId);
-        model.addAttribute("food_booking", foodBooking);
+
+        model.addAttribute("foodBooking", foodBooking);
+        model.addAttribute("foodItemList", foodItemDao.getAllByVoyageId(voyageId));
         return "FoodBookingForm";
     }
 
@@ -170,4 +173,3 @@ public class UserController {
     }
     
 }
-

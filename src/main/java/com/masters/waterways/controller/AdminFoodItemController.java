@@ -28,9 +28,9 @@ public class AdminFoodItemController {
     @GetMapping("/admin/voyage/{voyageId}/fooditems")
     public String listFoodItems(@PathVariable int voyageId, Model model) {
 
-        FoodItem new_foodItem = new FoodItem();
-        new_foodItem.setVoyageId(voyageId);
-        model.addAttribute("new_foodItem", new_foodItem);
+        FoodItem foodItem = new FoodItem();
+        foodItem.setVoyageId(voyageId);
+        model.addAttribute("foodItem", foodItem);
 
         System.out.println(voyageId);
 
@@ -55,8 +55,9 @@ public class AdminFoodItemController {
 //    }
 
     @PostMapping("/admin/voyage/{voyageId}/fooditems/add")
-    public String insertFoodItem(@ModelAttribute("new_foodItem") FoodItem new_foodItem) {
-        foodItemDao.insert(new_foodItem);
+    public String insertFoodItem(@ModelAttribute("foodItem") FoodItem foodItem) {
+        foodItemDao.insert(foodItem);
+        System.out.println(foodItem.getFoodName());
         return "redirect:/admin/voyage/{voyageId}/fooditems";
     }
 

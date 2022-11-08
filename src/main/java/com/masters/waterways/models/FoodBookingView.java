@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class FoodBookingAdminView {
+public class FoodBookingView {
     private String UserName;
     private int TransactionId;
     private int RoomId;

@@ -18,8 +18,8 @@
     <h3 class="card-header text-info"> Voyage Food Items </h3>
     <div class="card-body">
       <div th:if="${isCompleted == false}" style="margin-top: 10px; margin-bottom:10px;">
-        <form action="#" th:action="@{/admin/voyage/{voyageId}/crew/add (voyageId=${voyageId})}"
-              th:object="${new_foodItem}" method="POST">
+        <form action="#" th:action="@{/admin/voyage/{voyageId}/fooditems/add (voyageId=${voyageId})}"
+              th:object="${foodItem}" method="POST">
           <div class="form-group">
 
             <div>

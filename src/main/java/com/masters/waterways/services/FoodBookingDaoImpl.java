@@ -71,7 +71,7 @@ public class FoodBookingDaoImpl implements FoodBookingDao {
 
 		jdbctemplate.update(
 				"INSERT INTO FoodBooking (TransactionId, FoodItemId, VoyageId, RoomId, FoodItemCount) Values(" +
-						"(SELECT LAST_INSERT_ID() FROM Transaction), ?, ?, ?, ?)",
+						"(SELECT LAST_INSERT_ID()), ?, ?, ?, ?)",
 				foodBooking.getFoodItemId(), foodBooking.getVoyageId(), foodBooking.getRoomId(), foodBooking.getFoodItemCount()
 		);
 	}

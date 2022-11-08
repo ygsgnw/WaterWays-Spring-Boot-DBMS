@@ -127,15 +127,14 @@ public class HomeController {
 
 //		List<VoyageVerbose> voyageVerbose = voyageVerboseTransform.transform(voyage);
 
-		VoyageUserView voyage =voyageUserViewDao.getById(voyageId);
+		VoyageUserView voyage = voyageUserViewDao.getById(voyageId);
 		model.addAttribute("voyage", voyage);
 		model.addAttribute("voyageStatuses", VoyageStatusProvider.getVoyageStatusDesc);
-
 
 		boolean signedIn = false;
 
 		if (authenticationService.isAuthenticated(session)) {
-			signedIn=true;
+			signedIn = true;
 			model.addAttribute("room_booking_details_with_foods", roomBookingDetailsDao.getAllByUserIdAndVoyageId(authenticationService.getCurrentUser(session), voyageId));
 			model.addAttribute("fooditems", foodItemDao.getAllByVoyageId(voyageId));
 		}
