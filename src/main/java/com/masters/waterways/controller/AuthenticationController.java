@@ -18,7 +18,6 @@ public class AuthenticationController {
 
     @Autowired
     private AuthenticationService authenticationService;
-
     @Autowired
     private UsersDao usersDao;
 
@@ -42,8 +41,7 @@ public class AuthenticationController {
         String userID = credentials.getEmailId();
         String password = credentials.getUserPassword();
 
-        boolean isCorrect = true;
-        boolean isUser = true;
+        boolean isCorrect = true, isUser = true;
         try {
             Users user = usersDao.getByEmailId(userID);
             if(authenticationService.checkCredentials(user.getUserId(),password)){
