@@ -9,12 +9,13 @@
 </head>
 <body>
 
-	<div class="row">
-		<div class="col-lg-3">
-			<a th:href="@{/admin/ship/add}" class="btn btn-primary btn-sm mb-3">Add ship </a>
-		</div>
-	</div>
-	
+	<div style="padding: 2%;">
+		<div class="card border-info">
+			<h3 class="card-header text-info"> Ships </h3>
+			<div class="card-body">
+				<div style="margin-top: 10px; margin-bottom:10px;">
+					<a class="btn btn-primary" th:href="@{/admin/ship/add}">Add Ship</a>
+				</div>
 	<table class="table table-striped table-bordered">
 		<thead class="table-dark">
 			<tr>
