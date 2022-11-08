@@ -24,7 +24,10 @@ public class AuthenticationController {
     @GetMapping("/login")
     public String login(Model model, HttpSession session){
         if(authenticationService.isAuthenticated(session)){
-            return "redirect:/";
+            if(authenticationService.isAdmin(session)){
+                return "redirect:/admin";
+            }
+            return "redirect:/user";
         }
         model.addAttribute("credentials", new Users());
         model.addAttribute("isCorrect",true);
