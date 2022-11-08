@@ -1,9 +1,8 @@
 package com.masters.waterways.controller;
 
-import com.masters.waterways.daos.HarborDao;
-import com.masters.waterways.daos.ShipDao;
-import com.masters.waterways.daos.VoyageVerboseTransform;
+import com.masters.waterways.daos.*;
 import com.masters.waterways.models.VoyageStatusProvider;
+import com.masters.waterways.models.VoyageUserView;
 import com.masters.waterways.models.VoyageVerbose;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -11,7 +10,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import com.masters.waterways.daos.VoyageDao;
 import com.masters.waterways.models.Voyage;
 
 import java.time.LocalDateTime;
@@ -26,6 +24,9 @@ public class AdminVoyageController {
 
 	@Autowired
 	VoyageDao voyageDao;
+
+	@Autowired
+	VoyageUserViewDao voyageUserViewDao;
 
 	@Autowired
 	HarborDao harborDao;
@@ -50,44 +51,43 @@ public class AdminVoyageController {
 		System.out.println(depart_after_datetime);
 		System.out.println(arrive_before_datetime);
 
-		List<Voyage> voyages = voyageDao.getAll();
+		List<VoyageUserView> voyages = voyageUserViewDao.getAll();
 
-		if (from_harbour_id != null) {
-			List<Voyage> new_voyages = new ArrayList<>();
-			for (Voyage v: voyages)
-				if (v.getDepartureHarborId() == from_harbour_id)
+		if (from_harbour_id != null && from_harbour_id != -1) {
+			List<VoyageUserView> new_voyages = new ArrayList<>();
+			for (VoyageUserView v: voyages)
+				if (from_harbour_id.equals(v.getDepartureHarborId()))
 					new_voyages.add(v);
 			voyages = new_voyages;
 		}
 
-		if (to_harbour_id != null) {
-			List<Voyage> new_voyages = new ArrayList<>();
-			for (Voyage v: voyages)
-				if (v.getArrivalHarborId() == to_harbour_id)
+		if (to_harbour_id != null && to_harbour_id != -1) {
+			List<VoyageUserView> new_voyages = new ArrayList<>();
+			for (VoyageUserView v: voyages)
+				if (to_harbour_id.equals(v.getArrivalHarborId()))
 					new_voyages.add(v);
 			voyages = new_voyages;
 		}
 
 		if (depart_after_datetime != null) {
-			List<Voyage> new_voyages = new ArrayList<>();
-			for (Voyage v: voyages)
+			List<VoyageUserView> new_voyages = new ArrayList<>();
+			for (VoyageUserView v: voyages)
 				if (v.getDepartureTime().isAfter(depart_after_datetime))
 					new_voyages.add(v);
 			voyages = new_voyages;
 		}
 
 		if (arrive_before_datetime != null) {
-			List<Voyage> new_voyages = new ArrayList<>();
-			for (Voyage v: voyages)
+			List<VoyageUserView> new_voyages = new ArrayList<>();
+			for (VoyageUserView v: voyages)
 				if (v.getArrivalTime().isBefore(arrive_before_datetime))
 					new_voyages.add(v);
 			voyages = new_voyages;
 		}
 
-		List<VoyageVerbose> voyageVerboseList = voyageVerboseTransform.transform(voyages);
-
-		model.addAttribute("voyages", voyageVerboseList);
+		model.addAttribute("voyages", voyages);
 		model.addAttribute("harbors", harborDao.getAll());
+		model.addAttribute("voyageStatuses", VoyageStatusProvider.getVoyageStatusCode);
 
 		return "VoyageListAdmin";
 	}

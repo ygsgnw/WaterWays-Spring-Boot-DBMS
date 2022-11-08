@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns: th="http://www.thymeleaf.org">
+
+<head>
+  <title>Food Item Form</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+
+<body>
+
+<div style="padding: 2%;">
+  <!--form  -->
+  <div class="card border-info" style="width:40rem;">
+    <div class="card login-form">
+      <h3 class="card-header text-center text-info"> Add Food Item </h3>
+      <div class="card-body">
+        <div class="card-text">
+          <form action="#" th:action="@{/admin/voyage/{voyageId}/fooditems/add (voyageId=${voyageId})}"
+                th:object="${new_crew}" method="POST">
+            <div class="form-group">
+              <label> EmployeeId</label>
+              <select th:field="*{employeeId}" class="custom-select">
+                <option th:each="not_crew_employee: ${not_crew_employees}"
+                        th:text="${not_crew_employees}" th:value="${not_crew_employees}"></option>
+              </select>
+
+
+              <label>Crew Role</label>
+              <!--		<select th:field="*{crewRole}" class="custom-select">-->
+              <!--			<option-->
+              <!--					th:each="crew_role: ${crew_roles}"-->
+              <!--					th:text="${crew_role}"-->
+              <!--					th:value="${crew_role}"></option>-->
+              <!--		</select>-->
+              <input type="text" th:field="*{crewRole}" class="form-control form-control-sm">
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">Submit</button>
+
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+
+</html>

@@ -17,7 +17,7 @@
       <div class="card-body">
         <h3 class="card-title text-left"> Voyages </h3>
         <div class="card-text">
-          <form th:action="@{/voyages(fromid=fromid)}" method="get">
+          <form th:action="@{/admin/voyages}" method="get">
             <div class="form-group">
               <label>Departing From </label>
               <select th:name="fromid" class="custom-select">
@@ -31,7 +31,7 @@
             </div>
             <div class="form-group">
               <label>Arriving At </label>
-              <select th:name="fromid" class="custom-select">
+              <select th:name="toid" class="custom-select">
                 <option value="-1">All</option>
                 <option
                         th:each="harbor: ${harbors}"
@@ -67,30 +67,31 @@
   <thead class="table-dark">
   <tr>
     <th> Voyage ID</th>
-    <th> Fare</th>
     <th> Ship Serial ID</th>
-    <th> Ship Model Name</th>
+    <th> Fare</th>
+    <th> Carrier</th>
     <th> Departure Harbor</th>
     <th> Arrival Harbor</th>
     <th> Departure Time</th>
     <th> Arrival Time</th>
-    <th> Voyage Status</th>
+    <th> Status</th>
     <th> Actions</th>
   </tr>
   </thead>
   <tbody>
   <tr th:each="voyage: ${voyages}">
-    <td th:text="${voyage.getVoyage().getVoyageId()}"></td>
-    <td th:text="${voyage.getVoyage().getShipSerialId()}"></td>
-    <td th:text="${voyage.getVoyage().getFare()}"></td>
+    <td th:text="${voyage.getVoyageId()}"></td>
+    <td th:text="${voyage.getShipSerialId()}"></td>
+    <td th:text="${voyage.getFare()}"></td>
+    <td th:text="${voyage.getModelName()}"></td>
     <td th:text="${voyage.getDepartureHarborName()}"></td>
     <td th:text="${voyage.getArrivalHarborName()}"></td>
-    <td th:text="${voyage.getVoyage().getDepartureTime()}"></td>
-    <td th:text="${voyage.getVoyage().getArrivalTime()}"></td>
-    <td th:text="${voyage.getVoyageStatusDesc()}"></td>
+    <td th:text="${voyage.getDepartureTime()}"></td>
+    <td th:text="${voyage.getArrivalTime()}"></td>
+    <td th:text="${voyageStatuses.get(voyage.getVoyageStatusCode())}"></td>
 
     <td>
-      <a th:href="@{/admin/voyage/{id} (id=${voyage.getVoyage().getVoyageId()})}"
+      <a th:href="@{/admin/voyage/{id} (id=${voyage.getVoyageId()})}"
          class="btn btn-primary">Details</a>
     </td>
   </tr>

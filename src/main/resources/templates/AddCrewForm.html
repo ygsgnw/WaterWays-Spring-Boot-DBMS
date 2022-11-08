@@ -16,7 +16,7 @@
                 <h3 class="card-header text-center text-info"> Add Crew </h3>
                 <div class="card-body">
                     <div class="card-text">
-                        <form action="#" th:action="@{/admin/voyage/{voyageId}(voyageId=${voyageId})/crew/add}"
+                        <form action="#" th:action="@{/admin/voyage/{voyageId}/crew/add (voyageId=${voyageId})}"
                             th:object="${new_crew}" method="POST">
                             <div class="form-group">
                             <label> EmployeeId</label>

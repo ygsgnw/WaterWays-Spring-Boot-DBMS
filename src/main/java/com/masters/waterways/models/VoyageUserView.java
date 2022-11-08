@@ -15,6 +15,8 @@ public class VoyageUserView {
     private int Fare;
     private int ShipSerialId;
     private String ModelName;
+    private int DepartureHarborId;
+    private int ArrivalHarborId;
     private String DepartureHarborName;
     private String ArrivalHarborName;
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)

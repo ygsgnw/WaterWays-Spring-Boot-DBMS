@@ -16,6 +16,8 @@ create view VoyageUserView as
            Fare,
            Voyage.ShipSerialId as ShipSerialId,
            SM.ModelName as ModelName,
+           Hd.HarborId as DepartureHarborId,
+           Ha.HarborId as ArrivalHarborId,
            Hd.Location as DepartureHarborName,
            Ha.Location as ArrivalHarborName,
            DepartureTime,
@@ -26,3 +28,21 @@ create view VoyageUserView as
             inner join ShipModel SM on S.ModelId = SM.ModelId
             inner join Harbor Ha on Voyage.ArrivalHarborId = Ha.HarborId
             inner join Harbor Hd on Voyage.DepartureHarborId = Hd.HarborId
+;
+
+
+drop view if exists FoodBookingAdminView;
+
+create view FoodBookingAdminView as
+    select U.UserName as UserName,
+           FoodBooking.TransactionId as TransactionId,
+           RoomId,
+           FoodBooking.VoyageId as VoyageId,
+           FoodName,
+           FoodDescription,
+           FoodItemCount
+    from FoodBooking
+            inner join FoodItem on FoodBooking.VoyageId = FoodItem.VoyageId and FoodBooking.FoodItemId = FoodItem.FoodItemId
+            inner join Transaction T on FoodBooking.TransactionId = T.TransactionId
+            inner join Users U on T.UserId = U.UserId
+
