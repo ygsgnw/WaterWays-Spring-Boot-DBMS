@@ -27,6 +27,7 @@ public class AuthenticationService {
     private String SESSION_AUTH_KEY = "AUTH_USER";
     private String SESSION_USER_NAME = "AUTH_USERNAME";
 
+//    private String SESSION_ADMIN = "AUTH_ADMIN";
 
     public boolean checkCredentials(int userID, String password){
         Users user = usersDao.getById(userID);
@@ -35,13 +36,14 @@ public class AuthenticationService {
 
     public void loginUser(HttpSession session, int userID){
 
-
-
+//        Boolean isadmin = isAdmin(session);
+//        session.setAttribute(SESSION_ADMIN,isadmin);
         session.setAttribute(SESSION_AUTH_KEY,userID);
         session.setAttribute(SESSION_USER_NAME,usersDao.getById(userID).getUserName());
     }
 
     public void logoutUser(HttpSession session){
+//        session.removeAttribute(SESSION_ADMIN);
         session.removeAttribute(SESSION_AUTH_KEY);
         session.removeAttribute(SESSION_USER_NAME);
     }
