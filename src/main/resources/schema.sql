@@ -119,4 +119,4 @@ create table FoodBooking (
 );
 
 source src/main/resources/VoyageInsertTrigger.sql
-source src/main/resources/VoyageDeleteTrigger.sql
+source src/main/resources/VoyageUpdateTrigger.sql

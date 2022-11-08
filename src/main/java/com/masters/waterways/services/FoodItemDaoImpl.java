@@ -15,10 +15,21 @@ public class FoodItemDaoImpl implements FoodItemDao {
 	JdbcTemplate jdbctemplate;
 
 	@Override
-	public int insert (FoodItem fi) {
+	public int insert (FoodItem foodItem) {
+
+		Integer foodItemId = jdbctemplate.queryForObject(
+				"SELECT IFNULL(MAX(FoodItemId), 0) FROM FoodItem WHERE VoyageId = ?",
+				new BeanPropertyRowMapper<>(Integer.class), foodItem.getVoyageId()
+		);
+
+		if (foodItemId == null)
+			foodItemId = 0;
+
+		foodItem.setFoodItemId(foodItemId);
+
 		return jdbctemplate.update(
 				"INSERT INTO FoodItem (VoyageId, FoodItemId, FoodName, FoodCost, FoodDescription) VALUES (?, ?, ?, ?, ?)",
-				fi.getVoyageId(), fi.getFoodItemId(), fi.getFoodName(), fi.getFoodCost(), fi.getFoodDescription()
+				foodItem.getVoyageId(), foodItem.getFoodItemId(), foodItem.getFoodName(), foodItem.getFoodCost(), foodItem.getFoodDescription()
 		);
 	}
 

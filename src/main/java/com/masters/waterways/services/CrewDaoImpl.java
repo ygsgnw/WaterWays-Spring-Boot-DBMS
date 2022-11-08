@@ -44,7 +44,7 @@ public class CrewDaoImpl implements CrewDao {
 	public List<Crew> getAll () {
 		return jdbctemplate.query(
 				"SELECT * FROM crew",
-				new BeanPropertyRowMapper<Crew>(Crew.class)
+				new BeanPropertyRowMapper<>(Crew.class)
 		);
 	}
 
@@ -58,7 +58,7 @@ public class CrewDaoImpl implements CrewDao {
     }
 
 	@Override
-	public List<Integer> getAllNotCrewEmployee() {
+	public List<Integer> getAllNotCrewEmployee(int voyageId) {
 		return null;
 	}
 

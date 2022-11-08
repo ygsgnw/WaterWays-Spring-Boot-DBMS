@@ -5,7 +5,7 @@ import java.util.List;
 import com.masters.waterways.models.FoodItem;
 
 public interface FoodItemDao {
-    int insert (FoodItem fi);
+    int insert (FoodItem foodItem);
 	void delete(FoodItem foodItem);
 
 	List<FoodItem> getAll ();

@@ -14,5 +14,5 @@ public interface CrewDao {
 
 	List<Crew> getAllByVoyageId (int voyageId);
 
-	List<Integer> getAllNotCrewEmployee();
+	List<Integer> getAllNotCrewEmployee(int voyageId);
 }
