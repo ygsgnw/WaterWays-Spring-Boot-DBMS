@@ -115,7 +115,7 @@ public class AdminVoyageController {
 
 		System.out.println(isCompleted);
 
-		model.addAttribute("new_fare", voyageDao.getById(voyageId).getFare());
+		model.addAttribute("voyageForFare", voyageDao.getById(voyageId));
 
 		VoyageUserView voyage =voyageUserViewDao.getById(voyageId);
 		model.addAttribute("voyage", voyage);
@@ -141,9 +141,10 @@ public class AdminVoyageController {
 
 
 	@PostMapping("/admin/voyage/{voyageId}/updatefare")
-	public String updateVoyageForm(@ModelAttribute("new_fare") int fare, @PathVariable int voyageId) {
+	public String updateVoyageForm(@ModelAttribute Voyage voyageForFare, @PathVariable int voyageId,Model model) {
 
-		voyageDao.updateVoyageByFare(voyageId, fare);
+		System.out.println(voyageForFare.getFare());
+		voyageDao.updateVoyageByFare(voyageId, voyageForFare.getFare());
 		return "redirect:/admin/voyage/{voyageId}";
 	}
 //

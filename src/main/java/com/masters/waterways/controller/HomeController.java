@@ -63,7 +63,7 @@ public class HomeController {
 	@PostMapping("/signup")
 	public String signedup(@ModelAttribute("newUser") Users newUser) {
 		usersDao.insert(newUser);
-		return "redirect:/profile";
+		return "redirect:/login";
 	}
 
 	@GetMapping("/voyages")

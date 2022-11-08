@@ -29,7 +29,7 @@
                             <label> EmployeeId</label>
                             <select th:field="*{employeeId}" class="custom-select">
                                 <option th:each="not_crew_employee: ${not_crew_employees}"
-                                    th:text="${not_crew_employees}" th:value="${not_crew_employees}"></option>
+                                    th:text="${not_crew_employee}" th:value="${not_crew_employees}"></option>
                             </select>
 
 

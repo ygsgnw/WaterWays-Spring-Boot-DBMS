@@ -68,19 +68,20 @@
       <a th:if="${voyageStatuses.get(voyage.getVoyageStatusCode())=='SUSPENDED'}" th:href="@{/admin/voyage/{id}/updatestatus (id=${voyage.getVoyageId()})}"
         class="btn btn-primary">Activate</a>
 
+
+    <div>
+      <form action="#" th:action="@{/admin/voyage/{voyageId}/updatefare (voyageId=${voyageId})}" th:object="${voyageForFare}" method="POST">
+
+          <label> Update Fare</label>
+          <input type="number" th:field="*{fare}" class="form-control form-control-sm">
+
+          <button type="submit" class="btn btn-primary btn-block">Submit</button>
+
+      </form>
+    </div>
+
 </div>
 
-
-<div>
-  <form action="#" th:action="@{/admin/voyage/{voyageId}/updatefare (voyageId=${voyageId})}" method="POST">
-
-      <label> Update Fare</label>
-      <input type="number" th:field="*{new_fare}" class="form-control form-control-sm">
-
-      <button type="submit" class="btn btn-primary btn-block">Submit</button>
-
-  </form>
-</div>
 
 <div class="row">
   <div class="col-lg-3">
