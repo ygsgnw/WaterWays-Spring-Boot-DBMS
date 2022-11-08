@@ -79,7 +79,4 @@ public class FoodItemDaoImpl implements FoodItemDao {
 				new BeanPropertyRowMapper<>(FoodItem.class), foodItemId, voyageId
 		);
 	}
-
-
-
 }
