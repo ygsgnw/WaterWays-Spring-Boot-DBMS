@@ -2,24 +2,29 @@ use waterways;
 
 drop trigger if exists VoyageInsertTrigger;
 
-delimiter $
+delimiter |
 
 create trigger VoyageInsertTrigger after insert
     on Voyage for each row
-begin
+BEGIN
     set @count = (
-        select RoomCount from ShipModel where ShipModel.ModelId = @ModelId
+        select ShipModel.RoomCount from ShipModel, (select ModelId from Ship where Ship.ShipSerialId = NEW.ShipSerialId) as A
+        where A.ModelId = ShipModel.ModelId
     );
 
     set @i = 1;
 
-    while @i <= @count do
-        insert into RoomBooking (RoomId, VoyageId, TransactionId, RoomStatusCode)
-        values (@i, @VoyageId, null, 1);
+    label: loop
+        insert into RoomBooking (RoomId, VoyageId, TransactionId, RoomStatusCode) values (@i, NEW.VoyageId, null, 1);
         set @i = @i + 1;
-    end while;
-end;
+        if @i > @count then
+            leave label;
+        end if ;
+        iterate label;
+    end loop ;
 
-$
+END;
+
+|
 
 delimiter ;

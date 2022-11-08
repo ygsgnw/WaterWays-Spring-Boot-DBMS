@@ -23,19 +23,20 @@ public class AdminCrewController {
 	@Autowired
 	private VoyageDao voyageDao;
 
-	@GetMapping("/admin/voayge/{voyageId}/crew")
-	public String listCrew(@ModelAttribute int voyageId, Model model) {
-
+	@GetMapping("/admin/voyage/{voyageId}/crew")
+	public String listCrew(@PathVariable int voyageId, Model model) {
+		System.out.println(voyageId);
 		boolean isCompleted = voyageDao.isVoyageCompletedByVoyageId(voyageId);
 		model.addAttribute("voyageId", voyageId);
+		model.addAttribute("isCompleted", isCompleted);
 		model.addAttribute("crewListByVoyageId", crewDao.getAllByVoyageId(voyageId));
 
-		return "CrewList";
+		return "VoyageCrewList";
 	}
-	@GetMapping("/admin/voyage/{voyaegId}/crew/add")
-	public String createcrewform(@ModelAttribute int voyageId, Model model) {
+	@GetMapping("/admin/voyage/{voyageId}/crew/add")
+	public String createcrewform(@PathVariable int voyageId, Model model) {
 
-		Crew new_crew =new Crew();
+		Crew new_crew = new Crew();
 		new_crew.setVoyageId(voyageId);
 
 		model.addAttribute("new_crew", new_crew);
@@ -50,14 +51,14 @@ public class AdminCrewController {
 		return "AddCrewForm";
 	}
 	
-	@PostMapping("/admin/voyage/{voyaegId}/crew/add")
+	@PostMapping("/admin/voyage/{voyageId}/crew/add")
 	public String insertCrew(@ModelAttribute("new_crew") Crew new_crew) {
 		crewDao.insert(new_crew);
-		return "redirect:/admin/voyage/{voyaegId}/crew/add";
+		return "redirect:/admin/voyage/{voyageId}/crew/add";
 	}
 	
 	@GetMapping("/admin/voyage/{voyageId}/crew/update/{employeeId}")
-	public String editcrewform(@PathVariable("voyageId") int voyageId, @PathVariable("employeeId") int employeeId, Model model) {
+	public String editcrewform(@PathVariable int voyageId, @PathVariable int employeeId, Model model) {
 
 		Crew crew = new Crew();
 		crew.setVoyageId(voyageId);
@@ -65,23 +66,23 @@ public class AdminCrewController {
 
 		model.addAttribute("crew", crew);
 
-		List<String> crew_roles=new ArrayList<String>();
-		crew_roles.add("role1");
-		crew_roles.add("role2");
-		crew_roles.add("role3");
-		model.addAttribute("crew_roles", crew_roles);
+//		List<String> crew_roles=new ArrayList<>();
+//		crew_roles.add("role1");
+//		crew_roles.add("role2");
+//		crew_roles.add("role3");
+//		model.addAttribute("crew_roles", crew_roles);
 
 		return "UpdateCrewForm";
 	}
 	
 	@PostMapping("/admin/voyage/{voyageId}/crew/update/{employeeId}")
-	public String updateStudent(@ModelAttribute("crew") Crew crew, Model model) {
+	public String updateRole(@ModelAttribute("crew") Crew crew, Model model) {
 		crewDao.updateRole(crew);
 		return "redirect:/admin/voyage/{voyageId}/crew";
 	}
 	
 	@GetMapping("/admin/voyage/{voyageId}/crew/delete/{employeeId}")
-	public String deletecrew(@PathVariable("voyageId") int voyageId, @PathVariable("employeeId") int employeeId) {
+	public String deleteCrew(@PathVariable int voyageId, @PathVariable int employeeId) {
 
 		Crew crew = new Crew();
 		crew.setVoyageId(voyageId);

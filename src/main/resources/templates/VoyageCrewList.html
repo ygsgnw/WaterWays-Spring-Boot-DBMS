@@ -9,9 +9,9 @@
 </head>
 <body>
 
-	<div class="row" th:if="${isCompleted==false}">
+	<div class="row" th:if="${isCompleted == false}">
 		<div class="col-lg-3">
-			<a th:href="@{/admin/voyage/{voyageId}(voyageId=${voyageId})/crew/add}" class="btn btn-primary btn-sm mb-3">Add Crew </a>
+			<a th:href="@{/admin/voyage/{voyageId}/crew/add (voyageId=${voyageId})}" class="btn btn-primary btn-sm mb-3">Add Crew </a>
 		</div>
 	</div>
 	
@@ -21,7 +21,7 @@
 				<th> EmployeeId</th>
 				<th> VoyageId</th>
 				<th> CrewRole</th>
-				<th th:if="${isCompleted==false}"> Actions</th>
+				<th th:if="${isCompleted == false}"> Actions</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -30,10 +30,10 @@
 				<td th:text="${crew.getVoyageId()}"></td>
 				<td th:text="${crew.getCrewRole()}"></td>
 				
-				<td th:if="${isCompleted==false}">
-					<a th:href="@{/admin/{voyageId}(voyageId=${voyageId})/crew/update/{employeeId}(employeeId=${crew.getEmployeeId()})}"
+				<td th:if="${isCompleted == false}">
+					<a th:href="@{/admin/{voyageId}/crew/update/{employeeId} (voyageId=${voyageId}, employeeId=${crew.getEmployeeId()})}"
 					class="btn btn-primary">Update</a>
-					<a th:href="@{/admin/{voyageId}(voyageId=${voyageId})/crew/delete/{employeeId}(employeeId=${crew.getEmployeeId()})}"
+					<a th:href="@{/admin/{voyageId}/crew/delete/{employeeId} (voyageId=${voyageId}, employeeId=${crew.getEmployeeId()})}"
 					class="btn btn-danger">Delete</a>
 				</td>
 			</tr>

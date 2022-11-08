@@ -114,16 +114,18 @@ public class AdminVoyageController {
 
 		boolean isCompleted = voyageDao.isVoyageCompletedByVoyageId(voyageId);
 
+		System.out.println(isCompleted);
+
 		model.addAttribute("voyageId", voyageId);
 		model.addAttribute("isCompleted", isCompleted);
 		return "VoyageDetailsAdmin";
 	}
 
-	@GetMapping("/admin/voyage/update/{id}")
-	public String updateVoyageForm(@PathVariable int id, Model model) {
-		int new_fare=0;
+	@GetMapping("/admin/voyage/{voyageId}/update")
+	public String updateVoyageForm(@PathVariable int voyageId, Model model) {
+		int new_fare = 0;
 		model.addAttribute("fare", new_fare);
-		model.addAttribute("voyageId", id);
+		model.addAttribute("voyageId", voyageId);
 
 		return "UpdateVoyageAdminForm";
 	}

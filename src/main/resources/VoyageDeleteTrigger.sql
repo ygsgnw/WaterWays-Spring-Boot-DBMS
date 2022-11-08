@@ -7,7 +7,7 @@ delimiter $
 create trigger VoyageDeleteTrigger before delete
     on Voyage for each row
 begin
-    if @ArrivalDate < now() then
+    if OLD.ArrivalTime < now() then
         signal sqlstate '45000' set message_text = 'Cannot delete completed Voyages';
     end if;
 
@@ -15,7 +15,7 @@ begin
         select now(), -sum(Transaction.Amount), Transaction.UserId
         from Transaction, RoomBooking
         where RoomBooking.TransactionId = Transaction.TransactionId
-          and RoomBooking.VoyageId = @VoyageId
+          and RoomBooking.VoyageId = OLD.VoyageId
         group by Transaction.UserId
     );
 
@@ -23,10 +23,12 @@ begin
         select now(), -sum(Transaction.Amount), Transaction.UserId
         from Transaction, FoodBooking
         where Transaction.TransactionId = FoodBooking.TransactionId
-          and FoodBooking.VoyageId = @VoyageId
+          and FoodBooking.VoyageId = OLD.VoyageId
         group by Transaction.UserId
     );
 
-end $
+end;
+
+$
 
 delimiter ;

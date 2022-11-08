@@ -10,10 +10,18 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class RoomBooking {
 
-	private int TransactionId;
+	private Integer TransactionId;
 	private int RoomId;
 	private int VoyageId;
 	private int RoomStatusCode;
+
+	public Integer getTransactionId() {
+		return TransactionId;
+	}
+
+	public void setTransactionId(Integer transactionId) {
+		TransactionId = transactionId;
+	}
 
 	public int getRoomId() {
 		return RoomId;
@@ -31,19 +39,11 @@ public class RoomBooking {
 		VoyageId = voyageId;
 	}
 
-	public int getTransactionId() {
-		return TransactionId;
-	}
-
-	public void setTransactionId(int transactionId) {
-		TransactionId = transactionId;
-	}
-
 	public int getRoomStatusCode() {
 		return RoomStatusCode;
 	}
 
-	public void setRoomStatusCode(int roomStatus) {
-		RoomStatusCode = roomStatus;
+	public void setRoomStatusCode(int roomStatusCode) {
+		RoomStatusCode = roomStatusCode;
 	}
 }

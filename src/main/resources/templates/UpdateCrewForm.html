@@ -7,14 +7,16 @@
 						crossorigin="anonymous">
 </head>
 <body>
-	<form action="#" th:action="@{/admin/{voyageId}(voyageId=${voyageId})/crew/update/{employeeId}(employeeId=${crew.getEmployeeId()})}" th:object="${crew}" method="POST" >
+	<form action="#" th:action="@{/admin/{voyageId}/crew/update/{employeeId} (voyageId=${voyageId}, employeeId=${crew.getEmployeeId()})}" th:object="${crew}" method="POST" >
 		<label>Crew Role</label>
-		<select th:field="*{crewRole}" class="custom-select">
-			<option
-					th:each="crew_role: ${crew_roles}"
-					th:text="${crew_role}"
-					th:value="${crew_role}"></option>
-		</select>
+<!--		<select th:field="*{crewRole}" class="custom-select">-->
+<!--			<option-->
+<!--					th:each="crew_role: ${crew_roles}"-->
+<!--					th:text="${crew_role}"-->
+<!--					th:value="${crew_role}"></option>-->
+<!--		</select>-->
+		<input type="text" th:field="*{crewRole}" class="form-control form-control-sm">
+
 		<button type="submit" class="btn btn-primary">Submit</button>
 	</form>
 </body>

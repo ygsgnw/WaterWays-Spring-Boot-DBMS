@@ -11,29 +11,24 @@
 <body>
 	<div style="padding: 2%;">
 		<div class="card border-info">
-			<h3 class="card-header text-info"> Food Bookings </h3>
+			<h3 class="card-header text-info"> Room Bookings </h3>
 			<div class="card-body">
 				<table class="table table-striped table-bordered">
 					<thead class="table-dark">
 						<tr>
-
 							<th> Room ID</th>
-							<th> User ID </th>
-
-
+							<th> Transaction ID </th>
 						</tr>
 					</thead>
 					<tbody>
 						<tr th:each="roombooking: ${room_bookings}">
 							<td th:text="${roombooking.getRoomId()}"></td>
-							<td th:text="${roombooking.getUserId()}"></td>
+							<td th:text="${roombooking.getTransactionId()}"></td>
 						</tr>
 					</tbody>
 				</table>
 			</div>
 		</div>
 	</div>
-
 </body>
-
 </html>

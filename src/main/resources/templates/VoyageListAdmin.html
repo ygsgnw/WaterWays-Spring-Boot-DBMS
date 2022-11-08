@@ -41,10 +41,8 @@
     <td th:text="${voyage.getVoyageStatusDesc()}"></td>
 
     <td>
-      <a th:href="@{/admin/voyage/edit/{id}(id=${voyage.getVoyage().getVoyageId()})}"
-         class="btn btn-primary">Update</a>
-      <a th:href="@{/admin/voyage/delete/{id}(id=${voyage.getVoyage().getVoyageId()})}"
-         class="btn btn-danger">Delete</a>
+      <a th:href="@{/admin/voyage/{id} (id=${voyage.getVoyage().getVoyageId()})}"
+         class="btn btn-primary">Details</a>
     </td>
   </tr>
   </tbody>

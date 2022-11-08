@@ -11,31 +11,31 @@
 
 <div class="row">
   <div class="col-lg-3">
-    <a th:href="@{/admin/voyage/{voyageId}(voyageId=${voyageId})/crew}" class="btn btn-primary btn-sm mb-3">Crew List </a>
+    <a th:href="@{/admin/voyage/{voyageId}/crew (voyageId=${voyageId})}" class="btn btn-primary btn-sm mb-3">Crew List </a>
   </div>
 </div>
 
 <div class="row">
   <div class="col-lg-3">
-    <a th:href="@{/admin/voyage/{voyageId}(voyageId=${voyageId})/foodbookings}" class="btn btn-primary btn-sm mb-3">Food Booking </a>
+    <a th:href="@{/admin/voyage/{voyageId}/foodbookings (voyageId=${voyageId})}" class="btn btn-primary btn-sm mb-3">Food Booking </a>
   </div>
 </div>
 
 <div class="row">
   <div class="col-lg-3">
-    <a th:href="@{/admin/voyage/{voyageId}(voyageId=${voyageId})/roombookings}" class="btn btn-primary btn-sm mb-3">Room Booking </a>
+    <a th:href="@{/admin/voyage/{voyageId}/roombookings (voyageId=${voyageId})}" class="btn btn-primary btn-sm mb-3">Room Booking </a>
   </div>
 </div>
 
 <div class="row">
   <div class="col-lg-3">
-    <a th:href="@{/admin/voyage/{voyageId}(voyageId=${voyageId})/fooditems}" class="btn btn-primary btn-sm mb-3">Food Items </a>
+    <a th:href="@{/admin/voyage/{voyageId}/fooditems (voyageId=${voyageId})}" class="btn btn-primary btn-sm mb-3">Food Items </a>
   </div>
 </div>
 
 <div class="row" th:if="${isCompleted==false}">
   <div class="col-lg-3">
-    <a th:href="@{/admin/voyage//{voyageId}(voyageId=${voyageId})/Update}" class="btn btn-primary btn-sm mb-3">Update </a>
+    <a th:href="@{/admin/voyage/{voyageId}/update (voyageId=${voyageId})}" class="btn btn-primary btn-sm mb-3">Update </a>
   </div>
 </div>
 

@@ -1,6 +1,7 @@
 package com.masters.waterways.services;
 import com.masters.waterways.daos.*;
 import com.masters.waterways.models.RoomStatusProvider;
+import com.masters.waterways.models.ShipModel;
 import com.masters.waterways.models.Voyage;
 
 import java.util.List;
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 @Repository
 public class VoyageDaoImpl implements VoyageDao {
@@ -17,6 +19,7 @@ public class VoyageDaoImpl implements VoyageDao {
 	JdbcTemplate jdbctemplate;
 
 	@Override
+	@Transactional
 	public void insert (Voyage voyage) {
 		// TODO Auto-generated method stub
 		jdbctemplate.update(
@@ -24,19 +27,19 @@ public class VoyageDaoImpl implements VoyageDao {
 				voyage.getShipSerialId(), voyage.getFare(), voyage.getArrivalHarborId(), voyage.getArrivalTime(), voyage.getDepartureHarborId(), voyage.getDepartureTime(), voyage.getVoyageStatusCode()
 		);
 
-		Integer room_count = jdbctemplate.queryForObject(
-				"SELECT RoomCount FROM ShipModel WHERE ModelId = (SELECT ModelId FROM Ship WHERE ShipSerialId = ?)",
-				new BeanPropertyRowMapper<>(Integer.class), voyage.getShipSerialId()
-		);
-
-		if (room_count == null)
-			throw new RuntimeException("Voyage insertion trigger failed");
-
-		for (int i = 1; i <= room_count; i++)
-			jdbctemplate.update(
-					"INSERT INTO RoomBooking (TransactionId, RoomId, VoyageId, RoomStatusCode) VALUES (null, ?, ?, ?)",
-					i, voyage.getVoyageId(), RoomStatusProvider.getRoomStatusCode.get("AVAILABLE")
-			);
+//		ShipModel shipModel = jdbctemplate.queryForObject(
+//				"SELECT * FROM ShipModel WHERE ModelId = (SELECT ModelId FROM Ship WHERE ShipSerialId = ?)",
+//				new BeanPropertyRowMapper<>(ShipModel.class), voyage.getShipSerialId()
+//		);
+//
+//		if (shipModel == null)
+//			throw new RuntimeException("Voyage insertion trigger failed");
+//
+//		for (int i = 1; i <= shipModel.getRoomCount(); i++)
+//			jdbctemplate.update(
+//					"INSERT INTO RoomBooking (TransactionId, RoomId, VoyageId, RoomStatusCode) VALUES (null, ?, (SELECT LAST_INSERT_ID()), ?)",
+//					i, RoomStatusProvider.getRoomStatusCode.get("AVAILABLE")
+//			);
 	}
 
 	@Override
@@ -121,6 +124,9 @@ public class VoyageDaoImpl implements VoyageDao {
 
 	@Override
 	public boolean isVoyageCompletedByVoyageId(int voyageId) {
-		return false;
+		return jdbctemplate.query(
+				"SELECT * FROM Voyage WHERE VoyageId = ? AND DepartureTime > NOW()",
+				new BeanPropertyRowMapper<>(Voyage.class), voyageId
+		).isEmpty();
 	}
 }
