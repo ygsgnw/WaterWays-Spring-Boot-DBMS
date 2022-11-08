@@ -1,6 +1,7 @@
 package com.masters.waterways.controller;
 
 import com.masters.waterways.daos.VoyageDao;
+import com.masters.waterways.services.AuthenticationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,6 +18,10 @@ import java.util.List;
 
 @Controller
 public class AdminCrewController {
+
+	@Autowired
+	private AuthenticationService authenticationService;
+
 	@Autowired
 	private CrewDao crewDao;
 
@@ -25,6 +30,9 @@ public class AdminCrewController {
 
 	@GetMapping("/admin/voyage/{voyageId}/crew")
 	public String listCrew(@PathVariable int voyageId, Model model) {
+
+//		if (authenticationService.isAdmin(session))
+
 		System.out.println(voyageId);
 		boolean isCompleted = voyageDao.isVoyageCompletedByVoyageId(voyageId);
 		model.addAttribute("voyageId", voyageId);

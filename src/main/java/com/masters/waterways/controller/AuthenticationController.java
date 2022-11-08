@@ -18,16 +18,17 @@ public class AuthenticationController {
 
     @Autowired
     private AuthenticationService authenticationService;
+
     @Autowired
     private UsersDao usersDao;
 
     @GetMapping("/login")
     public String login(Model model, HttpSession session){
-        if(authenticationService.isAuthenticated(session)){
-            if(authenticationService.isAdmin(session)){
+        if (authenticationService.isAuthenticated(session)) {
+            if (authenticationService.isAdmin(session))
                 return "redirect:/admin";
-            }
-            return "redirect:/user";
+            else
+                return "redirect:/user";
         }
         model.addAttribute("credentials", new Users());
         model.addAttribute("isCorrect",true);
@@ -36,38 +37,25 @@ public class AuthenticationController {
     }
 
     @PostMapping("/login")
-    public String postLogin(@ModelAttribute Users credentials, Model model, HttpSession session, RedirectAttributes redirectAttributes){
-        if(authenticationService.isAuthenticated(session)){
+    public String postLogin(@ModelAttribute Users credentials, Model model, HttpSession session){
+        if (authenticationService.isAuthenticated(session)) {
             return "redirect:/";
         }
 
-        String userID = credentials.getEmailId();
+        String emailId = credentials.getEmailId();
         String password = credentials.getUserPassword();
 
-        boolean isCorrect = true, isUser = true;
-        try {
-            Users user = usersDao.getByEmailId(userID);
-            if(authenticationService.checkCredentials(user.getUserId(),password)){
-                authenticationService.loginUser(session,user.getUserId());
-
-                if(authenticationService.isAdmin(session)){
-                    return "redirect:/admin";
-                }
-
+        if (authenticationService.authenticateUser(usersDao.getByEmailId(emailId), password, session)) {
+            if (authenticationService.isAdmin(session))
+                return "redirect:/admin";
+            else
                 return "redirect:/user";
-
-            }
-            isCorrect = false;
-            System.out.println("Incorrect Password");
+        } else {
+            model.addAttribute("credentials", new Users());
+            model.addAttribute("isCorrect", false);
+            model.addAttribute("isUser", false);
+            return "Login";
         }
-        catch (Exception e){
-            isUser = false;
-            System.out.println("User Not exist");
-        }
-        model.addAttribute("credentials",new Users());
-        model.addAttribute("isCorrect",isCorrect);
-        model.addAttribute("isUser",isUser);
-        return "Login";
     }
 
     @GetMapping("/logout")
@@ -75,16 +63,7 @@ public class AuthenticationController {
         authenticationService.logoutUser(session);
         return "redirect:/";
     }
-//
-//    @GetMapping("/createEmployee")
-//    public String getEmployee(Model model, HttpSession session){
-//        if(authenticationService.isAdmin(session)){
-//            Employee employee = new Employee();
-//            model.addAttribute("employee", new Employee());
-//            return "createEmployee";
-//        }
-//        return "redirect:/login";
-//    }
+
 
 
 

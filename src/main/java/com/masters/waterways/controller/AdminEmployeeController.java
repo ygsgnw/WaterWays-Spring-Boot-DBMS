@@ -3,6 +3,7 @@ package com.masters.waterways.controller;
 import com.masters.waterways.daos.EmployeeDao;
 import com.masters.waterways.daos.UsersDao;
 import com.masters.waterways.models.*;
+import com.masters.waterways.services.AuthenticationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,6 +11,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+
+import javax.servlet.http.HttpSession;
 
 @Controller
 public class AdminEmployeeController {
@@ -19,8 +22,15 @@ public class AdminEmployeeController {
     @Autowired
     private EmployeeDao employeeDao;
 
+    @Autowired
+    AuthenticationService authenticationService;
+
     @GetMapping("/admin/employee")
-    public String listEmployee(Model model) {
+    public String listEmployee(Model model, HttpSession session) {
+
+        if (!authenticationService.isAdmin(session))
+            return "redirect:/login";
+
         model.addAttribute("employeestatuses", EmployeeStatusProvider.getEmployeeStatusDesc);
         model.addAttribute("employees", employeeDao.getAll());
 //        model.addAttribute("status", status)
@@ -28,7 +38,7 @@ public class AdminEmployeeController {
     }
 
     @GetMapping("/admin/employee/add")
-    public String createEmployeeForm(Model model) {
+    public String createEmployeeForm(Model model, HttpSession session) {
         model.addAttribute("employeestatuses", EmployeeStatusProvider.getEmployeeStatusCode);
         model.addAttribute("newemployee", new Employee());
         model.addAttribute("users", usersDao.getAllNonEmployees());

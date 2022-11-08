@@ -2,6 +2,7 @@ package com.masters.waterways.services;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -12,6 +13,7 @@ import com.masters.waterways.models.FoodItem;
 @Repository
 public class FoodItemDaoImpl implements FoodItemDao {
 
+	@Autowired
 	JdbcTemplate jdbctemplate;
 
 	@Override

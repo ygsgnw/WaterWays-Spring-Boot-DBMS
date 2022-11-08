@@ -2,17 +2,15 @@ package com.masters.waterways.services;
 
 import com.masters.waterways.daos.EmployeeDao;
 import com.masters.waterways.daos.UsersDao;
-import com.masters.waterways.models.Employee;
 import com.masters.waterways.models.Users;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpSession;
 
-@Service()
+@Service
 public class AuthenticationService {
 
     @Autowired
@@ -24,58 +22,58 @@ public class AuthenticationService {
     @Autowired
     private EmployeeDao employeeDao;
 
-    private String SESSION_AUTH_KEY = "AUTH_USER";
-    private String SESSION_USER_NAME = "AUTH_USERNAME";
+    private final String SESSION_AUTH_KEY = "AUTH_USER";
+    private final String SESSION_USER_NAME = "AUTH_USERNAME";
+    private final String SESSION_ADMIN = "AUTH_ADMIN";
 
-//    private String SESSION_ADMIN = "AUTH_ADMIN";
+    public boolean authenticateUser (Users user, String password, HttpSession session) {
+        if (user != null && user.getUserPassword().equals(password)) {
 
-    public boolean checkCredentials(int userID, String password){
-        Users user = usersDao.getById(userID);
-        return user.getUserPassword().equals(password);
-    }
+            int isAdmin = employeeDao.isEmployee(user.getUserId()) ? 1: 0;
 
-    public void loginUser(HttpSession session, int userID){
+            System.out.println("Checked employees:");
+            System.out.println(isAdmin);
 
-//        Boolean isadmin = isAdmin(session);
-//        session.setAttribute(SESSION_ADMIN,isadmin);
-        session.setAttribute(SESSION_AUTH_KEY,userID);
-        session.setAttribute(SESSION_USER_NAME,usersDao.getById(userID).getUserName());
+            session.setAttribute(SESSION_AUTH_KEY, user.getUserId());
+            session.setAttribute(SESSION_USER_NAME, usersDao.getById(user.getUserId()).getUserName());
+            session.setAttribute(SESSION_ADMIN, isAdmin);
+
+            return true;
+        } else
+            return false;
     }
 
     public void logoutUser(HttpSession session){
-//        session.removeAttribute(SESSION_ADMIN);
         session.removeAttribute(SESSION_AUTH_KEY);
         session.removeAttribute(SESSION_USER_NAME);
+        session.removeAttribute(SESSION_ADMIN);
+    }
+
+    public boolean isAuthenticated(HttpSession session){
+        return getCurrentUser(session) != null;
     }
 
     public Integer getCurrentUser(HttpSession session){
         try {
             return Integer.parseInt(session.getAttribute(SESSION_AUTH_KEY).toString());
         } catch (Exception e){
-            System.out.println("Exception in Authentication service yayyy :-)");
             return null;
         }
     }
 
-    public Boolean isAuthenticated(HttpSession session){
-        return getCurrentUser(session) != null;
+    public Boolean isAdmin(HttpSession session) {
+        return Integer.parseInt(session.getAttribute(SESSION_ADMIN).toString()) == 1;
     }
 
-    public Boolean isAdmin(HttpSession session){
-
-        int id = Integer.parseInt(session.getAttribute(SESSION_AUTH_KEY).toString());
-        return employeeDao.isEmployee(id);
-//        try{
-//            emp
-//            Employee user = employeeService.getEmployeeByID(Integer.parseInt(session.getAttribute(SESSION_AUTH_KEY).toString()));
-//            return user.getRole()==1;
-//        }
-//        catch (Exception e){
-//            System.out.println("Exception in isAdmin");
-//            return false;
-//        }
-    }
-
-
+//    public boolean checkCredentials(int userID, String password){
+//        Users user = usersDao.getById(userID);
+//        return user.getUserPassword().equals(password);
+//    }
+//
+//    public void loginUser(HttpSession session, int userID){
+//
+//        int isAdmin = isAdmin(session)? 1: 0;
+//
+//    }
 
 }
