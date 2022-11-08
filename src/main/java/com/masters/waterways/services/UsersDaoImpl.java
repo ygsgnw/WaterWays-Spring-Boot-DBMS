@@ -28,7 +28,7 @@ public class UsersDaoImpl implements UsersDao {
 	public int update (Users user) {
 		return jdbctemplate.update(
 				"UPDATE Users SET UserName = ?, EmailId = ?, UserPassword = ? WHERE UserId = ?",
-				user.getUserId(), user.getUserName(), user.getEmailId(), user.getUserPassword(), user.getUserId()
+				user.getUserName(), user.getEmailId(), user.getUserPassword(), user.getUserId()
 		);
 	}
 

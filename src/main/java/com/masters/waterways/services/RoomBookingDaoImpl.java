@@ -22,7 +22,7 @@ public class RoomBookingDaoImpl implements RoomBookingDao {
 
 	@Autowired
 	TransactionDao transactionDao;
-
+	@Autowired
 	VoyageDao voyageDao;
 	
 //	@Override

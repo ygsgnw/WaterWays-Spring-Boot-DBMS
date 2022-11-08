@@ -29,7 +29,7 @@
 							<th> Model ID</th>
 							<th> Room count</th>
 							<th> Model name</th>
-							<th> Actions</th>
+<!--							<th> Actions</th>-->
 
 						</tr>
 					</thead>
@@ -38,10 +38,10 @@
 							<td th:text="${shipmodel.getModelId()}"></td>
 							<td th:text="${shipmodel.getRoomCount()}"></td>
 							<td th:text="${shipmodel.getModelName()}"></td>
-							<td>
-								<a th:href="@{/admin/shipmodel/{id}/update (id=${shipmodel.getModelId()})}"
-									class="btn btn-primary">Update</a>
-							</td>
+<!--							<td>-->
+<!--								<a th:href="@{/admin/shipmodel/{id}/update (id=${shipmodel.getModelId()})}"-->
+<!--									class="btn btn-primary">Update</a>-->
+<!--							</td>-->
 						</tr>
 					</tbody>
 				</table>
