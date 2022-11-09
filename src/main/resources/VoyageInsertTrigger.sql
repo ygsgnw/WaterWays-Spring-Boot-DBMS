@@ -12,6 +12,18 @@ BEGIN
         signal sqlstate '45000' set message_text = 'Voyage cannot arrive before it departs';
     end if;
 
+    if exists(
+        select * from Harbor where HarborId = NEW.ArrivalHarborId OR HarborId = NEW.DepartureHarborId AND HarborStatusCode != 1
+    ) then
+        signal sqlstate '45000' set message_text = 'Connecting harbors are not operational';
+    end if;
+
+    if exists (
+        select * from Ship WHERE Ship.ShipSerialId = NEW.ShipSerialId AND ShipStatusCode != 1
+    ) then
+        signal sqlstate '45000' set message_text = 'Carrier is not operational';
+    end if ;
+
     set @count = (
         select ShipModel.RoomCount from ShipModel, (select ModelId from Ship where Ship.ShipSerialId = NEW.ShipSerialId) as A
         where A.ModelId = ShipModel.ModelId
