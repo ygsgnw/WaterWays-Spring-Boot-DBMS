@@ -14,99 +14,98 @@
 <div th:replace="NavbarAdmin :: navAdmin"></div>
 
 
-<div class=" col-md-9 col-lg-9 ">
-  <table class="table table-user-information">
-    <tbody>
-    <tr>
-      <td>Voyage Id :</td>
-      <td th:text="${voyage.getVoyageId()}"></td>
-    </tr>
-    <tr>
-      <td>Fare :</td>
-      <td th:text="${voyage.getFare()}"></td>
-    </tr>
-    <tr>
-      <td>Ship Serial Id :</td>
-      <td th:text="${voyage.getShipSerialId()}"></td>
-    </tr>
-    <tr>
-      <td>Ship Model Name :</td>
-      <td th:text="${voyage.getModelName()}"></td>
-    </tr>
-    <tr>
-      <td>Departure Harbor :</td>
-      <td th:text="${voyage.getDepartureHarborName()}"></td>
-    </tr>
-    <tr>
-      <td>Arrival Harbor :</td>
-      <td th:text="${voyage.getArrivalHarborName()}"></td>
-    </tr>
-    <tr>
-      <td>Departure Time :</td>
-      <td th:text="${voyage.getDepartureTime()}"></td>
-    </tr>
-    <tr>
-      <td>Arrival Time :</td>
-      <td th:text="${voyage.getArrivalTime()}"></td>
-    </tr>
+<div style="padding: 2%;">
+  <div class="card border-info" style="width:60rem;">
+    <h3 class="card-header text-info"> Voyage Details </h3>
+    <div class="card-body">
+      <div class="card-text">
+        <table class="table table-user-information">
+          <tbody>
+          <tr>
+            <td>Voyage Id :</td>
+            <td th:text="${voyage.getVoyageId()}"></td>
+          </tr>
+          <tr>
+            <td>Fare :</td>
+            <td th:text="${voyage.getFare()}"></td>
+          </tr>
+          <tr>
+            <td>Ship Serial Id :</td>
+            <td th:text="${voyage.getShipSerialId()}"></td>
+          </tr>
+          <tr>
+            <td>Ship Model Name :</td>
+            <td th:text="${voyage.getModelName()}"></td>
+          </tr>
+          <tr>
+            <td>Departure Harbor :</td>
+            <td th:text="${voyage.getDepartureHarborName()}"></td>
+          </tr>
+          <tr>
+            <td>Arrival Harbor :</td>
+            <td th:text="${voyage.getArrivalHarborName()}"></td>
+          </tr>
+          <tr>
+            <td>Departure Time :</td>
+            <td th:text="${voyage.getDepartureTime()}"></td>
+          </tr>
+          <tr>
+            <td>Arrival Time :</td>
+            <td th:text="${voyage.getArrivalTime()}"></td>
+          </tr>
 
-    <tr>
-      <td>Voyage Status:</td>
-      <td th:text="${voyageStatuses.get(voyage.getVoyageStatusCode())}"></td>
-    </tr>
+          <tr>
+            <td>Voyage Status:</td>
+            <td th:text="${voyageStatuses.get(voyage.getVoyageStatusCode())}"></td>
+          </tr>
 
-    </tbody>
-  </table>
-
-</div>
-
-<div class="row" th:if="${isCompleted==false}">
-
-      <a th:if="${voyageStatuses.get(voyage.getVoyageStatusCode())=='OPERATIONAL'}" th:href="@{/admin/voyage/{id}/updatestatus (id=${voyage.getVoyageId()})}"
-        class="btn btn-primary">Suspend</a>
-
-      <a th:if="${voyageStatuses.get(voyage.getVoyageStatusCode())=='SUSPENDED'}" th:href="@{/admin/voyage/{id}/updatestatus (id=${voyage.getVoyageId()})}"
-        class="btn btn-primary">Activate</a>
+          </tbody>
+        </table>
 
 
-    <div>
-      <form action="#" th:action="@{/admin/voyage/{voyageId}/updatefare (voyageId=${voyageId})}" th:object="${voyageForFare}" method="POST">
+        <div th:if="${isCompleted==false}">
 
-          <label> Update Fare</label>
-          <input type="number" th:field="*{fare}" class="form-control form-control-sm">
+          <a th:if="${voyageStatuses.get(voyage.getVoyageStatusCode())=='OPERATIONAL'}"
+             th:href="@{/admin/voyage/{id}/updatestatus (id=${voyage.getVoyageId()})}"
+             class="btn btn-danger">Suspend</a>
 
-          <button type="submit" class="btn btn-primary btn-block">Submit</button>
+          <a th:if="${voyageStatuses.get(voyage.getVoyageStatusCode())=='SUSPENDED'}"
+             th:href="@{/admin/voyage/{id}/updatestatus (id=${voyage.getVoyageId()})}"
+             class="btn btn-success">Activate</a>
 
-      </form>
+          <div style="width: 10rem;">
+            <form th:action="@{/admin/voyage/{voyageId}/updatefare (voyageId=${voyageId})}"
+                  th:object="${voyageForFare}" method="POST">
+
+              <div class="form-group">
+                <label> Update Fare</label>
+                <input type="number" th:field="*{fare}" class="form-control form-control-sm">
+              </div>
+              <button type="submit" class="btn btn-primary ">Submit</button>
+
+            </form>
+          </div>
+        </div>
+      </div>
+
     </div>
-
-</div>
-
-
-<div class="row">
-  <div class="col-lg-3">
-    <a th:href="@{/admin/voyage/{voyageId}/crew (voyageId=${voyageId})}" class="btn btn-primary btn-sm mb-3">Crew List </a>
   </div>
-</div>
 
-<div class="row">
-  <div class="col-lg-3">
-    <a th:href="@{/admin/voyage/{voyageId}/foodbookings (voyageId=${voyageId})}" class="btn btn-primary btn-sm mb-3">Food Booking </a>
+  <hr>
+
+  <div class="card border-info" style="width: 31.6rem;">
+    <div class="card-body">
+      <a th:href="@{/admin/voyage/{voyageId}/crew (voyageId=${voyageId})}" class="btn btn-primary">Crew List </a>
+      <a th:href="@{/admin/voyage/{voyageId}/foodbookings (voyageId=${voyageId})}" class="btn btn-primary">Food Booking </a>
+      <a th:href="@{/admin/voyage/{voyageId}/roombookings (voyageId=${voyageId})}" class="btn btn-primary">Room Booking </a>
+      <a th:href="@{/admin/voyage/{voyageId}/fooditems (voyageId=${voyageId})}" class="btn btn-primary">Food Items </a>
+
+    </div>
   </div>
-</div>
 
-<div class="row">
-  <div class="col-lg-3">
-    <a th:href="@{/admin/voyage/{voyageId}/roombookings (voyageId=${voyageId})}" class="btn btn-primary btn-sm mb-3">Room Booking </a>
-  </div>
-</div>
 
-<div class="row">
-  <div class="col-lg-3">
-    <a th:href="@{/admin/voyage/{voyageId}/fooditems (voyageId=${voyageId})}" class="btn btn-primary btn-sm mb-3">Food Items </a>
-  </div>
-</div>
 
+</div>
 
 </body>
 </html>
