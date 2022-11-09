@@ -2,6 +2,7 @@ package com.masters.waterways.services;
 
 import java.util.List;
 
+import org.apache.catalina.Executor;
 import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -59,6 +60,13 @@ public class UsersDaoImpl implements UsersDao {
 
 	@Override
 	public Users getByEmailId(String emailId) {
-		return jdbctemplate.queryForObject("SELECT * FROM Users WHERE EmailId=?;",new BeanPropertyRowMapper<Users>(Users.class),emailId);
+		try {
+			return jdbctemplate.queryForObject(
+					"SELECT * FROM Users WHERE EmailId = ?;",
+					new BeanPropertyRowMapper<Users>(Users.class), emailId
+			);
+		} catch (Exception e) {
+			return null;
+		}
 	}
 }

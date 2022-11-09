@@ -20,7 +20,6 @@
 <div th:replace="NavbarUser :: navUser"> </div>
 
 
-
     <div style="padding: 2%;">
         <div class="card border-info">
             <h3 class="card-header text-info"> Food Items </h3>
@@ -53,7 +52,7 @@
                     <form th:action="@{/user/voyage/{voyageId}/room/{roomId}/bookfood (voyageId = ${voyageId}, roomId=${roomId})}" th:object="${foodBooking}" method="post">
                         <div class="form-group">
                             <label>Food Name </label>
-                            <select th:field="*{foodItemId}" class="custom-select">
+                            <select th:field="*{foodItemId}" class="custom-select" required>
                                 <option th:each="FoodItem: ${foodItemList}"
                                         th:text="${FoodItem.getFoodName()}"
                                         th:value="${FoodItem.getFoodItemId()}">
