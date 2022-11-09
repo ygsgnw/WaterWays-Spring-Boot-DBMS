@@ -32,7 +32,15 @@ public class TransactionDaoImpl implements TransactionDao {
 		);
 	}
 
-	@Override
+    @Override
+    public List<Transaction> getAllByUserId(int userId) {
+		return jdbctemplate.query(
+				"SELECT * FROM Transaction WHERE UserId = ? ORDER BY TransactionDate desc",
+				new BeanPropertyRowMapper<>(Transaction.class), userId
+		);
+    }
+
+    @Override
 	public Transaction getById (int id) {
 		// TODO Auto-generated method stub
 		return jdbctemplate.queryForObject(
