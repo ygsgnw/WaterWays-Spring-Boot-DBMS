@@ -80,7 +80,7 @@
 
                             <div th:if="${isCompleted!=true}">
 
-                                            <a class="btn btn-primary" th:href="@{/user/booking/{id} (id=${voyage.getVoyageId()})}">Book Room</a>
+                                            <a th:if="${voyage.getVoyageStatusCode() == 1}" class="btn btn-primary" th:href="@{/user/booking/{id} (id=${voyage.getVoyageId()})}">Book Room</a>
 
                             </div>
 
