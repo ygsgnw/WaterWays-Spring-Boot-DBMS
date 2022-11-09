@@ -1,46 +1,71 @@
-<!DOCTYPE html>
-<html xmlns: th="http://www.thymeleaf.org">
+<!--<!doctype html>-->
+<!--<html lang="en" xmlns: th="http://www.thymeleaf.org">-->
 
-<head>
-  <title>Food Item Form</title>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
-        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-</head>
+<!--<head>-->
+<!--  &lt;!&ndash; Required meta tags &ndash;&gt;-->
+<!--  <meta charset="utf-8">-->
+<!--  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">-->
+
+<!--  &lt;!&ndash; Bootstrap CSS &ndash;&gt;-->
+<!--  &lt;!&ndash; <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"-->
+<!--      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"> &ndash;&gt;-->
+<!--  <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">-->
+<!--  <link rel="map" th:href="@{/css/bootstrap.min.css.map}">-->
+
+<!--  <title>Food Items</title>-->
+<!--</head>-->
 
 <body>
 
-<div th:replace="NavbarAdmin :: navAdmin"></div>
+<div th:replace="NavbarAdmin :: navAdmin"> </div>
 
 
 
 <div style="padding: 2%;">
-  <!--form  -->
+  <div class="card border-info">
+    <h3 class="card-header text-info"> Food Items </h3>
+    <div class="card-body">
+      <table class="table table-striped table-bordered">
+        <thead class="table-dark">
+        <tr>
+          <th> Name</th>
+          <th> Cost</th>
+          <th> Description</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="foodItem: ${foodItemList}">
+          <td th:text="${foodItem.getFoodName()}"></td>
+          <td th:text="${foodItem.getFoodCost()}"></td>
+          <td th:text="${foodItem.getFoodDescription()}"></td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <hr>
   <div class="card border-info" style="width:40rem;">
     <div class="card login-form">
-      <h3 class="card-header text-center text-info"> Add Food Item </h3>
+      <h3 class="card-header text-center text-info"> Book Food </h3>
       <div class="card-body">
         <div class="card-text">
-          <form action="#" th:action="@{/admin/voyage/{voyageId}/fooditems/add (voyageId=${voyageId})}"
-                th:object="${new_crew}" method="POST">
+          <form th:action="@{/user/voyage/{voyageId}/room/{roomId}/bookfood (voyageId = ${voyageId}, roomId=${roomId})}" th:object="${foodBooking}" method="post">
             <div class="form-group">
-              <label> EmployeeId</label>
-              <select th:field="*{employeeId}" class="custom-select">
-                <option th:each="not_crew_employee: ${not_crew_employees}"
-                        th:text="${not_crew_employees}" th:value="${not_crew_employees}"></option>
+              <label>Food Name </label>
+              <select th:field="*{foodItemId}" class="custom-select" required>
+                <option th:each="FoodItem: ${foodItemList}"
+                        th:text="${FoodItem.getFoodName()}"
+                        th:value="${FoodItem.getFoodItemId()}">
+
+                </option>
               </select>
-
-
-              <label>Crew Role</label>
-              <!--		<select th:field="*{crewRole}" class="custom-select">-->
-              <!--			<option-->
-              <!--					th:each="crew_role: ${crew_roles}"-->
-              <!--					th:text="${crew_role}"-->
-              <!--					th:value="${crew_role}"></option>-->
-              <!--		</select>-->
-              <input type="text" th:field="*{crewRole}" class="form-control form-control-sm">
             </div>
-            <button type="submit" class="btn btn-primary btn-block">Submit</button>
-
+            <div class="form-group">
+              <label> Food Count </label>
+              <input type="number" th:field="*{foodItemCount}" class="form-control form-control-sm">
+            </div>
+            <button type="submit" class="btn btn-primary btn-block"> Submit </button>
           </form>
         </div>
       </div>
@@ -48,6 +73,7 @@
   </div>
 </div>
 
+
 </body>
 
-</html>
+<!--</html>-->

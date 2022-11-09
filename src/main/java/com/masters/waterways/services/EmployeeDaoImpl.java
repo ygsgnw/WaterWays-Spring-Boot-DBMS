@@ -99,7 +99,6 @@ public class EmployeeDaoImpl implements EmployeeDao {
 			return employee!=null;
 		}
 		catch (Exception e){
-			System.out.println("Exception in line 109 of employee dao");
 			return false;
 		}
 

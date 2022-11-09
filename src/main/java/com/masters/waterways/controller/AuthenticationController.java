@@ -54,6 +54,7 @@ public class AuthenticationController {
             else
                 return "redirect:/user";
         } else {
+            model.addAttribute("isCorrect", false);
             model.addAttribute("credentials", new Users());
             model.addAttribute("isCorrect", false);
             model.addAttribute("isUser", false);

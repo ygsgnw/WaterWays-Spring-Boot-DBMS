@@ -27,6 +27,7 @@ public class AuthenticationService {
     private final String SESSION_ADMIN = "AUTH_ADMIN";
 
     public boolean authenticateUser (Users user, String password, HttpSession session) {
+
         if (user != null && user.getUserPassword().equals(password)) {
 
             int isAdmin = employeeDao.isEmployee(user.getUserId()) ? 1: 0;

@@ -65,11 +65,11 @@
                       <button  type="submit" class="btn btn-primary btn-block" > Login </button>  
                         <!-- <a class="btn" href="profile.html">Login</a> -->
                       <div th:if="${!isCorrect}" class="sign-up">
-                          Incorrect Password
+                          Incorrect credentials
                       </div>
-                      <div th:if="${!isUser}" class="sign-up">
-                      User Not Exists
-                  </div>
+<!--                      <div th:if="${!isUser}" class="sign-up">-->
+<!--                      User Not Exists-->
+<!--                  </div>-->
                       <div class="sign-up">
                           Don't have an account? <a th:href="@{/signup}"> Sign Up </a>
                       </div>  
