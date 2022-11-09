@@ -52,7 +52,7 @@ public class HarborDaoImpl implements HarborDao {
 				"UPDATE Voyage SET VoyageStatusCode = ? WHERE DepartureTime > NOW() AND (ArrivalHarborId = ? OR DepartureHarborId = ?)",
 				VoyageStatusProvider.getVoyageStatusCode.get("SUSPENDED"), id, id
 		);
-		
+
 		return jdbctemplate.update(
 				"UPDATE Harbor SET HarborStatusCode = ? WHERE HarborId = ?",
 				HarborStatusProvider.getHarborStatusCode.get("SUSPENDED"), id
