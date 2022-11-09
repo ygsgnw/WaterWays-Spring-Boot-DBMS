@@ -1,11 +1,11 @@
 package com.masters.waterways.services;
 import com.masters.waterways.daos.*;
-import com.masters.waterways.models.Voyage;
+import com.masters.waterways.models.*;
 
 import java.util.List;
 
-import com.masters.waterways.models.VoyageStatusProvider;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -120,10 +120,25 @@ public class VoyageDaoImpl implements VoyageDao {
 
 	@Override
 	public int setOperational(int voyageId) {
-		return jdbctemplate.update(
-				"UPDATE Voyage SET VoyageStatusCode = ? WHERE VoyageId = ?",
-				VoyageStatusProvider.getVoyageStatusCode.get("OPERATIONAL"), voyageId
-		);
+
+		Voyage voyage = getById(voyageId);
+
+		if (jdbctemplate.query(
+				"SELECT * FROM Ship WHERE ShipSerialId = ? AND ShipStatusCode = ?",
+				new BeanPropertyRowMapper<>(Ship.class), voyage.getShipSerialId(), ShipStatusProvider.getShipStatusCode.get("SUSPENDED")
+		).isEmpty()
+			&&
+			jdbctemplate.query(
+					"SELECT * FROM Harbor WHERE (HarborId = ? OR HarborId = ?) AND HarborStatusCode = ?",
+					new BeanPropertyRowMapper<>(Harbor.class), voyage.getDepartureHarborId(), voyage.getArrivalHarborId(), HarborStatusProvider.getHarborStatusCode.get("SUSPENDED")
+			).isEmpty()
+		)
+			return jdbctemplate.update(
+					"UPDATE Voyage SET VoyageStatusCode = ? WHERE VoyageId = ?",
+					VoyageStatusProvider.getVoyageStatusCode.get("OPERATIONAL"), voyageId
+			);
+		else
+			return 0;
 	}
 
 	@Override
