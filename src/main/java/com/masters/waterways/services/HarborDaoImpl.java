@@ -49,13 +49,13 @@ public class HarborDaoImpl implements HarborDao {
 	@Transactional
 	public int setSuspended(int id) {
 		jdbctemplate.update(
+				"UPDATE Voyage SET VoyageStatusCode = ? WHERE DepartureTime > NOW() AND (ArrivalHarborId = ? OR DepartureHarborId = ?)",
+				VoyageStatusProvider.getVoyageStatusCode.get("SUSPENDED"), id, id
+		);
+		
+		return jdbctemplate.update(
 				"UPDATE Harbor SET HarborStatusCode = ? WHERE HarborId = ?",
 				HarborStatusProvider.getHarborStatusCode.get("SUSPENDED"), id
-		);
-
-		return jdbctemplate.update(
-				"UPDATE Voyage SET VoyageStatusCode = ? WHERE DepartureTime > NOW() AND ArrivalHarborId = ? OR DepartureHarborId = ?",
-				VoyageStatusProvider.getVoyageStatusCode.get("SUSPENDED"), id, id
 		);
 	}
 
