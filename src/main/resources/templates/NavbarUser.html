@@ -46,6 +46,15 @@
           <a th:unless="${session.AUTH_USER}" class="nav-link" th:href="@{/signup}"><span class="fas fa-user"></span> Sign Up</a>
         </li>
 
+
+        <li class="nav-item">
+          <a th:if="${session.AUTH_USER}" class="nav-link" th:href="@{/user/mybookings}"><span class="fas fa-sign-in-alt"></span> My Bookings</a>
+        </li>
+
+        <li class="nav-item">
+          <a th:if="${session.AUTH_USER}" class="nav-link" th:href="@{/user/transactions}"><span class="fas fa-sign-in-alt"></span> My Transactions</a>
+        </li>
+
         <li class="nav-item">
           <a th:if="${session.AUTH_USER}" class="nav-link" th:href="@{/logout}"><span class="fas fa-sign-in-alt"></span> Logout</a>
           <a th:unless="${session.AUTH_USER}" class="nav-link" th:href="@{/login}"><span class="fas fa-sign-in-alt"></span> Login</a>

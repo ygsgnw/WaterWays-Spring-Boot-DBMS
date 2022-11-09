@@ -42,6 +42,9 @@ public class UserController {
 
     @Autowired
     AuthenticationService authenticationService;
+
+    @Autowired
+    TransactionDao transactionDao;
     
     @GetMapping("/user")
     public String userhome(Model model, HttpSession session){
@@ -145,5 +148,16 @@ public class UserController {
         foodBookingDao.bookFood(authenticationService.getCurrentUser(session), foodBooking);
         return "redirect:/voyages/{voyageId}";
     }
-    
+
+    @GetMapping("/user/transactions")
+    public String myTransactions(Model model, HttpSession session){
+
+        if (!authenticationService.isAuthenticated(session)) {
+            return"redirect:/login";
+        }
+//        int userId=session_key;
+
+        model.addAttribute("transactions", transactionDao.getAllByUserId(authenticationService.getCurrentUser(session)));
+        return "UserTransactionList"; // will direct to VoyageDetailsUser
+    }
 }

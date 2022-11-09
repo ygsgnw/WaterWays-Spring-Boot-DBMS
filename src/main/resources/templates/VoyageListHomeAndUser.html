@@ -20,21 +20,19 @@
 
 
 
-<div style="padding: 10px;">
+<div style="padding: 2%;">
     <!--form  -->
-    <div class="card" style="width:40rem;">
+    <div class="card border-info" style="width:40rem;">
         <div class="card login-form">
+            <h3 class="card-header text-center text-info"> Voyages </h3>
             <div class="card-body">
-                <h3 class="card-title text-left"> Voyages </h3>
                 <div class="card-text">
                     <form th:action="@{/voyages}" method="get">
                         <div class="form-group">
                             <label>Departing From </label>
                             <select th:name="fromid" class="custom-select">
                                 <option value="-1">All</option>
-                                <option
-                                        th:each="harbor: ${harbors}"
-                                        th:text="${harbor.getLocation()}"
+                                <option th:each="harbor: ${harbors}" th:text="${harbor.getLocation()}"
                                         th:value="${harbor.getHarborId()}"></option>
                             </select>
 
@@ -43,9 +41,7 @@
                             <label>Arriving At </label>
                             <select th:name="toid" class="custom-select">
                                 <option value="-1">All</option>
-                                <option
-                                        th:each="harbor: ${harbors}"
-                                        th:text="${harbor.getLocation()}"
+                                <option th:each="harbor: ${harbors}" th:text="${harbor.getLocation()}"
                                         th:value="${harbor.getHarborId()}"></option>
                             </select>
                         </div>
@@ -57,48 +53,51 @@
                             <label> Arrival Time </label>
                             <input type="datetime-local" th:name="todate" class="form-control form-control-sm">
                         </div>
-                        <button  type="submit" class="btn btn-primary btn-block" > Search </button>
+                        <button type="submit" class="btn btn-primary btn-block"> Search </button>
                     </form>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
-<div style="padding: 10px;">
+    <hr>
+
     <!-- list -->
-    <table class="table table-striped table-bordered">
-        <thead class="table-dark">
-        <tr>
+    <div class="card border-info">
+        <div class="card-body">
+            <table class="table table-striped table-bordered">
+                <thead class="table-dark">
+                <tr>
 
-            <th> Departure Harbor</th>
-            <th> Arrival Harbor</th>
-            <th> Departure Time</th>
-            <th> Arrival Time</th>
-            <th> Fare</th>
-            <th> Action</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="upcoming_voyage: ${upcoming_voyages}">
+                    <th> Departure Harbor</th>
+                    <th> Arrival Harbor</th>
+                    <th> Departure Time</th>
+                    <th> Arrival Time</th>
+                    <th> Fare</th>
+                    <th> Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="upcoming_voyage: ${upcoming_voyages}">
 
-            <td th:text="${upcoming_voyage.getDepartureHarborName()}"></td>
-            <td th:text="${upcoming_voyage.getArrivalHarborName()}"></td>
-            <td th:text="${(upcoming_voyage.getDepartureTime())}"></td>
-            <td th:text="${upcoming_voyage.getArrivalTime()}"></td>
-            <td th:text="${upcoming_voyage.getFare()}"></td>
+                    <td th:text="${upcoming_voyage.getDepartureHarborName()}"></td>
+                    <td th:text="${upcoming_voyage.getArrivalHarborName()}"></td>
+                    <td th:text="${(upcoming_voyage.getDepartureTime())}"></td>
+                    <td th:text="${upcoming_voyage.getArrivalTime()}"></td>
+                    <td th:text="${upcoming_voyage.getFare()}"></td>
 
-            <td>
-                <a th:href="@{/voyages/{id} (id=${upcoming_voyage.getVoyageId()})}" class="btn btn-primary">View</a>
-            </td>
-        </tr>
-        </tbody>
+                    <td>
+                        <a th:href="@{/voyages/{id} (id=${upcoming_voyage.getVoyageId()})}" class="btn btn-primary">View</a>
+                    </td>
+                </tr>
+                </tbody>
 
-    </table>
+            </table>
 
 
+        </div>
+    </div>
 </div>
-
 
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
