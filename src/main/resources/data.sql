@@ -70,7 +70,7 @@ insert into Employee (UserId, JoinDate, EmployeeStatusCode) values
 
 
 
-insert into Harbor (Location, ConstructionDate, ManagerId, HarborStatusCode) values
+insert into Harbor (Location, ConstructionDate, HarborStatusCode, ManagerId) values
 ('Chennai', '2002-01-01 00:00:0', 1, 1),
 ('Mumbai', '2002-01-01 00:00:0', 1, 2),
 ('Dubai', '2002-01-01 00:00:0', 1, 3),
@@ -102,7 +102,6 @@ insert into Crew (EmployeeId, VoyageId, CrewRole) values
 (4, 3, 'Chef'),
 (5, 2, 'Medic'),
 (5, 5, 'Engineer'),
-(5, 7, 'Captain'),
 (6, 6, 'Manager'),
 (6, 7, 'Captain'),
 (7, 3, 'Engineer'),
