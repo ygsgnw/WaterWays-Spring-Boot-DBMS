@@ -16,94 +16,122 @@
 
 use waterways;
 
-insert into ShipModel values(1001,200,"model1");
-insert into ShipModel values(1002,220,"model2");
-insert into ShipModel values(1003,250,"model3");
-insert into ShipModel values(1004,300,"model4");
-insert into ShipModel values(1005,330,"model5");
+insert into ShipModel (RoomCount, ModelName) values
+(200, 'Cruiser 1'),
+(50, 'Ferry 1'),
+(2, 'House Boat'),
+(150, 'Cruiser 2'),
+(170, 'Cruiser 3'),
+(70, 'Ferry 2'),
+(90, 'Ferry 3');
 
 
-# insert into SHIP_STATUS values(1,"OPERATIONAL");
-# insert into SHIP_STATUS values(2,"SUSPENDED");
-# insert into SHIP_STATUS values(3,"MAINTAINENCE");
+
+insert into Ship (ModelId, ShipStatusCode, MfDate) values
+(1, 1, '2000-01-01 00:00:00'),
+(2, 1, '2001-01-01 00:00:00'),
+(3, 1, '2002-01-01 00:00:00'),
+(4, 1, '2003-01-01 00:00:00'),
+(5, 1, '2004-01-01 00:00:00'),
+(6, 1, '2005-01-01 00:00:00'),
+(7, 1, '2006-01-01 00:00:00'),
+(1, 1, '2007-01-01 00:00:00');
 
 
-insert into Ship values(3001,1001,1,"2000-01-01 00:00:00");
-insert into Ship values(3002,1003,2,"2012-11-12 00:00:00");
-insert into Ship values(3003,1001,3,"1998-03-23 00:00:00");
-insert into Ship values(3004,1004,1,"1990-08-26 00:00:00");
-insert into Ship values(3005,1003,3,"2011-10-12 00:00:00");
+
+insert into Users (UserName, EmailId, UserPassword) values
+('Priyanshu', 'priyanshu@gmail.com', '1234'),
+('Kushagra', 'kushagra@gmail.com', '1234'),
+('Yogesh', 'yogesh@gmail.com', '1234'),
+('Harsh', 'harsh@gmail.com', '1234'),
+('Gaurav', 'gaurav@gmail.com', '1234'),
+('Rahul', 'rahul@gmail.com', '1234'),
+('Vansh', 'vansh@gmail.com', '1234'),
+('Shivam', 'shivam@gmail.com', '1234'),
+('Deepanshu', 'deepanshu@gmail.com', '1234'),
+('Chirag', 'chirag@gmail.com', '1234'),
+('Devashish', 'devashish@gmail.com', '1234'),
+('Milan', 'milan@gmail.com', '1234'),
+('Anas', 'anas@gmail.com', '1234'),
+('Nitin', 'nitin@gmail.com', '1234');
 
 
-insert into Users values(4001,"Priyanshu","priyanshu@gmail.com","p1234");
-insert into Users values(4002,"Harsh","harsh@gmail.com","p6969");
-insert into Users values(4003,"Yogesh","yogesh@gmail.com","p2345");
-insert into Users values(4004,"Gaurav","gaurav@gmail.com","p3456");
-insert into Users values(4005,"Kushagra","kushagra@gmail.com","p4567");
+
+insert into Employee (UserId, JoinDate, EmployeeStatusCode) values
+(1, '2020-01-01 00:00:00', 1),
+(2, '2020-02-01 00:00:00', 1),
+(3, '2020-03-01 00:00:00', 1),
+(4, '2020-04-01 00:00:00', 1),
+(5, '2020-07-01 00:00:00', 1),
+(6, '2020-06-01 00:00:00', 1),
+(7, '2020-08-01 00:00:00', 1),
+(8, '2020-09-01 00:00:00', 1),
+(9, '2020-05-01 00:00:00', 1);
 
 
-insert into Employee values(5001,4001,"2010-10-10 00:00:00");
-insert into Employee values(5002,4003,"2012-12-12 00:00:00");
-insert into Employee values(5003,4002,"2014-03-17 00:00:00");
-insert into Employee values(5004,4005,"2020-07-24 00:00:00");
-insert into Employee values(5005,4004,"2022-10-15 00:00:00");
+
+insert into Harbor (Location, ConstructionDate, ManagerId, HarborStatusCode) values
+('Chennai', '2002-01-01 00:00:0', 1, 1),
+('Mumbai', '2002-01-01 00:00:0', 1, 2),
+('Dubai', '2002-01-01 00:00:0', 1, 3),
+('Singapore', '2002-01-01 00:00:0', 1, 1),
+('Shanghai', '2002-01-01 00:00:0', 1, 3),
+('Tokyo', '2002-01-01 00:00:0', 1, 3),
+('Miami', '2002-01-01 00:00:0', 1, 1),
+('Cape Town', '2002-01-01 00:00:0', 1, 2);
 
 
-insert into Harbor values(6001,"location1","2000-01-01 00:00:00",5001);
-insert into Harbor values(6002,"location2","2010-10-28 00:00:00",5001);
-insert into Harbor values(6003,"location3","2002-04-20 00:00:00",5002);
-insert into Harbor values(6004,"location4","1990-09-15 00:00:00",5003);
-insert into Harbor values(6005,"location5","1991-12-10 00:00:00",5003);
+
+insert into Voyage (ShipSerialId, Fare, DepartureHarborId, ArrivalHarborId, DepartureTime, ArrivalTime, VoyageStatusCode) values
+(1, 20000, 1, 2, '2022-09-10 06:30:0', '2022-09-23 15:20:0', 1),
+(2, 10000, 3, 5, '2022-10-12 06:30:0', '2022-10-22 15:20:0', 1),
+(4, 22000, 2, 4, '2022-05-17 06:30:0', '2022-06-01 15:20:0', 1),
+(5, 30000, 4, 3, '2022-11-10 06:30:0', '2022-11-22 15:20:0', 1),
+(3, 27000, 3, 1, '2022-12-01 06:30:0', '2022-12-23 15:20:0', 1),
+(2, 14000, 1, 5, '2022-12-10 06:30:0', '2022-12-27 15:20:0', 1),
+(5, 19000, 3, 2, '2022-11-20 06:30:0', '2022-12-06 15:20:0', 1),
+(1, 21000, 4, 5, '2022-11-26 06:30:0', '2022-12-10 15:20:0', 1),
+(2, 18000, 6, 4, '2022-11-09 06:30:0', '2022-11-30 15:20:0', 1),
+(4, 25000, 6, 5, '2022-09-30 06:30:0', '2022-10-21 15:20:0', 1);
 
 
-# insert into VOYAGE_STATUS values(1,"OPERATIONAL");
-# insert into VOYAGE_STATUS values(2,"COMPLETED");
-# insert into VOYAGE_STATUS values(3,"CANCELLED");
+
+insert into Crew (EmployeeId, VoyageId, CrewRole) values
+(4, 1, 'Captain'),
+(4, 4, 'Captain'),
+(4, 3, 'Chef'),
+(5, 2, 'Medic'),
+(5, 5, 'Engineer'),
+(5, 7, 'Captain'),
+(6, 6, 'Manager'),
+(6, 7, 'Captain'),
+(7, 3, 'Engineer'),
+(7, 5, 'Medic'),
+(7, 10, 'Chef'),
+(8, 8, 'Captain'),
+(8, 1, 'Emergency'),
+(9, 9, 'Captain');
 
 
-insert into Voyage values(8001,3001,40000,6001,6001,"2022-01-01 10:10:00","2022-02-01 15:00:00",1);
-insert into Voyage values(8002,3003,45000,6002,6002,"2022-04-10 13:00:00","2022-05-10 19:00:00",2);
-insert into Voyage values(8003,3002,49000,6005,6004,"2022-10-03 19:00:00","2022-11-03 00:00:00",3);
-insert into Voyage values(8004,3005,70000,6001,6005,"2022-11-25 22:00:00","2022-12-25 17:00:00",1);
-insert into Voyage values(8005,3004,69000,6003,6002,"2022-09-01 00:00:00","2022-10-01 18:00:00",2);
 
+insert into FoodItem (FoodItemId, VoyageId, FoodCost, FoodName, FoodDescription) values
+(1, 1, 30, 'Chocolate', 'Common chocolates'),
+(2, 1, 30, 'Ice Cream', 'Vanilla, Strawberry, Butterscotch'),
+(3, 1, 30, 'Pan Cake', ''),
+(1, 2, 30, 'Pasta', 'White Sauce, Tomato Sauce'),
+(2, 2, 30, 'Sandwich', 'Paneer tikka, Vegetable, Cheese'),
+(1, 3, 30, 'Pizza', 'Varieties'),
+(2, 3, 30, 'Coffee', 'Filter Coffee'),
+(1, 4, 30, 'Milkshake', 'Vanilla, Strawberry, Butterscotch'),
+(2, 4, 30, 'Tea', 'Darjeeling tea'),
+(3, 4, 30, 'Biscuits', 'Varieties'),
+(1, 5, 30, 'Roll', 'Paneer tikka, Vegetable, Cheese'),
+(2, 5, 30, 'Fries', 'with peri peri'),
+(1, 6, 30, 'Brownies', 'fresh'),
+(2, 6, 30, 'Cookies', 'Choco chip'),
+(1, 7, 30, 'Pastry', 'Vanilla, Strawberry, Butterscotch'),
+(2, 7, 30, 'Cup Cake', 'Vanilla, Strawberry, Butterscotch'),
+(1, 8, 30, 'Pudding', 'Vanilla, Strawberry, Butterscotch'),
+(1, 9, 30, 'Pineapple', 'per slice'),
+(1, 10, 30, 'Banana', 'fresh');
 
-insert into Crew values(9001,5001,8001,"role1");
-insert into Crew values(9002,5002,8003,"role2");
-insert into Crew values(9003,5005,8005,"role1");
-insert into Crew values(9004,5001,8004,"role3");
-insert into Crew values(9005,5002,8001,"role2");
-
-
-insert into Transaction values(10001,"2022-11-01 00:00:00",20000,4001);
-insert into Transaction values(10002,"2022-10-10 00:00:00",25000,4002);
-insert into Transaction values(10003,"2022-05-17 00:00:00",30000,4004);
-insert into Transaction values(10004,"2022-08-18 00:00:00",26000,4005);
-insert into Transaction values(10005,"2022-06-06 00:00:00",50000,4001);
-
-
-# insert into ROOM_STATUS values(1,"AVAILABLE");
-# insert into ROOM_STATUS values(2,"BOOKED");
-# insert into ROOM_STATUS values(3,"RESERVED");
-# insert into ROOM_STATUS values(4,"MAINTENANCE");
-
-
-insert into RoomBooking values(10001,11001,8001,1);
-insert into RoomBooking values(10002,11004,8002,2);
-insert into RoomBooking values(10003,11005,8003,3);
-insert into RoomBooking values(10004,11002,8002,1);
-insert into RoomBooking values(10005,11003,8005,2);
-
-
-insert into FoodItem values(12001,8001,500,"food1","desc1");
-insert into FoodItem values(12002,8003,450,"food2","desc2");
-insert into FoodItem values(12003,8002,300,"food3","desc3");
-insert into FoodItem values(12004,8001,600,"food4","desc4");
-insert into FoodItem values(12005,8004,1000,"food5","desc5");
-
-
-insert into FoodBooking values(10001,12001,8001,11001,1000);
-insert into FoodBooking values(10003,12002,8003,11005,1200);
-insert into FoodBooking values(10004,12003,8002,11002,900);
-insert into FoodBooking values(10002,12004,8001,11001,1100);
-insert into FoodBooking values(10005,12002,8003,11005,1000);

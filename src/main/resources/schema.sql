@@ -123,3 +123,4 @@ source src/main/resources/VoyageUpdateTrigger.sql;
 source src/main/resources/Views.sql;
 source src/main/resources/FoodItemDeleteTrigger.sql;
 source src/main/resources/CrewInsertTrigger.sql;
+source src/main/resources/data.sql;
